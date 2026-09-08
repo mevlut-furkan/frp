@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elyrion Irk Rehberi — Karanlık Hasat</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     TEMA & RENK PALETİ — buradan değiştirin
+     ============================================================ */
+  :root {
+    --bg-page:       #0d0a07;
+    --bg-card:       #100d06;
+    --bg-card-hover: #1a1409;
+    --border-subtle: #2e2410;
+    --border-gold:   #7a5c10;
+    --border-glow:   #c9940a;
+    --text-heading:  #f5e6b8;
+    --text-body:     #c8b07a;
+    --text-muted:    #6d5c35;
+    --text-accent:   #d4a017;
+
+    --race-aarakocra:   #5ba4cf;
+    --race-aasimar:     #f0c040;
+    --race-bearfolk:    #8b4513;
+    --race-centaur:     #6b8e23;
+    --race-changeling:  #9b7ec8;
+    --race-dragonborn:  #c0392b;
+    --race-dwarf:       #aaaaaa;
+    --race-elf:         #3cb371;
+    --race-fairy:       #ff69b4;
+    --race-genasi-air:  #87ceeb;
+    --race-genasi-earth:#a0785a;
+    --race-genasi-water:#1e90ff;
+    --race-genasi-fire: #ff4500;
+    --race-githyanki:   #cd853f;
+    --race-githzerai:   #9370db;
+    --race-gnome:       #ffa500;
+    --race-goliath:     #708090;
+    --race-half-elf:    #20b2aa;
+    --race-halfling:    #daa520;
+    --race-half-orc:    #556b2f;
+    --race-human:       #cd853f;
+    --race-kalashtar:   #7b68ee;
+    --race-leonin:      #d4a017;
+    --race-orc:         #2e8b57;
+    --race-satyr:       #8fbc8f;
+    --race-tabaxi:      #e8975a;
+    --race-tiefling:    #8b0000;
+    --race-vulpin:      #e07840;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg-page);
+    color: var(--text-body);
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    text-align: center;
+    padding: 56px 20px 40px;
+    border-bottom: 1px solid var(--border-gold);
+    background: radial-gradient(ellipse at 50% 0%, rgba(201,148,10,0.08) 0%, transparent 65%);
+  }
+  .site-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .site-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(30px, 5vw, 54px);
+    font-weight: 700;
+    color: var(--text-heading);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .site-title span { color: var(--text-accent); }
+  .site-subtitle {
+    font-size: 16px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 28px;
+  }
+  .ornament { color: var(--text-accent); font-size: 20px; letter-spacing: 10px; }
+
+  /* ===== KONTROLLER ===== */
+  .controls {
+    max-width: 960px;
+    margin: 28px auto 0;
+    padding: 0 20px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .search-box {
+    flex: 1; min-width: 200px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    padding: 9px 14px;
+    color: var(--text-body);
+    font-family: 'Crimson Text', serif;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box:focus { border-color: var(--border-gold); }
+  .search-box::placeholder { color: var(--text-muted); }
+
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    border-radius: 3px;
+    padding: 7px 16px;
+    color: var(--text-muted);
+    font-family: 'Crimson Text', serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover { border-color: var(--border-gold); color: var(--text-body); }
+  .filter-btn.active { border-color: var(--border-glow); color: var(--text-accent); background: rgba(201,148,10,0.06); }
+
+  .race-count {
+    color: var(--text-muted);
+    font-size: 14px;
+    font-style: italic;
+    padding: 10px 20px 4px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* ===== IZGARA ===== */
+  .grid {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 16px 20px 60px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 22px;
+  }
+
+  /* ===== KART ===== */
+  .race-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.25s, background 0.25s, transform 0.15s;
+  }
+  .race-card:hover {
+    border-color: var(--card-accent, var(--border-gold));
+    background: var(--bg-card-hover);
+    transform: translateY(-3px);
+  }
+
+  /* Görsel */
+  .card-image {
+    position: relative;
+    height: 340px;
+    overflow: hidden;
+    background: #080604;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-image img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    object-position: center center;
+    transition: transform 0.4s ease, filter 0.4s ease;
+    filter: brightness(0.9) saturate(0.95);
+    display: block;
+  }
+  .race-card:hover .card-image img {
+    transform: scale(1.03);
+    filter: brightness(1) saturate(1.05);
+  }
+  .card-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-accent, var(--text-accent));
+    opacity: 0.9;
+  }
+  /* Görsel üzerine degrade (altta kararmak için) */
+  .card-image::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
+    background: linear-gradient(to top, rgba(10,8,4,0.7) 0%, transparent 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .card-badge {
+    position: absolute;
+    top: 10px; left: 10px;
+    background: rgba(0,0,0,0.75);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 3px;
+    padding: 3px 9px;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--card-accent, var(--text-accent));
+    text-transform: uppercase;
+    z-index: 2;
+  }
+  .card-toggle-img {
+    position: absolute;
+    bottom: 12px; right: 12px;
+    width: 28px; height: 28px;
+    background: rgba(0,0,0,0.65);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    color: var(--text-heading);
+    transition: transform 0.2s;
+    z-index: 2;
+  }
+  .race-card.open .card-toggle-img { transform: rotate(180deg); }
+
+  .card-header { padding: 16px 18px 10px; }
+  .card-name {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-heading);
+    line-height: 1.2;
+  }
+  .card-type { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; font-style: italic; }
+  .card-tagline {
+    padding: 0 18px 14px;
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 14.5px;
+    border-bottom: 1px solid var(--border-subtle);
+    line-height: 1.5;
+  }
+
+  /* ===== AÇILIR KISIM ===== */
+  .card-body { display: none; padding: 16px 18px 18px; }
+  .race-card.open .card-body { display: block; }
+
+  .section { margin-bottom: 14px; }
+  .section:last-child { margin-bottom: 0; }
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10.5px;
+    letter-spacing: 2px;
+    color: var(--card-accent, var(--text-accent));
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: block;
+    opacity: 0.9;
+  }
+  .section-text { color: var(--text-body); font-size: 15px; line-height: 1.65; }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px 12px;
+    margin-top: 4px;
+  }
+  .stat-item {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border-subtle);
+    border-radius: 3px;
+    padding: 6px 10px;
+  }
+  .stat-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 1px; }
+  .stat-value { font-size: 14px; color: var(--text-heading); font-weight: 600; }
+
+  .ability-list { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+  .ability-item {
+    border-left: 2px solid var(--card-accent, var(--border-gold));
+    padding: 6px 10px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .ability-name { color: var(--text-heading); font-weight: 600; display: block; margin-bottom: 1px; font-size: 13px; }
+
+  .subrace-box {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    padding: 10px 13px;
+    margin-top: 7px;
+  }
+  .subrace-title { font-family: 'Cinzel', serif; font-size: 12px; color: var(--card-accent, var(--text-accent)); margin-bottom: 5px; }
+  .subrace-text { font-size: 13.5px; color: var(--text-body); line-height: 1.55; }
+
+  .no-results { text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 16px; font-style: italic; grid-column: 1 / -1; }
+
+  footer { border-top: 1px solid var(--border-subtle); text-align: center; padding: 22px 20px; color: var(--text-muted); font-size: 13px; font-style: italic; }
+
+  .subnav {
+    display: flex; justify-content: center; gap: 22px;
+    padding: 12px 20px; border-bottom: 1px solid var(--border-subtle);
+    font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 1.5px;
+    text-transform: uppercase; background: rgba(0,0,0,0.2);
+  }
+  .subnav a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .subnav a:hover, .subnav a.current { color: var(--text-accent); }
+  .subnav a.current { border-bottom: 1px solid var(--text-accent); padding-bottom: 3px; }
+</style>
+</head>
+<body>
+
+<nav class="subnav">
+  <a href="index.html" target="_top">&#8962; Ana Sayfa</a>
+  <a href="irklar.html" target="_top" class="current">Irklar</a>
+  <a href="siniflar.html" target="_top">Sınıflar</a>
+</nav>
+
+<header>
+  <p class="site-eyebrow">Elyrion: Ulusların Kıtası &mdash; 1492</p>
+  <h1 class="site-title">Karanlık Hasat<br><span>Irk Rehberi</span></h1>
+  <p class="site-subtitle">Elyrion'un halklarını ve onların sırlarını keşfedin</p>
+  <div class="ornament">&#10022; &mdash; &#10022; &mdash; &#10022;</div>
+</header>
+
+<div class="controls">
+  <input class="search-box" type="text" id="searchInput" placeholder="Irk ara..." oninput="filterCards()">
+  <div style="display:flex;gap:6px;flex-wrap:wrap;">
+    <button class="filter-btn active" onclick="setFilter('all',this)">Tümü</button>
+    <button class="filter-btn" onclick="setFilter('humanoid',this)">İnsansı</button>
+    <button class="filter-btn" onclick="setFilter('fey',this)">Fey</button>
+    <button class="filter-btn" onclick="setFilter('element',this)">Elemental</button>
+    <button class="filter-btn" onclick="setFilter('divine',this)">İlahi</button>
+  </div>
+</div>
+<p class="race-count" id="raceCount"></p>
+
+<main class="grid" id="raceGrid"></main>
+
+<footer>
+  <p>Karanlık Hasat Kampanya Kitabı &mdash; Tüm haklar yazarlarına aittir.</p>
+  <p style="margin-top:5px">Irk kartına tıklayarak tüm bilgileri görüntüleyin.</p>
+</footer>
+
+<script>
+/* ============================================================
+   IRKLARIN VERİSİ
+   img: images/ klasöründeki dosya adı
+   imgPos: CSS object-position
+   ============================================================ */
+const RACES = [
+  {
+    id:"aarakocra", name:"Aarakocra", type:"humanoid",
+    typeLabel:"İnsansı — Kanat Halkı",
+    img:"images/aarakocra.png", imgPos:"center top",
+    tagline:"\"Yükseklerde, rüzgarın şarkısını dinleyenler vardır. Onlar için yeryüzü bir rüya, gökyüzü ise gerçek vatandır.\"",
+    lore:"Aarakocra, büyük kuşlara benzeyen insansı varlıklardır. Elyrion'un ilk çağlarında Yoldaş'ın doğuşu sırasında hava düzleminden süzüldüklerine inanılır. Kusmaenia kutsal metinlerinde 'Güneş Kanatlılar' olarak anılırlar. Her biri bir kuş klanına mensuptur: Kartal klanı (savaşçı) ve Baykuş klanı (bilge).",
+    stats:[{label:"Hız",value:"30 ft + uçuş"},{label:"Boyut",value:"Orta (Medium)"},{label:"Ömür",value:"İnsanlarla benzer"},{label:"Diller",value:"Common + 1 ek"}],
+    abilities:[
+      {name:"Uçuş",desc:"Yürüyüş hızına eşit uçma hızı. Orta/ağır zırh giyildiğinde kullanılamaz."},
+      {name:"Pençeler",desc:"Silahsız saldırılarda 1d6 + Güç kesici hasar."},
+      {name:"Rüzgar Çağıran",desc:"3. seviyeden itibaren Gust of Wind büyüsünü uzun dinlenme başına bir kez kullanır."},
+    ],
+    subraces:[
+      {title:"Kartal Klanı",desc:"Feska Dağları'nın sarp zirvelerinde yaşayan savaşçı Aarakocralardır. Altın-kahverengi tüyleri güneşte parıldar. Gökyüzü sınırlarını bekler ve yabancı tehditlere karşı ilk savunma hattını oluştururlar."},
+      {title:"Baykuş Klanı",desc:"Gece kanatlı; gri ve gümüşi tüyleriyle ay ışığında neredeyse görünmez olurlar. Kehanetleri yorumlamak ve eski hava düzlemi metinlerini okumak onların işidir."},
+    ]
+  },
+  {
+    id:"aasimar", name:"Aasimar", type:"divine",
+    typeLabel:"İlahi — Göğün Çocukları",
+    img:"images/aasimar.png", imgPos:"center 30%",
+    tagline:"\"Onlar Yoldaş'ın yeryüzündeki yansımalarıdır. Bu ilahi ışık aynı zamanda bir yüktür.\"",
+    lore:"Aasimarlar, Yoldaş'ın ilk doğuşu sırasında gökyüzünden düşen ışık parçacıklarından doğmuştur. Her biri bir kutsal varlık tarafından seçildiğine inanılır. Büyük Felaket'ten sonra sayıları azalmış olsa da halk onları umut sembolü olarak görmeye devam eder.",
+    stats:[{label:"Karizma",value:"+2"},{label:"Boyut",value:"Orta (Medium)"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"~160 yıl"}],
+    abilities:[
+      {name:"Gece Görüşü",desc:"60 ft. loş ışıkta parlak, karanlıkta loş gibi görür."},
+      {name:"Göksel Direnç",desc:"Nekrotik ve ışınsal (radiant) hasar direnci."},
+      {name:"Şifa Veren Eller",desc:"Aksiyonla yaratığa dokunarak seviyeye eşit HP kazandırır. Uzun dinlenmede yenilenir."},
+      {name:"Işık Taşıyıcısı",desc:"Light cantrip bilir; büyü yeteneği Karizma."},
+    ],
+    subraces:[
+      {title:"Koruyucu Aasimar",desc:"Kusmaenia'nın kutsal savaşçıları. Bilgelik +1. 3. seviyede Radiant Soul: kanatlar, 30 ft uçuş ve radiant hasar bonusu."},
+      {title:"Celali Aasimar",desc:"İçlerinde öfkeyi taşırlar. Constitution +1. 3. seviyede çevresine radiant hasar yayar."},
+      {title:"Düşmüş Aasimar",desc:"Yoldaş'ın çöküşüyle ışıklarını kaybedenler. Strength +1. 3. seviyede gölge kanatları ve fear etkisi."},
+    ]
+  },
+  {
+    id:"bearfolk", name:"Bearfolk", type:"humanoid",
+    typeLabel:"İnsansı — Ormanın Yüreği",
+    img:"images/bearfolk.png", imgPos:"center top",
+    tagline:"\"Ormanda bir Bearfolk'un kükremesini duyduğunuzda, doğanın uyanışına tanık olursunuz.\"",
+    lore:"Bearfolk'lar, Snüet Snea ormanlarının en kadim sakinlerindendir. İki ayak üzerinde yürüyen devasa varlıklardır; boyları 2 metreye ulaşır. Efsaneye göre ilk Bearfolk, orman tanrısıyla bir dişi ayının birleşiminden doğmuştur.",
+    stats:[{label:"Dayanıklılık",value:"+2"},{label:"Boyut",value:"Orta (Medium)"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"~70 yıl"}],
+    abilities:[
+      {name:"Keskin Koku",desc:"Kokuya dayalı Algı kontrollerinde avantaj."},
+      {name:"Isırık",desc:"1d6 + Güç delici hasar; bu saldırıda uzmanlık kazanır."},
+      {name:"Güçlü Yapı",desc:"Taşıma kapasitesi bir boy büyük olarak hesaplanır."},
+    ],
+    subraces:[
+      {title:"Arctic Bearfolk",desc:"Feska'nın buzullarında yaşarlar. Beyaz kürkleri karda görünmez kılar. Dayanıklılık ek +2, İz Sürücü yetkinliği ve kar arazisinde gizlenme avantajı."},
+    ]
+  },
+  {
+    id:"centaur", name:"Centaur", type:"fey",
+    typeLabel:"Fey — Rüzgarın Çocukları",
+    img:"images/centaur.png", imgPos:"center top",
+    tagline:"\"Dört nalın yeri göğe kattığı yerde, rüzgarı yarışa çağıran bu asil varlıklar özgürlüğün ta kendisidir.\"",
+    lore:"Centaurlar belden yukarısı kaslı insan, aşağısı güçlü bir at olan asil varlıklardır. Snüet Snea ormanları ve Feska ovalarının kadim sakinlerindendir. Duvarlar arasında sıkışıp kalmaktan nefret eder; küçük gezgin klanlar halinde yaşarlar. Yaratık tipleri Fey'dir.",
+    stats:[{label:"Güç",value:"+2"},{label:"Bilgelik",value:"+1"},{label:"Hız",value:"40 ft"},{label:"Boyut",value:"Orta (Medium)"}],
+    abilities:[
+      {name:"Hücum",desc:"Aynı turda 30 ft düz ilerleyip saldırı yaparsa bonus aksiyon olarak toynak saldırısı yapabilir."},
+      {name:"Toynaklar",desc:"1d4 + Güç ezici hasar; doğal silah."},
+      {name:"At Yapısı",desc:"Taşıma kapasitesi bir boy büyük olarak hesaplanır."},
+      {name:"Hayatta Kalma İçgüdüsü",desc:"Animal Handling, Medicine, Nature veya Survival'dan birinde yetkinlik."},
+    ]
+  },
+  {
+    id:"changeling", name:"Changeling", type:"humanoid",
+    typeLabel:"İnsansı — Şekil Değiştirici",
+    img:"images/changeling.png", imgPos:"center 20%",
+    tagline:"\"Bir gölge kadar belirsiz, bir rüya kadar geçici. Onlar için kimlik bir giysiden ibarettir.\"",
+    lore:"Changelinglar doğal hallerinde soluk, renksiz varlıklardır. Kökenleri belirsizdir. Custaria'da sayıları daha fazladır; entrika dolu ortam onlara idealtir.",
+    stats:[{label:"Karizma",value:"+2"},{label:"Boyut",value:"Orta (Medium)"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"~100 yıl"}],
+    abilities:[
+      {name:"Şekil Değiştirici",desc:"Aksiyon olarak görünüşünü ve sesini değiştirebilir. Boyut değişmez; daha önce görmediği biçimleri kopyalayamaz."},
+      {name:"Changeling İçgüdüleri",desc:"Aldatma, Sezgi, Gözdağı veya İkna'dan ikisinde yetkinlik."},
+    ]
+  },
+  {
+    id:"dragonborn", name:"Dragonborn", type:"humanoid",
+    typeLabel:"İnsansı — Ejderlerin Çocukları",
+    img:"images/dragonborn.png", imgPos:"center 30%",
+    tagline:"\"Onlar ejderlerin çocuklarıdır. Gurur ve güçle yürürler bu dünyada.\"",
+    lore:"Ejderha yumurtalarından çıkan, ejderhaların ve insansıların en iyi özelliklerini birleştiren bir ırktır. Klan sistemine göre yaşarlar; verilen söz kan kadar değerlidir. Seçtikleri ejderha soyuna göre nefes saldırısı ve hasar direnci kazanırlar.",
+    stats:[{label:"Güç",value:"+2"},{label:"Karizma",value:"+1"},{label:"Boyut",value:"Orta (Medium)"},{label:"Hız",value:"30 ft"}],
+    abilities:[
+      {name:"Ejderha Soyu",desc:"10 farklı ejderha türünden biri seçilir. Nefes hasarını ve direnci belirler."},
+      {name:"Nefes Saldırısı",desc:"2d6 hasar (başarısız kurtarma). 6. seviyede 3d6, 11'de 4d6, 16'da 5d6."},
+      {name:"Hasar Direnci",desc:"Seçilen soya göre hasar türüne (ateş, soğuk, asit vb.) direnç."},
+    ]
+  },
+  {
+    id:"dwarf", name:"Cüce (Dwarf)", type:"humanoid",
+    typeLabel:"İnsansı — Dağların Ruhu",
+    img:"images/dwarf.png", imgPos:"center 30%",
+    tagline:"\"Taşın sabrını, madenin direncini, dağın gururunu taşırlar. Bin yıllık geleneğin yürüyen temsilcileri.\"",
+    lore:"Cüceler 1.2-1.5 metre boyunda, tıknaz ve kaslı yaratıklardır. Efsaneye göre dağ tanrısı Gronn, ilk çekiciyle genç dağların kalbine vurmuş ve ilk cüceleri taştan yaratmıştır. 350 yıla kadar yaşarlar.",
+    stats:[{label:"Dayanıklılık",value:"+2"},{label:"Boyut",value:"Orta (Medium)"},{label:"Hız",value:"25 ft"},{label:"Ömür",value:"~350 yıl"}],
+    abilities:[
+      {name:"Karanlık Görüş",desc:"60 ft. loş ışıkta parlak, karanlıkta loş gibi görür."},
+      {name:"Cüce Direnci",desc:"Zehire karşı kurtarma avantajı ve zehir hasar direnci."},
+      {name:"Cüce Savaş Eğitimi",desc:"Savaş baltası, el baltası, hafif çekiç ve savaş çekicinde uzmanlık."},
+      {name:"Alet Yetkinliği",desc:"Demirci veya taş ustalığı aletlerinden birinde yetkinlik."},
+    ],
+    subraces:[
+      {title:"Tepe Cücesi (Hill Dwarf)",desc:"Doğayla daha uyumlu. Bilgelik +1. Her seviyede Maks HP +1 ekstra kazanır."},
+      {title:"Dağ Cücesi (Mountain Dwarf)",desc:"Feska'nın en sert dağlarında yaşar. Güç +2. Hafif ve orta zırh uzmanlığı."},
+    ]
+  },
+  {
+    id:"elf", name:"Elf", type:"humanoid",
+    typeLabel:"İnsansı — Kadim Halk",
+    img:"images/elf.png", imgPos:"center 20%",
+    tagline:"\"Rüzgarın şarkısını işiten, ay ışığında dans eden, ağaçların fısıltılarını anlayan kadim bir halk.\"",
+    lore:"Elfler, Elyrion'un ilk ışığıyla uyandı. Efsaneye göre ay ışığının gölle buluştuğu gecede suyun yansımasından doğdu. 750 yıla kadar yaşarlar; 100 yaşında yetişkin sayılırlar. Uyumak yerine günde 4 saatlik trans haline girerler.",
+    stats:[{label:"Çeviklik",value:"+2"},{label:"Boyut",value:"Orta (Medium)"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"~750 yıl"}],
+    abilities:[
+      {name:"Karanlık Görüş",desc:"60 ft. loş ışıkta parlak, karanlıkta loş gibi görür."},
+      {name:"Peri Soyu",desc:"Büyülenmeye karşı kurtarma avantajı; büyü uyutamaz."},
+      {name:"Trans",desc:"Uyumak yerine 4 saatlik derin meditasyon. Uzun dinlenme etkisi verir."},
+    ],
+    subraces:[
+      {title:"Orman Elfi (Wood Elf)",desc:"Snüet Snea'nın koruyucuları. Bilgelik +1, hız 35 ft. Doğa örtülerinde gizlenme avantajı. Elf silah eğitimi."},
+      {title:"Yüksek Elf (High Elf)",desc:"Eplaoca büyü kulelerinde bilgelik peşinde. Zeka +1. Wizard listesinden bir cantrip. Ekstra bir dil."},
+      {title:"Karanlık Elf (Drow)",desc:"Toplumdan dışlanmış. Karizma +1. 120 ft Üstün Karanlık Görüş. Drow Büyüsü: Dancing Lights → Faerie Fire → Darkness."},
+    ]
+  },
+  {
+    id:"fairy", name:"Peri (Fairy)", type:"fey",
+    typeLabel:"Fey — Doğanın Gülüşü",
+    img:"images/fairy.png", imgPos:"center top",
+    tagline:"\"Bir yaprak hışırtısı kadar hafif, bir sabah çiyi kadar narin, bir yaz gecesi rüyası kadar büyülü.\"",
+    lore:"Periler, Feywild ile Elyrion arasındaki perdenin en ince olduğu yerlerden sızan büyülü varlıklardır. Snüet Snea ormanlarında yaşarlar. Boyları 60-90 cm. Benzersiz görünümlere sahiptirler: böcek kanatları, gökkuşağı parıltısı, minik boynuzlar.",
+    stats:[{label:"Çeviklik",value:"+2"},{label:"Boyut",value:"Küçük (Small)"},{label:"Hız",value:"30 ft + uçuş"},{label:"Ömür",value:"40–50 yıl"}],
+    abilities:[
+      {name:"Peri Uçuşu",desc:"Yürüyüş hızına eşit uçma hızı; havada asılı kalabilir."},
+      {name:"Peri Tozu",desc:"Uçarken tozunu bir dosta serperek onu da kısa süre uçurabilir."},
+      {name:"Fey Geçidi",desc:"1 inç kadar dar bir boşluktan geçebilir."},
+    ]
+  },
+  {
+    id:"genasi-air", name:"Hava Genasisi", type:"element",
+    typeLabel:"Elemental — Fırtınanın Özgür Ruhu",
+    img:"images/genasi-air.png", imgPos:"center 30%",
+    tagline:"\"Saçları görünmez bir rüzgarla dans eden, tenleri mavi şimşeklerle parıldayan fırtına çocukları.\"",
+    lore:"Djinn'lerin soyundan gelir. Mavinin her tonunda ten rengine sahiptirler. Saçları hayali rüzgarda dalgalanır, gözleri fırtına bulutları gibi gridir. Feska'nın yüksek dağlarında ve kasırgalı kıyılarda sık görülürler.",
+    stats:[{label:"Dayanıklılık",value:"+2"},{label:"Çeviklik",value:"+1"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"~120 yıl"}],
+    abilities:[
+      {name:"Sonsuz Nefes",desc:"Sersemletilmediği sürece nefesini sonsuza kadar tutabilir."},
+      {name:"Rüzgarla Bütünleşme",desc:"Levitate büyüsünü uzun dinlenme başına bir kez, bileşensiz kullanır."},
+    ]
+  },
+  {
+    id:"genasi-earth", name:"Toprak Genasisi", type:"element",
+    typeLabel:"Elemental — Dağların Sabrı",
+    img:"images/genasi-earth.png", imgPos:"center 30%",
+    tagline:"\"Taşın sabrını, madenin dayanıklılığını, yerin gücünü taşıyanlar. Toprak onlar için canlıdır.\"",
+    lore:"Dao'ların soyundan gelirler. Metalik, demir renginde veya paslanmış ciltlere sahip olabilirler. Strajan'ın madenlerinde ve Feska'nın dağlık bölgelerinde sık görülürler.",
+    stats:[{label:"Dayanıklılık",value:"+2"},{label:"Güç",value:"+1"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"~120 yıl"}],
+    abilities:[
+      {name:"Toprak Üzerinde Yürüme",desc:"Zor arazide ekstra hareket harcamadan ilerler."},
+      {name:"Taşla Bütünleşme",desc:"Pass Without Trace büyüsünü uzun dinlenme başına bir kez kullanır."},
+    ]
+  },
+  {
+    id:"genasi-water", name:"Su Genasisi", type:"element",
+    typeLabel:"Elemental — Okyanusun Sesi",
+    img:"images/genasi-water.png", imgPos:"center 30%",
+    tagline:"\"Tenleri okyanus mavisi, saçları suda dans eden yosunlar gibi. Onlar suyun ruhudur.\"",
+    lore:"Marid'lerin soyundan gelirler. Paglait'in kıyılarında ve nehirlerin yakınında dünyaya gelirler. Denizciler onlara saygı duyar; varlıkları sakin deniz anlamına gelir.",
+    stats:[{label:"Bilgelik",value:"+1"},{label:"Hız",value:"30 ft + 30 ft yüzme"},{label:"Boyut",value:"Orta (Medium)"},{label:"Ömür",value:"~120 yıl"}],
+    abilities:[
+      {name:"Amfibi",desc:"Hem havada hem suda nefes alabilir."},
+      {name:"Asit Direnci",desc:"Asit hasarına karşı direnç."},
+      {name:"Dalgalara Çağrı",desc:"Shape Water cantrip. 3. seviyede Create or Destroy Water (uzun dinlenmede 1 kez)."},
+    ]
+  },
+  {
+    id:"genasi-fire", name:"Ateş Genasisi", type:"element",
+    typeLabel:"Elemental — Kor Ateş",
+    img:"images/genasi-fire.png", imgPos:"center 30%",
+    tagline:"\"Tenleri kor ateş gibi kızıl, saçları öfkeyle dans eden alevler. Onlar ateşin ta kendisidir.\"",
+    lore:"Efreet'lerin soyundan gelirler. Eplaoca'nın volkanik bölgelerinde dünyaya gelirler. Öfkeli ve sabırsız ruhludurlar; ateşin yanında güçlenirler.",
+    stats:[{label:"Dayanıklılık",value:"+2"},{label:"Zeka",value:"+1"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"~120 yıl"}],
+    abilities:[
+      {name:"Karanlık Görüş",desc:"60 ft., karanlıkta kırmızı tonlarda görür."},
+      {name:"Ateş Direnci",desc:"Ateş hasarına karşı direnç."},
+      {name:"Alevlere Uzanma",desc:"Produce Flame cantrip. 3. seviyede Burning Hands (uzun dinlenmede 1 kez)."},
+    ]
+  },
+  {
+    id:"githyanki", name:"Githyanki", type:"humanoid",
+    typeLabel:"İnsansı — Zincirlerini Kıranlar",
+    img:"images/githyanki.png", imgPos:"center 30%",
+    tagline:"\"Zihin efendilerinin prangalarını kırmış, şimdi kendi katı disiplinleriyle var olan bir halk.\"",
+    lore:"Binlerce yıl önce zihin efendilerinin köleliğinden isyan ederek kurtulan kadim bir halktır. Sert dağ kalelerinde yaşarlar. Ölümsüz Kraliçe Vlaakith'e sadıktırlar.",
+    stats:[{label:"Güç",value:"+2"},{label:"Zeka",value:"+1"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"~100 yıl"}],
+    abilities:[
+      {name:"Dekadan Ustalık",desc:"Bir dil ve bir beceri veya araç kullanımında yetkinlik."},
+      {name:"Githyanki Psiyonikleri",desc:"Mage Hand (görünmez). 3. seviyede Jump. 5. seviyede Misty Step. Büyü yeteneği Zeka."},
+    ]
+  },
+  {
+    id:"githzerai", name:"Githzerai", type:"humanoid",
+    typeLabel:"İnsansı — İç Huzurun Peşindekiler",
+    img:"images/githzerai.png", imgPos:"center top",
+    tagline:"\"Zihinleri sakin bir göl kadar berrak, iradeleri çelik kadar güçlü. Gerçek güç içeridedir.\"",
+    lore:"Githyankilerle aynı kölelik geçmişini paylaşır ancak felsefi ayrılıklar nedeniyle onlardan ayrılmışlardır. İzole manastırlarda yaşarlar. Meditasyon ve iç gözlem en önemli uğraşlarıdır.",
+    stats:[{label:"Bilgelik",value:"+2"},{label:"Zeka",value:"+1"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"~100 yıl"}],
+    abilities:[
+      {name:"Zihinsel Disiplin",desc:"Charmed ve Frightened kurtarma atışlarında avantaj."},
+      {name:"Githzerai Psiyonikleri",desc:"Mage Hand (görünmez). 3. seviyede Shield. 5. seviyede Detect Thoughts. Büyü yeteneği Bilgelik."},
+    ]
+  },
+  {
+    id:"gnome", name:"Gnome", type:"humanoid",
+    typeLabel:"İnsansı — Keşif Ruhu",
+    img:"images/gnome.png", imgPos:"center 25%",
+    tagline:"\"Onlar için dünya keşfedilecek bir laboratuvar, her an ise oynanacak bir oyundur.\"",
+    lore:"Gnomlar, Elyrion'un ilk mucitleri ve kaşifleridir. Eplaoca'nın büyü akademilerinde vazgeçilmezlerdir. 90-120 cm boyunda, meraklı ve neşeli yaratıklardır. 350–500 yıl yaşarlar.",
+    stats:[{label:"Zeka",value:"+2"},{label:"Çeviklik",value:"+1"},{label:"Boyut",value:"Küçük (Small)"},{label:"Hız",value:"25 ft"}],
+    abilities:[
+      {name:"Karanlık Görüş",desc:"60 ft. loş ışıkta parlak, karanlıkta loş gibi görür."},
+      {name:"Gnome Kurnazlığı",desc:"Büyüye karşı Zeka, Bilgelik ve Karizma kurtarmalarında avantaj."},
+      {name:"Doğal İllüzyonist",desc:"Minor Illusion büyüsünü bilir; büyü yeteneği Zeka'dır."},
+      {name:"Küçük Canlılarla İletişim",desc:"Küçük veya daha küçük hayvanlarla basit fikirler paylaşabilir."},
+    ]
+  },
+  {
+    id:"goliath", name:"Goliath", type:"humanoid",
+    typeLabel:"İnsansı — Dağın Efendileri",
+    img:"images/goliath.png", imgPos:"center 20%",
+    tagline:"\"En yüksek zirvelerin efendileri, fırtınaların kardeşleri. Doğanın en acımasız koşullarında büyüdüler.\"",
+    lore:"Goliathlar, Feska Dağları'nın en yüksek zirvelerinde binlerce yıldır yaşayan kadim bir halktır. 2.1-2.4 metre boyundadırlar. Liderlik en güçlü bireyin hakkıdır ve sürekli meydan okumalarla test edilir.",
+    stats:[{label:"Güç",value:"+2"},{label:"Dayanıklılık",value:"+1"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"~100 yıl"}],
+    abilities:[
+      {name:"Doğuştan Atlet",desc:"Atletizm yeteneğinde uzmanlık."},
+      {name:"Taşın Direnci",desc:"Hasar alırken reaksiyon: d12 + Dayanıklılık atar, hasarı azaltır."},
+      {name:"Güçlü Yapı",desc:"Taşıma kapasitesi bir boy büyük olarak hesaplanır."},
+      {name:"Dağ Doğumlusu",desc:"Soğuk hasar direnci ve yüksek irtifaya uyum."},
+    ]
+  },
+  {
+    id:"half-elf", name:"Yarı-Elf (Half-Elf)", type:"humanoid",
+    typeLabel:"İnsansı — İki Dünyanın Çocukları",
+    img:"images/half-elf.png", imgPos:"center 20%",
+    tagline:"\"Gözlerinde elflerin kadim bilgeliği, yüreğinde insanların tutkulu ateşi.\"",
+    lore:"Elf ve insan ilişkilerinin nadir ama güçlü meyveleridir. Ne tam elf toplumuna kabul edilirler ne de insanlar arasında tamamen rahat hissederler. Bu ikili kimlik onları doğal arabulucular yapar.",
+    stats:[{label:"Karizma",value:"+2"},{label:"2 Yetenek",value:"+1 seçim"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"~180 yıl"}],
+    abilities:[
+      {name:"Karanlık Görüş",desc:"60 ft. loş ışıkta parlak, karanlıkta loş gibi görür."},
+      {name:"Peri Soyu",desc:"Büyülenmeye karşı avantaj; büyü uyutamaz."},
+      {name:"Half-Elf Çeşitliliği",desc:"5 seçenekten biri: 2 beceri yetkinliği, Yüksek Elf cantrip, hız 35 ft, Vahşi Maske veya Drow büyüsü."},
+    ]
+  },
+  {
+    id:"halfling", name:"Halfling", type:"humanoid",
+    typeLabel:"İnsansı — Küçük Büyük Yürekler",
+    img:"images/halfling.png", imgPos:"center top",
+    tagline:"\"Onlar için dünya keşfedilecek bir macera. En küçük şeylerden büyük mutluluklar çıkarırlar.\"",
+    lore:"Halfling'ler, Elyrion'un en misafirperver halklarındandır. Yaklaşık 90 cm boyunda, sevimli ve neşeli yaratıklardır. Barışçıl doğalarına rağmen yuvalarını korumak için inanılmaz cesaret gösterebilirler.",
+    stats:[{label:"Çeviklik",value:"+2"},{label:"Karizma",value:"+1"},{label:"Boyut",value:"Küçük (Small)"},{label:"Hız",value:"25 ft"}],
+    abilities:[
+      {name:"Cesur (Brave)",desc:"Korkma durumuna karşı kurtarma atışlarında avantaj."},
+      {name:"Çevik (Nimble)",desc:"Kendinden büyük bir yaratığın yanından hasar yemeden geçebilir."},
+      {name:"Doğal Gizlilik",desc:"Kendinden büyük bir yaratığın arkasına saklanarak gizlenebilir."},
+    ]
+  },
+  {
+    id:"half-orc", name:"Yarı-Orc (Half-Orc)", type:"humanoid",
+    typeLabel:"İnsansı — İki Kanın Mirası",
+    img:"images/half-orc.png", imgPos:"center top",
+    tagline:"\"Damarlarında insanın hırsı ve orc'un öfkesi dolaşanlar. Hayat onlar için sürekli bir ispat mücadelesidir.\"",
+    lore:"İnsan ve orc toplulukları arasındaki nadir ittifakların ya da çatışmaların sonucunda doğarlar. Feska sınır bölgelerinde veya Strajan savaş alanlarında hayata gelirler. İki kültür arasında sıkışıp kalmış hissederler.",
+    stats:[{label:"Güç",value:"+2"},{label:"Dayanıklılık",value:"+1"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"~75 yıl"}],
+    abilities:[
+      {name:"Karanlık Görüş",desc:"60 ft. loş ışıkta parlak, karanlıkta loş gibi görür."},
+      {name:"Yıldırıcı Görünüm",desc:"Gözdağı (Intimidation) becerisinde uzmanlık."},
+      {name:"Amansız Dayanıklılık",desc:"HP 0'a düştüğünde ölmek yerine 1 HP'de kalır. Uzun dinlenmede yenilenir."},
+      {name:"Vahşi Saldırılar",desc:"Yakın dövüşte kritik vuruşta ek bir hasar zarı atar."},
+    ]
+  },
+  {
+    id:"human", name:"İnsan (Human)", type:"humanoid",
+    typeLabel:"İnsansı — Uyum ve İrade",
+    img:"images/human.png", imgPos:"center 25%",
+    tagline:"\"Ömürlerine bin yıllık tutkular sığdıran, geç başladıkları yarışta zamanın ötesine koşanlar.\"",
+    lore:"İnsanlar en çeşitli fiziksel özelliklere sahip ırktır. Elyrion'a diğer ırklardan sonra gelmelerine rağmen en hızlı yayılan medeniyetleri kurmuşlardır. Her iklime, her kültüre uyum sağlarlar.",
+    stats:[{label:"Tüm Yetenekler",value:"+1"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"~100 yıl"},{label:"Boyut",value:"Orta (Medium)"}],
+    abilities:[
+      {name:"Yetenek Çeşitliliği",desc:"Tüm 6 yetenek puanı 1 artar."},
+      {name:"Beceri",desc:"Seçilen bir beceride yetkinlik kazanır."},
+      {name:"Ekstra Dil",desc:"Common'a ek olarak bir dil daha öğrenir."},
+    ]
+  },
+  {
+    id:"kalashtar", name:"Kalashtar", type:"divine",
+    typeLabel:"İlahi — Rüya Düzleminin Taşıyıcıları",
+    img:"images/kalashtar.png", imgPos:"center 30%",
+    tagline:"\"Onlar iki dünyanın çocuklarıdır: biri somut gerçeklik, diğeri rüyalar alemi.\"",
+    lore:"İnsanlar ve quori ruhlarının birleşiminden doğmuş benzersiz bir halktır. Supuep Wheaur Krallığı'nda yoğunlaşmışlardır. Normal rüya görmezler; quori ruhlarının geçmiş anılarını deneyimlerler.",
+    stats:[{label:"Bilgelik",value:"+2"},{label:"Karizma",value:"+1"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"İnsanlarla benzer"}],
+    abilities:[
+      {name:"Çift Zihin",desc:"Tüm Bilgelik kurtarma atışlarında avantaj."},
+      {name:"Zihinsel Disiplin",desc:"Psişik hasar direnci."},
+      {name:"Zihin Bağı",desc:"Görüş alanındaki bir yaratıkla seviye × 10 ft mesafeye kadar telepati."},
+      {name:"Rüyalardan Kopuk",desc:"Dream büyüsüne bağışıklık; Sleep büyüsüne dezavantaj."},
+    ]
+  },
+  {
+    id:"leonin", name:"Leonin", type:"humanoid",
+    typeLabel:"İnsansı — Doğal Hükümdarlar",
+    img:"images/leonin.png", imgPos:"center 20%",
+    tagline:"\"Rüzgarda dalgalanan yeleli, güneşte parlayan keskin dişleriyle evcilleştirilemeyen güç.\"",
+    lore:"Leoninler gururlu ve heybetli insansı aslanlardır. Suplon'un verimli ovalarının kadim sakinleridir. Güç hiyerarşisi temel yasadır. Onursuz av (sırtından vurmak) en büyük şerefsizliktir.",
+    stats:[{label:"Dayanıklılık",value:"+2"},{label:"Güç",value:"+1"},{label:"Hız",value:"35 ft"},{label:"Ömür",value:"İnsanlarla benzer"}],
+    abilities:[
+      {name:"Karanlık Görüş",desc:"60 ft. loş ışıkta parlak, karanlıkta loş gibi görür."},
+      {name:"Pençeler",desc:"1d4 + Güç kesici hasar; doğal silah."},
+      {name:"Avcı İçgüdüleri",desc:"Athletics, Intimidation, Perception veya Survival'dan birinde yetkinlik."},
+      {name:"Yıldırıcı Kükreme",desc:"Bonus aksiyon. 10 ft içindekiler Bilgelik kurtarması; başarısız olanlar bir tur korkuya düşer."},
+    ]
+  },
+  {
+    id:"orc", name:"Orc", type:"humanoid",
+    typeLabel:"İnsansı — Vahşetin Cismi",
+    img:"images/orc.png", imgPos:"center 20%",
+    tagline:"\"Onlar için savaş bir seçim değil, bir varoluş biçimidir. Güçlülerin zayıfları boyunduruk altına alması gerekir.\"",
+    lore:"Orklar, Suplon'un sert dağlarından ve karanlık ormanlarından gelir. Her kabile en güçlü savaşçının 'Baş' olarak yönettiği klan yapısına sahiptir. Strejan İmparatorluğu, ork çocuklarını kaçırarak savaş kölesi yetiştirir.",
+    stats:[{label:"Güç",value:"+2"},{label:"Dayanıklılık",value:"+1"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"~50 yıl"}],
+    abilities:[
+      {name:"Karanlık Görüş",desc:"60 ft. loş ışıkta parlak, karanlıkta loş gibi görür."},
+      {name:"İlkel Sezgi",desc:"Animal Handling, Insight, Intimidation, Medicine, Nature, Perception veya Survival'dan ikisinde yetkinlik."},
+      {name:"Güçlü Yapı",desc:"Taşıma kapasitesi bir boy büyük olarak hesaplanır."},
+      {name:"Amansız Dayanıklılık",desc:"HP 0'a düştüğünde ölmek yerine 1 HP'de kalır."},
+    ]
+  },
+  {
+    id:"satyr", name:"Satyr", type:"fey",
+    typeLabel:"Fey — Ormanın Neşeli Ruhu",
+    img:"images/satyr.png", imgPos:"center top",
+    tagline:"\"Ormanlarda dans eden, kırlarda flüt çalan, hayatı bir şölene dönüştürenler.\"",
+    lore:"Satyrler, insan üst gövdesi ve keçi alt gövdesine sahip doğanın neşeli ruhlarıdır. Snüet Snea'nın en kadim sakinlerindendir; druidlerle bin yıllık dostlukları vardır. Yaratık tipleri Fey'dir.",
+    stats:[{label:"Karizma",value:"+2"},{label:"Çeviklik",value:"+1"},{label:"Hız",value:"35 ft"},{label:"Boyut",value:"Orta (Medium)"}],
+    abilities:[
+      {name:"Koçboynuzu",desc:"1d4 + Güç ezici hasar; başı ve boynuzlarını kullanır."},
+      {name:"Büyü Direnci",desc:"Büyülere karşı kurtarma atışlarında avantaj."},
+      {name:"Neşeli Sıçrayışlar",desc:"Uzun veya yüksek sıçramada 1d8 ekler."},
+      {name:"Eğlence Düşkünü",desc:"Performance ve Persuasion yetkinliği, seçilen bir enstrümanda yetkinlik."},
+    ]
+  },
+  {
+    id:"tabaxi", name:"Tabaxi", type:"humanoid",
+    typeLabel:"İnsansı — Kedi-İnsansı",
+    img:"images/tabaxi.png", imgPos:"center top",
+    tagline:"\"Gölgeler arasında süzülen, çatılarda dans eden, her köşede yeni bir sır arayan meraklı avcılar.\"",
+    lore:"Zarif ve çevik kedi-insansı melezlerdir. Jathuinga İmparatorluğu'nun tropik ormanlarından gelirler. Her Tabaxinin en önemli amacı 'Büyük Soru'nun cevabını bulmaktır.",
+    stats:[{label:"Çeviklik",value:"+2"},{label:"Karizma",value:"+1"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"İnsanlarla benzer"}],
+    abilities:[
+      {name:"Karanlık Görüş",desc:"60 ft. loş ışıkta parlak, karanlıkta loş gibi görür."},
+      {name:"Kedisel Çeviklik",desc:"Dövüşte hareket ederken hızını bir tur boyunca iki katına çıkarır."},
+      {name:"Kedi Pençeleri",desc:"20 ft tırmanma hızı. Pençeler: 1d4 + Güç kesici hasar."},
+      {name:"Kedi Yeteneği",desc:"Algı ve Gizlilik yetkinliği."},
+    ]
+  },
+  {
+    id:"tiefling", name:"Tiefling", type:"humanoid",
+    typeLabel:"İnsansı — Cehennem Mirası",
+    img:"images/tiefling.png", imgPos:"center top",
+    tagline:"\"Derileri cehennem ateşini, boynuzları laneti yansıtır. Önyargının en yıkıcı olduğunu bilen halk.\"",
+    lore:"Atalarının nesiller önce cehennem varlıklarıyla yaptığı paktların sonucudur. Custaria Krallığı'nda daha kabul görmektedirler. Kusmaenia'da Yoldaş'ın çöküşünden sonra günah keçisi ilan edilmişlerdir.",
+    stats:[{label:"Karizma",value:"+2"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"İnsanlardan biraz uzun"},{label:"Boyut",value:"Orta (Medium)"}],
+    abilities:[
+      {name:"Karanlık Görüş",desc:"60 ft. loş ışıkta parlak, karanlıkta loş gibi görür."},
+      {name:"Cehennem Direnci",desc:"Ateş hasar direnci."},
+    ]
+  },
+  {
+    id:"vulpin", name:"Vulpin", type:"humanoid",
+    typeLabel:"İnsansı — Tilki-İnsansı",
+    img:"images/vulpin.png", imgPos:"center top",
+    tagline:"\"Gözleri gece avcılarının keskinliğini yansıtır. Onlar için hayat bir satranç oyunudur.\"",
+    lore:"Snüet Snea ormanlarının en zeki ve en sinsi sakinleridir. Zarif tilki-insansı melezlerdir. Sosyal statü ve zekayı en çok değer verilen erdemler sayarlar.",
+    stats:[{label:"Zeka",value:"+2"},{label:"Karizma",value:"+1"},{label:"Hız",value:"30 ft"},{label:"Ömür",value:"~90 yılı aşar"}],
+    abilities:[
+      {name:"Karanlık Görüş",desc:"60 ft. loş ışıkta parlak, karanlıkta loş gibi görür."},
+      {name:"Isırık",desc:"1d6 delici hasar; doğal silah."},
+      {name:"Çevik Kaçış",desc:"Tüm Çeviklik kurtarma atışlarına Zeka modifikatörünü bonus olarak ekler."},
+      {name:"Büyüleyici Kurnazlık",desc:"Charm Person (1/uzun dinlenme). 3. seviyede Ambush Prey. 5. seviyede Fear. Büyü yeteneği Zeka."},
+    ]
+  },
+];
+
+let currentFilter = 'all';
+function setFilter(type, btn) {
+  currentFilter = type;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterCards();
+}
+
+function buildCard(race) {
+  const accent = `var(--race-${race.id})`;
+  const statsHtml = race.stats.map(s =>
+    `<div class="stat-item"><span class="stat-label">${s.label}</span><span class="stat-value">${s.value}</span></div>`
+  ).join('');
+  const abilitiesHtml = race.abilities && race.abilities.length
+    ? `<div class="section"><span class="section-label">Irk Özellikleri</span><div class="ability-list">${
+        race.abilities.map(a => `<div class="ability-item"><span class="ability-name">${a.name}</span>${a.desc}</div>`).join('')
+      }</div></div>` : '';
+  const subraceHtml = race.subraces && race.subraces.length
+    ? `<div class="section"><span class="section-label">Alt Irklar</span>${
+        race.subraces.map(s => `<div class="subrace-box"><div class="subrace-title">${s.title}</div><div class="subrace-text">${s.desc}</div></div>`).join('')
+      }</div>` : '';
+
+  return `<article class="race-card" style="--card-accent:${accent}" data-type="${race.type}" data-name="${race.name.toLowerCase()}" onclick="toggleCard(this)">
+    <div class="card-image">
+      <img src="${race.img}" alt="${race.name}" loading="lazy" style="object-position:${race.imgPos||'center top'}">
+      <span class="card-badge">${race.typeLabel.split('—')[0].trim()}</span>
+      <div class="card-toggle-img">▾</div>
+    </div>
+    <div class="card-header">
+      <div class="card-name">${race.name}</div>
+      <div class="card-type">${race.typeLabel}</div>
+    </div>
+    <p class="card-tagline">${race.tagline}</p>
+    <div class="card-body">
+      <div class="section"><span class="section-label">Kısaca</span><p class="section-text">${race.lore}</p></div>
+      <div class="section"><span class="section-label">Temel İstatistikler</span><div class="stat-grid">${statsHtml}</div></div>
+      ${abilitiesHtml}${subraceHtml}
+    </div>
+  </article>`;
+}
+
+function toggleCard(card) { card.classList.toggle('open'); }
+
+function filterCards() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const cards = document.querySelectorAll('.race-card');
+  let visible = 0;
+  cards.forEach(c => {
+    const show = c.dataset.name.includes(q) && (currentFilter === 'all' || c.dataset.type === currentFilter);
+    c.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  const noRes = document.getElementById('noResults');
+  if (visible === 0 && !noRes) {
+    const el = document.createElement('p'); el.id='noResults'; el.className='no-results';
+    el.textContent='Aramanızla eşleşen ırk bulunamadı.';
+    document.getElementById('raceGrid').appendChild(el);
+  } else if (visible > 0 && noRes) { noRes.remove(); }
+  document.getElementById('raceCount').textContent = `${visible} ırk gösteriliyor`;
+}
+
+(function init() {
+  document.getElementById('raceGrid').innerHTML = RACES.map(buildCard).join('');
+  filterCards();
+})();
+</script>
+</body>
+</html>
