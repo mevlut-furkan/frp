@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sınıf Tanıtımları — Macera Seni Çağırıyor</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0c14;
+    --bg2: #13111e;
+    --bg3: #1a1729;
+    --border: rgba(180,155,90,0.18);
+    --gold: #c9a84c;
+    --gold-dim: #8a6e2f;
+    --gold-light: #e8c97a;
+    --silver: #a8b8cc;
+    --text: #d4cfc7;
+    --text-dim: #8a8480;
+    --glow: rgba(201,168,76,0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    padding: 4rem 2rem;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(80,50,150,0.35) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 20% 100%, rgba(150,50,50,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(50,100,150,0.2) 0%, transparent 60%),
+      var(--bg);
+    z-index: 0;
+  }
+
+  /* Animated runes */
+  .rune-field {
+    position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+  }
+  .rune {
+    position: absolute;
+    font-family: 'Cinzel', serif;
+    color: rgba(201,168,76,0.06);
+    font-size: 1.2rem;
+    animation: runeFloat linear infinite;
+    user-select: none;
+  }
+
+  @keyframes runeFloat {
+    0%   { transform: translateY(110vh) rotate(0deg);   opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 0.4; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 860px; }
+
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 2.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .hero-eyebrow::before,
+  .hero-eyebrow::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold));
+  }
+  .hero-eyebrow::after { background: linear-gradient(to left, transparent, var(--gold)); }
+
+  .hero h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: #fff;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.6rem;
+    text-shadow: 0 0 60px rgba(201,168,76,0.3);
+  }
+
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.18rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--silver);
+    max-width: 560px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    padding: 0.9rem 2.6rem;
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-family: 'Cinzel', serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.25s, color 0.25s;
+  }
+  .hero-cta:hover { background: var(--gold); color: var(--bg); }
+
+  /* ─── FILTER BAR ─── */
+  .filter-bar {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 1.2rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .filter-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-right: 0.5rem;
+  }
+
+  .filter-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 0.4rem 1.1rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--gold);
+    color: var(--gold-light);
+    background: rgba(201,168,76,0.07);
+  }
+
+  /* ─── SEARCH ─── */
+  .search-wrap {
+    margin-left: auto;
+    position: relative;
+  }
+  .search-input {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.4rem 2.5rem 0.4rem 1rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.95rem;
+    outline: none;
+    width: 200px;
+    transition: border-color 0.2s, width 0.3s;
+  }
+  .search-input:focus {
+    border-color: var(--gold-dim);
+    width: 280px;
+  }
+  .search-input::placeholder { color: var(--text-dim); font-style: italic; }
+  .search-icon {
+    position: absolute; right: 0.7rem; top: 50%; transform: translateY(-50%);
+    color: var(--text-dim); font-size: 0.85rem; pointer-events: none;
+  }
+
+  /* ─── GRID ─── */
+  .grid-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem;
+  }
+
+  .grid-section h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .grid-section h2::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .class-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+
+  /* ─── CLASS CARD ─── */
+  .class-card {
+    position: relative;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.25s, border-color 0.25s;
+  }
+  .class-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold-dim);
+  }
+  .class-card.hidden { display: none; }
+
+  .card-color-bar {
+    height: 3px;
+    background: var(--class-color, var(--gold));
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 2;
+  }
+
+  .card-portrait {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background-size: cover;
+    background-position: center 15%;
+    overflow: hidden;
+  }
+  .card-portrait::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(13,12,20,0) 40%, var(--bg2) 96%),
+                linear-gradient(to right, rgba(13,12,20,0.25) 0%, rgba(13,12,20,0) 30%);
+  }
+  .class-card:hover .card-portrait { filter: saturate(1.15); }
+
+  .card-inner {
+    padding: 0 1.8rem 2rem;
+    margin-top: -3.2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(13,12,20,0.55);
+    backdrop-filter: blur(3px);
+    border: 1px solid var(--border);
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .card-title-group { flex: 1; min-width: 0; }
+
+  .card-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    margin-bottom: 0.15rem;
+  }
+
+  .card-role {
+    font-size: 0.82rem;
+    color: var(--gold-dim);
+    letter-spacing: 0.06em;
+    font-style: italic;
+  }
+
+  .card-body {
+    font-size: 0.96rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 1.6rem;
+  }
+
+  .card-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    padding: 0.2rem 0.7rem;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .card-expand-btn {
+    margin-top: 1.2rem;
+    background: none;
+    border: none;
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    padding: 0;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s;
+  }
+  .card-expand-btn:hover { color: var(--gold-light); }
+  .card-expand-btn .arrow { transition: transform 0.25s; display: inline-block; }
+  .card-expand-btn.open .arrow { transform: rotate(90deg); }
+
+  .card-full-text {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.4s;
+    opacity: 0;
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    line-height: 1.75;
+  }
+  .card-full-text.open {
+    max-height: 800px;
+    opacity: 1;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ─── MODAL ─── */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--gold-dim);
+    max-width: 680px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s;
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+
+  .modal-top-bar {
+    height: 4px;
+    background: var(--modal-color, var(--gold));
+    position: relative;
+    z-index: 2;
+  }
+
+  .modal-portrait {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    background-size: cover;
+    background-position: center 12%;
+  }
+  .modal-portrait::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(13,12,20,0) 45%, var(--bg2) 97%);
+  }
+
+  .modal-body { padding: 2.5rem; margin-top: -3.5rem; position: relative; z-index: 1; }
+
+  .modal-close {
+    position: absolute;
+    top: 1.2rem; right: 1.4rem;
+    background: rgba(13,12,20,0.5);
+    backdrop-filter: blur(3px);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 1.3rem;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+    z-index: 10;
+  }
+  .modal-close:hover { color: var(--gold); }
+
+  .modal-header { margin-bottom: 1.8rem; }
+
+  .modal-icon-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .modal-icon {
+    font-size: 2.5rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(13,12,20,0.6);
+    backdrop-filter: blur(3px);
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .modal-name {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 0.3rem;
+  }
+
+  .modal-role { font-style: italic; color: var(--gold-dim); font-size: 1rem; }
+
+  .modal-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 1.5rem 0;
+  }
+
+  .modal-text {
+    font-size: 1rem;
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  .modal-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.5rem; }
+
+  /* ─── FOOTER ─── */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    font-style: italic;
+  }
+  .site-footer span { color: var(--gold-dim); }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dim); }
+
+  @media (max-width: 600px) {
+    .class-grid { grid-template-columns: 1fr; }
+    .search-wrap { margin-left: 0; width: 100%; }
+    .search-input { width: 100%; }
+    .search-input:focus { width: 100%; }
+    .filter-bar { justify-content: flex-start; }
+  }
+
+  .subnav {
+    position: relative; z-index: 5;
+    display: flex; justify-content: center; gap: 22px;
+    padding: 12px 20px; border-bottom: 1px solid var(--border);
+    font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 1.5px;
+    text-transform: uppercase; background: rgba(0,0,0,0.25);
+  }
+  .subnav a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+  .subnav a:hover, .subnav a.current { color: var(--gold-light); }
+  .subnav a.current { border-bottom: 1px solid var(--gold-light); padding-bottom: 3px; }
+</style>
+</head>
+<body>
+
+<nav class="subnav">
+  <a href="index.html" target="_top">&#8962; Ana Sayfa</a>
+  <a href="irklar.html" target="_top">Irklar</a>
+  <a href="siniflar.html" target="_top" class="current">Sınıflar</a>
+  <a href="hunerler.html" target="_top">Hünerler</a>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="rune-field" id="runeField"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Macera Seni Çağırıyor</div>
+    <h1>Kim <span>Olmak</span> İstersin?</h1>
+    <p class="hero-sub">Her sınıf bir varoluş biçimidir. Bir öfke, bir melodi, bir yemin, bir lanet. Yolunu seç — ve macera başlasın.</p>
+    <a href="#siniflar" class="hero-cta">Sınıfları Keşfet</a>
+  </div>
+</section>
+
+<!-- ─── FILTER & SEARCH ─── -->
+<div class="filter-bar">
+  <span class="filter-label">Filtre</span>
+  <button class="filter-btn active" data-filter="all">Tümü</button>
+  <button class="filter-btn" data-filter="melee">Yakın Dövüş</button>
+  <button class="filter-btn" data-filter="magic">Büyü</button>
+  <button class="filter-btn" data-filter="support">Destek</button>
+  <button class="filter-btn" data-filter="stealth">Gizlilik</button>
+  <div class="search-wrap">
+    <input class="search-input" type="text" id="searchInput" placeholder="Sınıf ara…">
+    <span class="search-icon">⌕</span>
+  </div>
+</div>
+
+<!-- ─── GRID ─── -->
+<section class="grid-section" id="siniflar">
+  <h2>Tüm Sınıflar</h2>
+  <div class="class-grid" id="classGrid"></div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="site-footer">
+  <span>Destine</span> çağrılmak istiyorsan — bir sınıf seç.
+</footer>
+
+<!-- ─── MODAL ─── -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <div class="modal-top-bar" id="modalTopBar"></div>
+    <div class="modal-portrait" id="modalPortrait"></div>
+    <div class="modal-body">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div class="modal-header">
+        <div class="modal-icon-row">
+          <div class="modal-icon" id="modalIcon"></div>
+          <div>
+            <div class="modal-name" id="modalName"></div>
+            <div class="modal-role" id="modalRole"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-divider"></div>
+      <div class="modal-text" id="modalText"></div>
+      <div class="modal-tags" id="modalTags"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const classData = [
+  {
+    name: "Barbar",
+    img: "images/barbar.jpg",
+    icon: "⚔️",
+    role: "Öfkenin Savaşçısı",
+    color: "#c0392b",
+    tags: ["melee", "tank"],
+    tagLabels: ["Yakın Dövüş", "Dayanıklılık"],
+    short: "Öfkeyi yaşayan bir silaha dönüştüren, zindanların ve savaş meydanlarının durdurulamaz titanı.",
+    full: "Öfkeyi yaşayan bir silaha dönüştüren, zindanların ve savaş meydanlarının durdurulamaz titanı. Üzerine gelen okları veya kılıç darbelerini neredeyse hiç umursamadan, saf fiziksel güçle engelleri paramparça eder.\n\nZindana girdiğinizde kilitli kapıları açmaya çalışmak yerine kapıyı menteşeleriyle birlikte duvardan sökmek, tehlikeler karşısında korkusuzca ileri atılmak ve kalabalık düşman gruplarının ortasına balıklama dalmak istiyorsanız tam size göre bir sınıftır."
+  },
+  {
+    name: "Bard",
+    img: "images/bard.jpg",
+    icon: "🎵",
+    role: "Müziğin Büyücüsü",
+    color: "#8e44ad",
+    tags: ["magic", "support"],
+    tagLabels: ["Büyü", "Destek", "İlham"],
+    short: "Müziğin, şiirin ve sözün gücüyle hem dostlarını coşturan hem de düşmanların zihnini altüst eden grubun karizmatik ruhu.",
+    full: "Müziğin, şiirin ve sözün gücüyle hem dostlarını coşturan hem de düşmanların zihnini altüst eden grubun karizmatik ruhu. Lirini veya flütünü eline aldığı an savaşın ritmini tamamen değiştirebilir; bazen coşkulu bir marşla arkadaşlarının gücünü katlar, bazen de zekice bir laf dalaşıyla devasa bir ejderhayı bile kılıç sallamadan ikna edebilir.\n\nSosyal etkileşimlerin başrolü olmak ve masada herkesin yüzünü güldürmek istiyorsanız idealdir."
+  },
+  {
+    name: "Cleric",
+    img: "images/cleric.jpg",
+    icon: "✨",
+    role: "İlahi Güç Taşıyıcısı",
+    color: "#f39c12",
+    tags: ["magic", "support"],
+    tagLabels: ["İlahi Büyü", "İyileştirme", "Tanrı"],
+    short: "Yüce bir tanrının iradesini doğrudan savaş alanına yansıtan, takımın hem can damarı hem de sarsılmaz zırhı.",
+    full: "Yüce bir tanrının veya ilahî bir inancın iradesini doğrudan savaş alanına yansıtan, takımın hem can damarı hem de sarsılmaz zırhı. Ağır zırhı ve kalkanıyla en ön safta durarak düşmanları karşılar, aynı zamanda kutsal dualarla takım arkadaşlarının yaralarını anında sarar.\n\nHem grubu hayatta tutan vazgeçilmez bir destek olmak hem de ilahî alevlerle düşmanların üzerine gazap yağdırmak istiyorsanız bu sınıfı seçmelisiniz."
+  },
+  {
+    name: "Druid",
+    img: "images/druid.jpg",
+    icon: "🌿",
+    role: "Doğanın Bekçisi",
+    color: "#27ae60",
+    tags: ["magic", "support"],
+    tagLabels: ["Doğa Büyüsü", "Dönüşüm", "Koruyucu"],
+    short: "Doğanın ezeli dengesini koruyan ve ihtiyaç duyduğu anda vahşi bir hayvana dönüşebilen gizemli muhafız.",
+    full: "Doğanın ezeli dengesini koruyan ve ihtiyaç duyduğu anda vahşi bir hayvana dönüşebilen gizemli muhafız. Ormanın kalbinden süzülen kadim büyüleri kullanarak düşmanların yolunu sarmaşıklarla kesebilir ya da doğrudan bir bozayıya veya kurda dönüşerek savaşın ortasında pençelerinizle dehşet saçabilirsiniz.\n\nHem büyü yapabilmek hem de fiziksel olarak şekil değiştirebilmek büyük bir taktiksel esneklik sunar."
+  },
+  {
+    name: "Fighter",
+    img: "images/fighter.jpg",
+    icon: "🛡️",
+    role: "Savaş Meydanının Efendisi",
+    color: "#2980b9",
+    tags: ["melee"],
+    tagLabels: ["Yakın Dövüş", "Çok Yönlü", "Zırh"],
+    short: "Her türlü silah ve zırh türünde kusursuz bir ustalığa erişmiş, taktiksel savaşın asıl efendisi.",
+    full: "Her türlü silah ve zırh türünde kusursuz bir ustalığa erişmiş, taktiksel savaşın asıl efendisi. Karmaşık büyü formülleriyle veya uzun açıklamalı yeteneklerle uğraşmak istemeyen, kılıcını ve kalkanını konuşturarak tur başına en yüksek hasarları patlatmak isteyenler için en net başlangıç sınıfıdır.\n\nGrubun askerî dehası olarak her türlü çatışma durumuna hızlıca adapte olabilirsiniz."
+  },
+  {
+    name: "Monk",
+    img: "images/monk.jpg",
+    icon: "🥋",
+    role: "İçsel Gücün Ustası",
+    color: "#16a085",
+    tags: ["melee", "stealth"],
+    tagLabels: ["Dövüş Sanatı", "Disiplin", "Hız"],
+    short: "Vücudunu kusursuz bir ölüm makinesine dönüştüren, içsel enerjisini (Ki) kullanarak düşmanları felç eden hız ve çeviklik abidesi.",
+    full: "Vücudunu kusursuz bir ölüm makinesine dönüştüren, içsel enerjisini (Ki) kullanarak düşmanları felç eden hız ve çeviklik abidesi. Üzerine ağır zırhlar giymek yerine çıplak elleri ve akrobatik hareketleriyle savaşır; düşmanın attığı okları havada yakalayıp geri fırlatmak veya saniyeler içinde ard arda yumruklar patlatmak gibi sinematik sahnelerin kahramanı olursunuz."
+  },
+  {
+    name: "Paladin",
+    img: "images/paladin.jpg",
+    icon: "⚖️",
+    role: "Kutsal Yemin Şampiyonu",
+    color: "#d4af37",
+    tags: ["melee", "support"],
+    tagLabels: ["Yemin", "İlahi Dövüş", "İyileştirme"],
+    short: "Kutsal bir yeminle mühürlenmiş, adalet, onur ve inanç uğruna demir gibi bir iradeyle savaşan ağır zırhlı şövalye.",
+    full: "Kutsal bir yeminle mühürlenmiş, adalet, onur ve inanç uğruna demir gibi bir iradeyle savaşan ağır zırhlı şövalye. Takım arkadaşlarını korumak için siper olurken, kritik anlarda kılıcına ilahî bir adalet yükleyerek tek vuruşta devasa miktarda patlayıcı hasar verebilir.\n\nGrubun hem vicdanı hem de en güvenilir kalkanıdır."
+  },
+  {
+    name: "Ranger",
+    img: "images/ranger.jpg",
+    icon: "🏹",
+    role: "Vahşi Doğanın Avcısı",
+    color: "#2ecc71",
+    tags: ["melee", "stealth"],
+    tagLabels: ["İz Sürme", "Vahşi Doğa", "Okçuluk"],
+    short: "Vahşi doğanın ve yabani toprakların izcisi, keskin nişancısı ve canavar avcısı.",
+    full: "Vahşi doğanın ve yabani toprakların izcisi, keskin nişancısı ve canavar avcısı. Doğayı avucunun içi gibi bilir, düşmanların izini kusursuz şekilde sürer ve uzaktan yayını gererek ölümcül oklar yağdırır.\n\nYanınızda size yoldaşlık eden sadık bir hayvan dostla ormanlarda gizli operasyonlar yürütmek ve hedefleri avlamak size göredir."
+  },
+  {
+    name: "Rogue",
+    img: "images/rogue.jpg",
+    icon: "🗡️",
+    role: "Gölgenin Ustası",
+    color: "#7f8c8d",
+    tags: ["stealth"],
+    tagLabels: ["Gizlilik", "Kurnazlık", "Hile"],
+    short: "Gölgelerde tamamen kaybolan, kilitli kapıları ustalıkla açan ve düşmanların zayıf noktalarını kollayan sinsi suikastçı.",
+    full: "Gölgelerde tamamen kaybolan, kilitli kapıları ustalıkla açan ve düşmanların zayıf noktalarını kollayan sinsi suikastçı. Düşmanın dikkat etmediği anlarda arkadan sinsice yaklaşıp kritik darbeler vurarak devasa hasarlar çıkarır.\n\nZindandaki gizli geçitleri bulmak, tuzakları zar atarak etkisiz hale getirmek ve ekibin hayatta kalmasını sağlamak sizin ellerinizdedir."
+  },
+  {
+    name: "Sorcerer",
+    img: "images/sorcerer.jpg",
+    icon: "🔥",
+    role: "Doğuştan Büyücü",
+    color: "#e74c3c",
+    tags: ["magic"],
+    tagLabels: ["Doğuştan Güç", "Yaratıcı Sihir"],
+    short: "Büyü gücünü tozlu kütüphanelerden değil, damarlarında akan sihirli ve kadim kandan alan doğuştan yetenekli büyücü.",
+    full: "Büyü gücünü tozlu kütüphanelerden değil, damarlarında akan sihirli ve kadim kandan alan doğuştan yetenekli büyücü. Büyüleri anlık olarak bükebilir, menzillerini uzatabilir veya etkilerini iki katına çıkararak savaşın gidişatını tek bir hamleyle tamamen lehinize çevirebilirsiniz.\n\nKurallara bağlı kalmadan saf sihir akışı yaratmak isteyenler içindir."
+  },
+  {
+    name: "Warlock",
+    img: "images/warlock.jpg",
+    icon: "👁️",
+    role: "Şeytani Pakt Büyücüsü",
+    color: "#6c3483",
+    tags: ["magic"],
+    tagLabels: ["Pakt", "Karanlık Büyü", "Hamî"],
+    short: "Gücünü gizemli, kadim ve tehlikeli bir varlıkla yaptığı karanlık anlaşmadan alan mistik karakter.",
+    full: "Gücünü sıradan çalışmalardan değil, gizemli, kadim ve çoğu zaman tehlikeli bir varlıkla (bir şeytan lordu, feeri kraliçesi veya kozmik bir varlık) yaptığı karanlık anlaşmadan alan mistik karakter. Sürekli tekrarlayabileceğiniz güçlü enerji ışınlarıyla menzilli çatışmalarda sürekli baskı kurar ve patronunuzla olan gizli hikayenizle senaryoya derinlik katarsınız."
+  },
+  {
+    name: "Wizard",
+    img: "images/wizard.jpg",
+    icon: "📚",
+    role: "Büyü İlminin Üstadı",
+    color: "#3498db",
+    tags: ["magic"],
+    tagLabels: ["Akademik Büyü", "Çeşitli Ekoller"],
+    short: "Büyücüler, büyünün iç işleyişine dair tüketen çalışmalarıyla tanımlanırlar.",
+    full: "Büyücüler, büyünün iç işleyişine dair tüketen çalışmalarıyla tanımlanırlar. Patlayıcı alevler, kavisler çizen yıldırımlar, ince aldatmacalar ve muazzam dönüşümler içeren büyüler yaparlar.\n\nÇoğu Büyücü, büyüye karşı akademik bir yaklaşım benimser. Büyünün teorik temellerini, özellikle de büyü okullarına göre sınıflandırılmasını incelerler."
+  },
+  {
+    name: "Pugilist",
+    img: "images/pugilist.jpg",
+    icon: "👊",
+    role: "Sokak Dövüşçüsü",
+    color: "#e67e22",
+    tags: ["melee"],
+    tagLabels: ["Yumruk Dövüşü", "Cesaret", "İrade"],
+    short: "Boksörler; etraflarındaki ok yağmurlarına ve zırhlı düşmanlara karşı kendi iradelerine ve yumruklarına güvenen sokak dövüşçüleridir.",
+    full: "Boksörler; etraflarındaki ok yağmurlarına, kendilerinden güçlü kalabalıklara ve zırhlı düşmanlara karşı kendi iradelerine, yumruklarına ve kural tanımaz cesaretlerine güvenen sokak dövüşçüleridir.\n\nOnlar büyü kitaplarıyla uğraşmaz, ilahi lütuflar beklemez; zaferlerini çirkef dövüşün, anlık reflekslerin ve bileklerinin hakkıyla söke söke alırlar."
+  },
+  {
+    name: "Gunslinger",
+    img: "images/gunslinger.jpg",
+    icon: "🔫",
+    role: "Çelik Sinirli Nişancı",
+    color: "#95a5a6",
+    tags: ["melee", "stealth"],
+    tagLabels: ["Ateşli Silah", "Çeviklik", "Cesaret"],
+    short: "Kara barut zayıf kalplilere göre değildir. Silahşörler çelik gibi sinirlere sahiptir; kulakları sağır eden bir curcuna içinde silahlarından ölüm kusarlar.",
+    full: "Kara barut zayıf kalplilere göre değildir. Onun gürleyen patlaması dengesiz ve isabetsizdir—düşmana yöneltilmiş, ancak zapt edilebilmiş bir patlamadır adeta. Yalnızca gerçekten korkusuz olanlar onda ustalaşmaya çalışır.\n\nSilahşörler çelik gibi sinirlere sahiptir. Çatışmalara uyum sağlamış olan silahşörler çevik ve cüretkardır; yaşam ile ölümün anlık kararlara ve kişinin kendi cesaretine bağlı olduğunu bilirler."
+  },
+  {
+    name: "Blood Hunter",
+    img: "images/blood-hunter.jpg",
+    icon: "🩸",
+    role: "Karanlıkla Savaşan Avcı",
+    color: "#922b21",
+    tags: ["melee", "stealth"],
+    tagLabels: ["Kan Büyüsü", "Canavar Avcısı", "Fedakarlık"],
+    short: "Kan Avcıları; eski ve yeni kötülükleri yok etmeye yönelik bitmek bilmeyen bir kararlılıkla hareket eden zeki savaşçılardır.",
+    full: "Kan Avcıları; eski ve yeni kötülükleri yok etmeye yönelik bitmek bilmeyen bir kararlılıkla hareket eden zeki savaşçılardır. Gizli kan büyüsü ayinleri ve uğurlarına kendi canlılıklarını ve insanlıklarını feda etme isteğiyle kuşanmış olarak diyarın gölgelerini korurlar."
+  },
+  {
+    name: "Monster Hunter",
+    img: "images/monster-hunter.jpg",
+    icon: "🐉",
+    role: "Gecenin Korkusu",
+    color: "#1a5276",
+    tags: ["melee", "stealth"],
+    tagLabels: ["Canavar Avcısı", "Doğa", "Hayatta Kalma"],
+    short: "Gecenin yaratıklarının korkulu rüyası, karanlığın içinde iz süren amansız bir avcı.",
+    full: "Gecenin yaratıklarının korkulu rüyası, karanlığın içinde iz süren amansız bir avcı. Ne büyü kitaplarının ardına sığınır ne de ilahi dualarla teselli arar; onun gücü, doğanın ve avladığı canavarların özünde yatar.\n\nKestiği her yaratığın derisini, dişini ve kanını kendi zırhına, okuna ve kılıcına işleyerek düşmanın gücünü yine düşmana karşı çevirir."
+  },
+  {
+    name: "Necromancer",
+    img: "images/necromancer.jpg",
+    icon: "💀",
+    role: "Ruhların Efendisi",
+    color: "#4a235a",
+    tags: ["magic"],
+    tagLabels: ["Nekromantik Büyü", "Ruh", "Karanlık Pakt"],
+    short: "Necromancerlar sihri bir lütuf olarak almazlar; güçlerini beslemek için kendi ruhlarına başvururlar.",
+    full: "Necromancerlar sihri bir lütuf olarak almazlar; aksine, güçlerini beslemek için varabilecekleri en tehlikeli ve ezici kaynağa, yani kendi ruhlarına başvururlar.\n\nYaptıkları her nekomantik büyü ve boyunduruk altına aldıkları her Hortlak, ruhlarının ufacık bir parçasını yontarak yok eder; ta ki geriye öbür dünyada hiçbir yeri kalmamış, ruhi bir kabuk kalana dek."
+  },
+  {
+    name: "Binder",
+    img: "images/binder.jpg",
+    icon: "🌌",
+    role: "Kalıntıların Çağırıcısı",
+    color: "#1b4f72",
+    tags: ["magic"],
+    tagLabels: ["Kalıntı Bağlama", "Hiçlik", "Ruh"],
+    short: "Bağlayıcılar zihinlerini düzlemler arasındaki Hiçlik'e fırlatmayı, çağrılarına yanıt verecek varlıkları aramayı öğrenirler.",
+    full: "Bağlayıcılar zihinlerini düzlemler arasındaki Hiçlik'e fırlatmayı, çağrılarına yanıt verecek varlıkları oradaki uçurumda aramayı öğrenirler. \"Kalıntılar\" adı verilen bu varlıklar, gerçekliğin dışındaki yoklukta yaşayan güçlü ruhların artıklarıdır.\n\nKalıntılar ölü tanrılardan ve trajik kahramanlardan doğar, ancak biçimleri, kişilikleri ve motivasyonları anıların kaprisleriyle şekillenir."
+  },
+  {
+    name: "Warden",
+    img: "images/warden.jpg",
+    icon: "🏰",
+    role: "Sarsılmaz Bekçi",
+    color: "#1e8449",
+    tags: ["melee", "support"],
+    tagLabels: ["Koruyucu", "Dayanıklılık", "Kalkan"],
+    short: "Muhafızlar; bir krallığı, bir ormanı veya masum birini koruma görevini üstlenen uyanık bekçilerdir.",
+    full: "Muhafızlar; bir krallığı, bir ormanı veya masum birini koruma görevini üstlenen ve onu her türlü zarardan sakınan uyanık bekçilerdir. Sahip oldukları sarsılmaz dayanıklılık ve kalkanlarıyla onlar, savaş alanında yerinden oynatılamayan sarp surlardır."
+  }
+];
+
+// ─── Rune animation
+(function() {
+  const runeChars = ['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ','ᚺ','ᚾ','ᛁ','ᛃ','ᛇ','ᛈ','ᛉ','ᛊ','ᛏ','ᛒ','ᛖ','ᛗ','ᛚ','ᛜ','ᛞ','ᛟ'];
+  const field = document.getElementById('runeField');
+  for (let i = 0; i < 24; i++) {
+    const span = document.createElement('span');
+    span.className = 'rune';
+    span.textContent = runeChars[Math.floor(Math.random() * runeChars.length)];
+    span.style.left = (Math.random() * 100) + '%';
+    span.style.animationDuration = (18 + Math.random() * 30) + 's';
+    span.style.animationDelay = (-Math.random() * 40) + 's';
+    span.style.fontSize = (0.9 + Math.random() * 1.4) + 'rem';
+    field.appendChild(span);
+  }
+})();
+
+// ─── Build cards
+const grid = document.getElementById('classGrid');
+classData.forEach((cls, idx) => {
+  const card = document.createElement('div');
+  card.className = 'class-card';
+  card.dataset.tags = cls.tags.join(' ');
+  card.dataset.name = cls.name.toLowerCase();
+  card.style.setProperty('--class-color', cls.color);
+
+  card.innerHTML = `
+    <div class="card-color-bar"></div>
+    <div class="card-portrait" style="background-image:url('${cls.img}')"></div>
+    <div class="card-inner">
+      <div class="card-meta">
+        <div class="card-icon">${cls.icon}</div>
+        <div class="card-title-group">
+          <div class="card-name">${cls.name}</div>
+          <div class="card-role">${cls.role}</div>
+        </div>
+      </div>
+      <div class="card-body">${cls.short}</div>
+      <div class="card-tags">
+        ${cls.tagLabels.map(t => `<span class="tag">${t}</span>`).join('')}
+      </div>
+      <button class="card-expand-btn" data-idx="${idx}">
+        Tüm Hikaye <span class="arrow">›</span>
+      </button>
+      <div class="card-full-text" id="full-${idx}"></div>
+    </div>
+  `;
+  grid.appendChild(card);
+});
+
+// ─── Expand inline
+document.querySelectorAll('.card-expand-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const idx = btn.dataset.idx;
+    const fullDiv = document.getElementById('full-' + idx);
+    const isOpen = fullDiv.classList.contains('open');
+    if (!isOpen) {
+      fullDiv.innerHTML = classData[idx].full.split('\n\n').map(p => `<p style="margin-bottom:1rem">${p}</p>`).join('');
+    }
+    fullDiv.classList.toggle('open');
+    btn.classList.toggle('open');
+    btn.querySelector('.arrow').textContent = btn.classList.contains('open') ? '›' : '›';
+  });
+});
+
+// ─── Modal
+const overlay = document.getElementById('modalOverlay');
+const modalName = document.getElementById('modalName');
+const modalRole = document.getElementById('modalRole');
+const modalText = document.getElementById('modalText');
+const modalTags = document.getElementById('modalTags');
+const modalIcon = document.getElementById('modalIcon');
+const modalTopBar = document.getElementById('modalTopBar');
+const modalPortrait = document.getElementById('modalPortrait');
+
+document.querySelectorAll('.class-card').forEach((card, idx) => {
+  card.addEventListener('click', (e) => {
+    if (e.target.closest('.card-expand-btn') || e.target.closest('.card-full-text')) return;
+    const cls = classData[idx];
+    modalName.textContent = cls.name;
+    modalRole.textContent = cls.role;
+    modalIcon.textContent = cls.icon;
+    modalTopBar.style.background = cls.color;
+    modalPortrait.style.backgroundImage = `url('${cls.img}')`;
+    modalText.innerHTML = cls.full.split('\n\n').map(p => `<p style="margin-bottom:1rem">${p}</p>`).join('');
+    modalTags.innerHTML = cls.tagLabels.map(t => `<span class="tag">${t}</span>`).join('');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ─── Filter
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilters();
+  });
+});
+
+document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+function applyFilters() {
+  const filter = document.querySelector('.filter-btn.active').dataset.filter;
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  document.querySelectorAll('.class-card').forEach(card => {
+    const tags = card.dataset.tags;
+    const name = card.dataset.name;
+    const matchFilter = filter === 'all' || tags.includes(filter);
+    const matchSearch = name.includes(search);
+    card.classList.toggle('hidden', !(matchFilter && matchSearch));
+  });
+}
+</script>
+</body>
+</html>

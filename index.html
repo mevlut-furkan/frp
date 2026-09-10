@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karanlık Hasat — Elyrion Kampanya Rehberi</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-page:       #0d0a07;
+    --bg-card:       #100d06;
+    --bg-card-hover: #1a1409;
+    --border-subtle: #2e2410;
+    --border-gold:   #7a5c10;
+    --border-glow:   #c9940a;
+    --text-heading:  #f5e6b8;
+    --text-body:     #c8b07a;
+    --text-muted:    #6d5c35;
+    --text-accent:   #d4a017;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg-page);
+    color: var(--text-body);
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  /* ===== SUBNAV ===== */
+  .subnav {
+    display: flex; justify-content: center; gap: 22px;
+    padding: 12px 20px; border-bottom: 1px solid var(--border-subtle);
+    font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 1.5px;
+    text-transform: uppercase; background: rgba(0,0,0,0.2);
+  }
+  .subnav a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .subnav a:hover, .subnav a.current { color: var(--text-accent); }
+  .subnav a.current { border-bottom: 1px solid var(--text-accent); padding-bottom: 3px; }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    text-align: center;
+    padding: 90px 20px 70px;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 0%, rgba(201,148,10,0.10) 0%, transparent 65%),
+      radial-gradient(ellipse 55% 40% at 15% 100%, rgba(80,50,150,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 40% at 85% 100%, rgba(50,100,150,0.08) 0%, transparent 60%),
+      var(--bg-page);
+    border-bottom: 1px solid var(--border-gold);
+  }
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(38px, 7vw, 74px);
+    font-weight: 900;
+    color: var(--text-heading);
+    line-height: 1.1;
+    margin-bottom: 20px;
+    text-shadow: 0 0 70px rgba(201,148,10,0.18);
+  }
+  .hero h1 span { color: var(--text-accent); }
+  .hero-lore {
+    max-width: 680px;
+    margin: 0 auto 26px;
+    font-size: 17.5px;
+    color: var(--text-body);
+    line-height: 1.75;
+  }
+  .hero-lore em { color: var(--text-heading); font-style: italic; }
+  .ornament { color: var(--text-accent); font-size: 20px; letter-spacing: 10px; }
+
+  /* ===== PORTALS ===== */
+  .portals {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 64px 20px 30px;
+  }
+  .portals-heading {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .portal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+  }
+  .portal-card {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    overflow: hidden;
+    height: 420px;
+    background: var(--bg-card);
+    transition: border-color 0.25s, transform 0.2s;
+  }
+  .portal-card:hover {
+    border-color: var(--portal-accent, var(--border-gold));
+    transform: translateY(-4px);
+  }
+  .portal-img {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: var(--portal-pos, center 20%);
+    filter: brightness(0.55) saturate(0.9);
+    transition: transform 0.5s ease, filter 0.4s ease;
+  }
+  .portal-card:hover .portal-img {
+    transform: scale(1.04);
+    filter: brightness(0.65) saturate(1);
+  }
+  .portal-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(8,6,3,0.94) 0%, rgba(8,6,3,0.55) 42%, rgba(8,6,3,0.05) 75%);
+  }
+  .portal-content {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 26px 26px 28px;
+  }
+  .portal-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 10.5px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--portal-accent, var(--text-accent));
+    margin-bottom: 8px;
+  }
+  .portal-title {
+    font-family: 'Cinzel', serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--text-heading);
+    margin-bottom: 10px;
+  }
+  .portal-desc {
+    font-size: 15px;
+    color: var(--text-body);
+    line-height: 1.6;
+    max-width: 42ch;
+    margin-bottom: 14px;
+  }
+  .portal-cta {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-heading);
+    border: 1px solid rgba(245,230,184,0.35);
+    border-radius: 3px;
+    padding: 7px 16px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .portal-card:hover .portal-cta {
+    border-color: var(--portal-accent, var(--border-glow));
+    color: var(--portal-accent, var(--text-accent));
+  }
+
+  .portal-card.no-img .portal-img {
+    background-image:
+      radial-gradient(ellipse 70% 60% at 50% 30%, color-mix(in srgb, var(--portal-accent, var(--text-accent)) 22%, transparent) 0%, transparent 70%),
+      linear-gradient(160deg, #17130a 0%, #0d0a07 100%);
+  }
+  .portal-card.no-img .portal-glyph {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 90px;
+    color: var(--portal-accent, var(--text-accent));
+    opacity: 0.16;
+    font-family: 'Cinzel', serif;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.4s ease;
+  }
+  .portal-card.no-img:hover .portal-glyph {
+    opacity: 0.26;
+    transform: scale(1.05);
+  }
+
+  /* ===== ABOUT STRIP ===== */
+  .about {
+    max-width: 760px;
+    margin: 70px auto 0;
+    padding: 0 20px 70px;
+    text-align: center;
+  }
+  .about p {
+    font-size: 15.5px;
+    font-style: italic;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  footer {
+    border-top: 1px solid var(--border-subtle);
+    text-align: center;
+    padding: 22px 20px;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-style: italic;
+  }
+
+  @media (max-width: 480px) {
+    .portal-card { height: 360px; }
+    .portal-title { font-size: 25px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="subnav">
+  <a href="index.html" target="_top" class="current">&#8962; Ana Sayfa</a>
+  <a href="irklar.html" target="_top">Irklar</a>
+  <a href="siniflar.html" target="_top">Sınıflar</a>
+  <a href="hunerler.html" target="_top">Hünerler</a>
+</nav>
+
+<header class="hero">
+  <p class="hero-eyebrow">Elyrion: Ulusların Kıtası &mdash; 1492</p>
+  <h1>Karanlık <span>Hasat</span></h1>
+  <p class="hero-lore">Büyük Felaket'in gölgesi hâlâ Elyrion'un üzerinde. Krallıklar parçalanmış, halklar dağılmış, eski yeminler unutulmaya yüz tutmuş. Bu topraklarda <em>kim olacağın</em> ve <em>neyi savunacağın</em> senin elinde.</p>
+  <div class="ornament">&#10022; &mdash; &#10022; &mdash; &#10022;</div>
+</header>
+
+<main class="portals">
+  <p class="portals-heading">Maceraya Nereden Başlıyorsun?</p>
+  <div class="portal-grid">
+    <a class="portal-card" href="irklar.html" target="_top" style="--portal-accent:#c9940a; --portal-pos:center 22%;">
+      <div class="portal-img" style="background-image:url('images/tiefling.png')"></div>
+      <div class="portal-overlay"></div>
+      <div class="portal-content">
+        <p class="portal-eyebrow">28 Halk &mdash; İnsansı, Fey, İlahi, Elemental</p>
+        <h2 class="portal-title">Irklar</h2>
+        <p class="portal-desc">Elyrion'un kadim halklarını keşfedin: kökenleri, gelenekleri ve doğuştan gelen güçleri.</p>
+        <span class="portal-cta">Irk Rehberine Gir</span>
+      </div>
+    </a>
+    <a class="portal-card" href="siniflar.html" target="_top" style="--portal-accent:#8a6e2f; --portal-pos:center 18%;">
+      <div class="portal-img" style="background-image:url('images/warlock.jpg')"></div>
+      <div class="portal-overlay"></div>
+      <div class="portal-content">
+        <p class="portal-eyebrow">19 Yol &mdash; Yakın Dövüş, Büyü, Destek, Gizlilik</p>
+        <h2 class="portal-title">Sınıflar</h2>
+        <p class="portal-desc">Bir öfke, bir melodi, bir yemin ya da bir lanet &mdash; olacağın varoluş biçimini seçin.</p>
+        <span class="portal-cta">Sınıfları Keşfet</span>
+      </div>
+    </a>
+    <a class="portal-card no-img" href="hunerler.html" target="_top" style="--portal-accent:#b09ee0;">
+      <div class="portal-img"></div>
+      <div class="portal-glyph">&#10022;</div>
+      <div class="portal-overlay"></div>
+      <div class="portal-content">
+        <p class="portal-eyebrow">Dövüş, Büyü, Yetenek, Zırh, Irk, Genel</p>
+        <h2 class="portal-title">Hünerler</h2>
+        <p class="portal-desc">Karakterini keskinleştiren özel yetenekler &mdash; kategoriye ve ön şarta göre filtreleyip arayın.</p>
+        <span class="portal-cta">Hüner Ansiklopedisine Gir</span>
+      </div>
+    </a>
+  </div>
+</main>
+
+<div class="about">
+  <p>Bu rehber, "Karanlık Hasat" kampanya kitabının karakter oluşturma bölümlerini içerir. Bir ırk ve sınıf seçerek Elyrion'da kendi hikayenizi yazmaya başlayın.</p>
+</div>
+
+<footer>
+  <p>Karanlık Hasat Kampanya Kitabı &mdash; Tüm haklar yazarlarına aittir.</p>
+</footer>
+
+</body>
+</html>

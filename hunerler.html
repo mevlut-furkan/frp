@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hünerler — D&D 5e Ansiklopedisi</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #0b0a12;
+  --bg2:      #111020;
+  --bg3:      #18162a;
+  --border:   rgba(160,140,220,0.15);
+  --purple:   #7c5cbb;
+  --purple-l: #b09ee0;
+  --purple-d: #4a3480;
+  --gold:     #c9a84c;
+  --gold-l:   #e8d090;
+  --silver:   #a8b8cc;
+  --text:     #cfc9e8;
+  --text-dim: #7a748a;
+  --glow:     rgba(124,92,187,0.18);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 17px;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  min-height: 56vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  padding: 5rem 2rem 3.5rem;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% -10%, rgba(100,60,200,0.4) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 50% at 10% 110%, rgba(60,40,120,0.25) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 50% at 90% 110%, rgba(80,50,150,0.2) 0%, transparent 55%),
+    var(--bg);
+  z-index: 0;
+}
+/* floating orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  animation: orbDrift ease-in-out infinite alternate;
+  z-index: 0;
+}
+@keyframes orbDrift {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(var(--dx,20px), var(--dy,15px)); }
+}
+.hero-content { position: relative; z-index: 1; max-width: 780px; }
+
+.hero-symbol {
+  font-size: 2.6rem;
+  margin-bottom: 1.4rem;
+  filter: drop-shadow(0 0 20px rgba(180,140,255,0.6));
+  display: block;
+}
+.hero h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.6rem, 6vw, 4.8rem);
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: 1.2rem;
+  text-shadow: 0 0 50px rgba(160,120,255,0.35);
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--purple-l), var(--gold-l));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: 1.1rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--silver);
+  max-width: 520px;
+  margin: 0 auto 2.5rem;
+}
+.hero-stats {
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+.stat-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.stat-num {
+  font-family: 'Cinzel', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--purple-l);
+  line-height: 1;
+}
+.stat-lbl {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+}
+
+/* ── TOOLBAR ── */
+.toolbar {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 2rem;
+  position: sticky; top: 0; z-index: 200;
+  display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;
+}
+.filter-group { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; flex: 1; }
+.filter-lbl {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-right: 0.3rem;
+  white-space: nowrap;
+}
+.f-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 0.3rem 0.9rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.07em;
+  cursor: pointer;
+  transition: all 0.18s;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-radius: 2px;
+}
+.f-btn:hover { border-color: var(--purple); color: var(--purple-l); background: rgba(124,92,187,0.08); }
+.f-btn.active { border-color: var(--purple); color: var(--purple-l); background: rgba(124,92,187,0.14); }
+
+.search-box {
+  position: relative;
+  margin-left: auto;
+}
+.search-input {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.35rem 2.2rem 0.35rem 0.9rem;
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.95rem;
+  outline: none;
+  width: 210px;
+  transition: border-color 0.2s, width 0.3s;
+  border-radius: 2px;
+}
+.search-input:focus { border-color: var(--purple-d); width: 280px; }
+.search-input::placeholder { color: var(--text-dim); font-style: italic; }
+.s-icon { position: absolute; right: 0.65rem; top: 50%; transform: translateY(-50%); color: var(--text-dim); font-size: 0.85rem; pointer-events: none; }
+
+/* ── RESULT COUNT ── */
+.result-bar {
+  max-width: 1400px; margin: 0 auto;
+  padding: 1.5rem 2rem 0.5rem;
+  display: flex; align-items: baseline; gap: 0.8rem;
+}
+.result-count {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+.result-count span { color: var(--purple-l); }
+
+/* ── GRID ── */
+.grid-wrap { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem 6rem; }
+
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.2rem;
+}
+
+/* ── CARD ── */
+.feat-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  cursor: default;
+}
+.feat-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--purple-d);
+  box-shadow: 0 8px 30px rgba(100,60,200,0.12);
+}
+.feat-card.hidden { display: none; }
+
+.card-stripe {
+  height: 2px;
+  position: absolute; top: 0; left: 0; right: 0;
+}
+
+/* category colors */
+.feat-card[data-cat="combat"]   .card-stripe { background: #c0392b; }
+.feat-card[data-cat="magic"]    .card-stripe { background: #7c5cbb; }
+.feat-card[data-cat="skill"]    .card-stripe { background: #27ae60; }
+.feat-card[data-cat="armor"]    .card-stripe { background: #2980b9; }
+.feat-card[data-cat="racial"]   .card-stripe { background: #e67e22; }
+.feat-card[data-cat="general"]  .card-stripe { background: #7f8c8d; }
+
+.card-pad { padding: 1.4rem 1.5rem 1.2rem; }
+
+.card-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+.card-icon {
+  font-size: 1.4rem;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(124,92,187,0.08);
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+.card-title-wrap { flex: 1; min-width: 0; }
+.card-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.03em;
+  line-height: 1.25;
+  margin-bottom: 0.15rem;
+}
+.card-prereq {
+  font-size: 0.78rem;
+  color: var(--gold);
+  font-style: italic;
+  line-height: 1.3;
+}
+
+.card-desc {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.65;
+  margin-bottom: 0.9rem;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.cat-badge {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.65rem;
+  border-radius: 20px;
+}
+.feat-card[data-cat="combat"]  .cat-badge { background: rgba(192,57,43,0.15);  color: #e74c3c; border: 1px solid rgba(192,57,43,0.3); }
+.feat-card[data-cat="magic"]   .cat-badge { background: rgba(124,92,187,0.15); color: #b09ee0; border: 1px solid rgba(124,92,187,0.3); }
+.feat-card[data-cat="skill"]   .cat-badge { background: rgba(39,174,96,0.12);  color: #2ecc71; border: 1px solid rgba(39,174,96,0.3); }
+.feat-card[data-cat="armor"]   .cat-badge { background: rgba(41,128,185,0.12); color: #5dade2; border: 1px solid rgba(41,128,185,0.3); }
+.feat-card[data-cat="racial"]  .cat-badge { background: rgba(230,126,34,0.12); color: #f39c12; border: 1px solid rgba(230,126,34,0.3); }
+.feat-card[data-cat="general"] .cat-badge { background: rgba(127,140,141,0.12);color: #aab7b8; border: 1px solid rgba(127,140,141,0.3); }
+
+/* expand */
+.expand-btn {
+  margin-left: auto;
+  background: none; border: none;
+  color: var(--purple);
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.09em;
+  cursor: pointer;
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 0.3rem;
+  transition: color 0.18s;
+  padding: 0;
+}
+.expand-btn:hover { color: var(--purple-l); }
+.expand-btn .arr { display: inline-block; transition: transform 0.25s; }
+.expand-btn.open .arr { transform: rotate(90deg); }
+
+.card-full {
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height 0.45s ease, opacity 0.35s;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+.card-full.open {
+  max-height: 600px; opacity: 1;
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  display: none;
+  flex-direction: column; align-items: center;
+  padding: 5rem 2rem; text-align: center;
+  color: var(--text-dim);
+}
+.empty-state.show { display: flex; }
+.empty-state .e-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
+.empty-state p { font-style: italic; }
+
+/* ── FOOTER ── */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem 2rem;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.88rem;
+  font-style: italic;
+}
+.site-footer strong { color: var(--purple); font-style: normal; font-family: 'Cinzel', serif; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em; }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--purple-d); border-radius: 3px; }
+
+@media (max-width: 600px) {
+  .feat-grid { grid-template-columns: 1fr; }
+  .search-input, .search-input:focus { width: 100%; }
+  .search-box { width: 100%; }
+  .toolbar { gap: 0.6rem; }
+}
+
+.subnav {
+  position: relative; z-index: 5;
+  display: flex; justify-content: center; gap: 22px;
+  padding: 12px 20px; border-bottom: 1px solid var(--border);
+  font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 1.5px;
+  text-transform: uppercase; background: rgba(0,0,0,0.25);
+}
+.subnav a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+.subnav a:hover, .subnav a.current { color: var(--gold-l); }
+.subnav a.current { border-bottom: 1px solid var(--gold-l); padding-bottom: 3px; }
+</style>
+</head>
+<body>
+
+<nav class="subnav">
+  <a href="index.html" target="_top">&#8962; Ana Sayfa</a>
+  <a href="irklar.html" target="_top">Irklar</a>
+  <a href="siniflar.html" target="_top">Sınıflar</a>
+  <a href="hunerler.html" target="_top" class="current">Hünerler</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="orb" style="width:300px;height:300px;background:rgba(100,60,200,0.15);top:-80px;left:-60px;--dx:30px;--dy:20px;animation-duration:9s;"></div>
+  <div class="orb" style="width:250px;height:250px;background:rgba(180,100,80,0.1);top:10px;right:-40px;--dx:-20px;--dy:25px;animation-duration:12s;"></div>
+  <div class="hero-content">
+    <span class="hero-symbol">✦</span>
+    <h1>Hüner <em>Ansiklopedisi</em></h1>
+    <p class="hero-sub">Karakterini şekillendir. Her hüner, senin kim olduğunu tanımlar — bir savaşçının refleksi, bir büyücünün hileleri, ya da şansın el verişi.</p>
+    <div class="hero-stats">
+      <div class="stat-pill"><span class="stat-num" id="totalCount">–</span><span class="stat-lbl">Toplam Hüner</span></div>
+      <div class="stat-pill"><span class="stat-num">6</span><span class="stat-lbl">Kategori</span></div>
+      <div class="stat-pill"><span class="stat-num" id="prereqCount">–</span><span class="stat-lbl">Ön Şartlı</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <div class="filter-group">
+    <span class="filter-lbl">Kategori</span>
+    <button class="f-btn active" data-cat="all">Tümü</button>
+    <button class="f-btn" data-cat="combat">⚔️ Dövüş</button>
+    <button class="f-btn" data-cat="magic">🔮 Büyü</button>
+    <button class="f-btn" data-cat="skill">🎯 Yetenek</button>
+    <button class="f-btn" data-cat="armor">🛡️ Zırh</button>
+    <button class="f-btn" data-cat="racial">🌟 Irk</button>
+    <button class="f-btn" data-cat="general">🎲 Genel</button>
+  </div>
+  <div class="filter-group" style="flex:0;">
+    <button class="f-btn" id="prereqToggle" data-prereq="all">Ön Şartsız</button>
+  </div>
+  <div class="search-box">
+    <input class="search-input" type="text" id="searchInput" placeholder="Hüner ara…">
+    <span class="s-icon">⌕</span>
+  </div>
+</div>
+
+<!-- COUNT -->
+<div class="result-bar">
+  <div class="result-count"><span id="visibleCount">–</span> hüner gösteriliyor</div>
+</div>
+
+<!-- GRID -->
+<div class="grid-wrap">
+  <div class="feat-grid" id="featGrid"></div>
+  <div class="empty-state" id="emptyState">
+    <div class="e-icon">🔍</div>
+    <p>Bu arama için hüner bulunamadı.</p>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <strong>D&D 5e</strong> — Hüner Ansiklopedisi
+</footer>
+
+<script>
+const feats = [
+  {
+    name: "Actor",
+    tr: "Oyuncu",
+    icon: "🎭",
+    cat: "skill",
+    catLabel: "Yetenek",
+    prereq: null,
+    short: "Karizmanı 1 artır. Başkasını taklit etmeye çalışırken Aldatma ve Performans kontrollerinde avantaj kazan. Ses taklidi yap.",
+    full: "Karizmanı 1 artır (max 20). Başkasını taklit etmeye çalışırken Karizma (Aldatma) ve Karizma (Performans) kontrollerinde avantaj kazanırsın. En az 1 dakika duyduğun bir kişinin konuşmasını veya yaratığın sesini taklit edebilirsin. Başarılı bir Bilgelik (Kavrayış) kontrolü (senin Karizma/Aldatma kontrol ile yarışır) dinleyicinin bunun sahte olduğunu anlamasını sağlar."
+  },
+  {
+    name: "Alert",
+    tr: "Tetikte",
+    icon: "👁️",
+    cat: "general",
+    catLabel: "Genel",
+    prereq: null,
+    short: "+5 inisiyatif bonusu. Bilinçliyken sürpriz yiyemezsin. Seni göremeyenler saldırılarında avantaj kazanamaz.",
+    full: "+5 inisiyatif bonusu kazanırsın. Bilinçliyken sürpriz yiyemezsin. Seni göremeyen yaratıklar sana karşı saldırı zarlarında avantaj kazanamaz."
+  },
+  {
+    name: "Athlete",
+    tr: "Atlet",
+    icon: "🏃",
+    cat: "general",
+    catLabel: "Genel",
+    prereq: null,
+    short: "Güç veya Çevikliği 1 artır. Yerden kalkmak sadece 5 ft. hareket kullanır. Tırmanmak ek hareket gerektirmez.",
+    full: "Güç veya Çevikliği 1 artır (max 20). Yerde yatarken, kalkmak sadece 5 feet hareket kullanır. Tırmanmak sana ek hareket maliyeti çıkarmaz. 10 feet yerine sadece 5 feet koştuktan sonra koşmalı uzun atlama veya yüksek atlama yapabilirsin."
+  },
+  {
+    name: "Blood Magic",
+    tr: "Kan Büyüsü",
+    icon: "🩸",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "En az bir büyü yapabilme yeteneği",
+    short: "Harcanan büyü yuvalarını geri kazanmak için HP feda et. 5. seviye ve üstü yuvalar geri kazanılamaz.",
+    full: "Eylem olarak, geri kazanmak istediğin büyü yuvasının seviyesiyle en büyük Vuruş Zarın'ın maksimum değerinin çarpımı kadar HP kaybedebilirsin. Bu şekilde kaybettiğin HP'yi, bir uzun dinlenme bitirene kadar hiçbir şekilde (büyü dahil) geri kazanamazsın. Geri kazanılan yuvalar 5. seviyeden yüksek olamaz."
+  },
+  {
+    name: "Charger",
+    tr: "Hücumcu",
+    icon: "⚡",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Koşu eylemi kullandıktan sonra bonus eylem olarak yakın dövüş saldırısı veya itme yapabilirsin.",
+    full: "Koşu eyleminizi kullandığınızda, bonus eylem olarak bir yakın dövüş silahı saldırısı yapabilir veya bir yaratığı itebilirsin. Bu bonus eylemden önce düz bir çizgide en az 10 feet hareket ettiysen, ya +5 hasar bonusu kazanırsın (isabet eden yakın saldırıda) ya da hedefi 10 feet uzağa itersin (başarılı itmede)."
+  },
+  {
+    name: "Competent",
+    tr: "Yetkin",
+    icon: "📈",
+    cat: "skill",
+    catLabel: "Yetenek",
+    prereq: null,
+    short: "Bir beceri puanını 1 artır. Seçilen beceriyle ilgili bir yetenekte yeterlilik kazan.",
+    full: "Seçtiğin bir özellik puanını 1 artır (max 20). Seçilen özelliği kullanan bir yetenekte yeterlilik kazanırsın."
+  },
+  {
+    name: "Crossbow Expert",
+    tr: "Arbalet Uzmanı",
+    icon: "🏹",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Yükleme özelliğini yoksay. 5 ft. içinde ceza yok. Tek el silahıyla saldırı eyleminden sonra bonus el arbaleti saldırısı.",
+    full: "Yeterli olduğun arbaletlerin Yükleme özelliğini yoksayarsın. Düşman yaratığın 5 feet yakınındayken menzilli saldırı zarlarında dezavantaj almadan saldırabilirsin. Saldırı eylemi kullanarak tek elli bir silahla saldırırken, tuttuğun el arbaleti ile bonus eylem olarak saldırabilirsin."
+  },
+  {
+    name: "Crusher",
+    tr: "Ezici",
+    icon: "🔨",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Güç veya Anayasayı 1 artır. Künt hasar veren saldırılarda hedefi 5 ft. it. Kritik isabet sonrası hedef avantaj ile vurulur.",
+    full: "Güç veya Anayasayı 1 artır (max 20). Turda bir kez, künt hasar veren bir saldırıyla isabet ettiğinde, hedefi boş bir alana 5 feet itebilirsin (hedef senden en fazla bir beden büyüklüğü büyük olmalı). Künt hasar veren kritik isabet ettiğinde, bir sonraki turunun başına kadar o yaratığa karşı saldırı zarları avantajla yapılır."
+  },
+  {
+    name: "Defensive Duelist",
+    tr: "Savunmacı Düellocu",
+    icon: "🤺",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: "Çeviklik 13 veya daha yüksek",
+    short: "Yakın dövüşte bir yaratık sana isabetle vururken, tepki olarak ZB'ni ZS'ye ekle.",
+    full: "Yeterli olduğun, zarafet özelliğine sahip bir silah tutarken, bir yaratık sana yakın saldırıyla isabetle vurursa tepki olarak yeterlilik bonusunu ZS'ne ekleyebilirsin ve bu saldırının seni ıskalama ihtimali doğabilir."
+  },
+  {
+    name: "Dual Wielder",
+    tr: "Çift Silah Ustası",
+    icon: "⚔️",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "+1 ZS. Her iki elde ağır olmayan yerine her iki elde herhangi bir tek el silahıyla çift silah kullanabilirsin.",
+    full: "Her iki elinde ayrı bir yakın dövüş silahı tutarken +1 ZS bonusu kazanırsın. Çift silah kullanımı, artık ışık özelliğe sahip olmayan tek elli yakın silahlarla da kullanılabilir. Normal olarak sadece bir silah çekip/kaldırabileceğin durumlarda iki tek elli silah çekip/kaldırabilirsin."
+  },
+  {
+    name: "Dungeon Delver",
+    tr: "Zindan Avcısı",
+    icon: "🗺️",
+    cat: "general",
+    catLabel: "Genel",
+    prereq: null,
+    short: "Gizli kapı ve tuzak aramada avantaj. Tuzak kurtarma zarlarında avantaj. Tuzak hasarına direnç. Hızlı yürüyüşte -5 cezası yok.",
+    full: "Gizli kapıları tespit etmek için yapılan Bilgelik (Algı) ve Zeka (Araştırma) kontrollerinde avantaj kazanırsın. Tuzaklardan kaçmak veya direnmek için yapılan kurtarma zarlarında avantaj kazanırsın. Tuzakların verdiği hasara direnç kazanırsın. Hızlı tempoda seyahat ederken pasif Bilgelik (Algı) puanındaki normal -5 cezasını almayaz."
+  },
+  {
+    name: "Durable",
+    tr: "Dayanıklı",
+    icon: "💪",
+    cat: "general",
+    catLabel: "Genel",
+    prereq: null,
+    short: "Anayasayı 1 artır. Vuruş Zarı atarken kazanılan min. HP, Anayasa modifikatörünün iki katına eşittir (min. 2).",
+    full: "Anayasayı 1 artır (max 20). HP geri kazanmak için Vuruş Zarı attığında, zardan kazanılan min. HP, Anayasa modifikatörünün iki katına eşittir (minimum 2)."
+  },
+  {
+    name: "Eldritch Adept",
+    tr: "Esrarlı Kabiliyet Uzmanı",
+    icon: "🌀",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "Büyü Yapma veya Pakt Büyüsü özelliği",
+    short: "Warlock sınıfından seçtiğin bir Esrarlı Kabiliyet seçeneği öğren.",
+    full: "Okültizm incelemesiyle içindeki esrarlı gücü açıkladın: warlock sınıfından seçtiğin bir Esrarlı Kabiliyet seçeneği öğrenirsin. Kabiliyet bir ön koşul gerektiriyorsa, onu yalnızca o ön koşulu karşılayan bir warlock olarak seçebilirsin. Her seviye atladığında bu kabiliyet değiştirebilirsin."
+  },
+  {
+    name: "Elemental Adept",
+    tr: "Element Uzmanı",
+    icon: "🔥",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "En az bir büyü yapabilme yeteneği",
+    short: "Asit, soğuk, ateş, yıldırım veya gök gürültüsünden birini seç. Büyülerin bu elemana direnci yoksayar. 1'leri 2 say.",
+    full: "Bu hüneri aldığında şunlardan birini seç: asit, soğuk, ateş, yıldırım veya gök gürültüsü. Yaptığın büyüler, seçilen hasar tipine karşı direnci yoksayar. Ayrıca bu tipte hasar veren bir büyü zarı attığında, hasar zarındaki 1'leri 2 olarak sayabilirsin. Bu hüneri birden fazla kez seçebilirsin; her seferinde farklı bir hasar tipi seçmelisin."
+  },
+  {
+    name: "Fey Touched",
+    tr: "Periler Dokunuşu",
+    icon: "🧚",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: null,
+    short: "Zeka, Bilgelik veya Karizmayı 1 artır. Misty step ve 1. seviye bir büyü öğren, her birini slot harcamadan günde bir kez kullan.",
+    full: "Zeka, Bilgelik veya Karizmanı 1 artır (max 20). Misty step büyüsünü ve kendi seçtiğin 1. seviye bir büyüyü öğrenirsin (kehanet veya büyülenme okulu). Bu büyüleri büyü yuvası harcamadan kullanabilirsin — her birini bu şekilde bir uzun dinlenmede bir kez kullanabilirsin. Yeterli büyü yuvan varsa yuvalarla da kullanılabilirler."
+  },
+  {
+    name: "Fighting Initiate",
+    tr: "Dövüş Başlangıcı",
+    icon: "🥊",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: "Savaş silahında yeterlilik",
+    short: "Savaşçı sınıfından seçtiğin bir Dövüş Stili seçeneği öğren.",
+    full: "Savaş eğitimin, belirli bir dövüş stili geliştirmene yardımcı oldu: fighter sınıfından seçtiğin bir Dövüş Stili seçeneği öğrenirsin. Zaten bir stilin varsa, yenisi farklı olmalı. Özellik Puanı Gelişimi kazandığın her seviyede, bu hünerin stilini sahip olmadığın başka bir fighter stiline değiştirebilirsin."
+  },
+  {
+    name: "Grappler",
+    tr: "Güreşçi",
+    icon: "🤼",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: "Güç 13 veya daha yüksek",
+    short: "Güreştiğin yaratığa saldırılarda avantaj. Eylem kullanarak güreştiğin yaratığı sabitleyebilirsin.",
+    full: "Güreştiğin yaratığa karşı saldırı zarlarında avantaj kazanırsın. Eylemini kullanarak güreştiğin bir yaratığı sabitlemeye çalışabilirsin. Bunu yapmak için başka bir güreş kontrolü yaparsın. Başarılı olursan, güreş bitene kadar hem sen hem de yaratık kısıtlanmış sayılırsınız."
+  },
+  {
+    name: "Great Weapon Master",
+    tr: "Büyük Silah Ustası",
+    icon: "🗡️",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Kritik isabet veya düşürme sonrası bonus eylem saldırısı. -5 saldırı karşılığında +10 hasar seçeneği.",
+    full: "Turunda yakın silahla kritik isabet ettiğinde veya bir yaratığı 0 HP'ye düşürdüğünde, bonus eylem olarak bir yakın dövüş silahı saldırısı yapabilirsin. Yeterli olduğun ağır bir yakın silahla saldırıdan önce, saldırı zarına -5 ceza almayı seçebilirsin. İsabet ederse, saldırının hasarına +10 eklersin."
+  },
+  {
+    name: "Healer",
+    tr: "Şifacı",
+    icon: "⚕️",
+    cat: "general",
+    catLabel: "Genel",
+    prereq: null,
+    short: "Durdurmak için kullanılan iyileştiriciye +1 HP ekle. Eylem ile iyileştirici kitiyle 1d6+4+HD HP'ye kadar iyileştir.",
+    full: "Ölen bir yaratığı stabilize etmek için şifacı kiti kullandığında, o yaratık aynı zamanda 1 HP geri kazanır. Eylem olarak, bir yaratığa bakım vermek için şifacı kitinin bir kullanımını harcayabilir ve 1d6+4+yaratığın max Vuruş Zarı sayısı kadar HP geri kazandırabilirsin. Yaratık, kısa veya uzun dinlenme bitirene kadar bu hünerden tekrar HP kazanamaz."
+  },
+  {
+    name: "Heavily Armored",
+    tr: "Ağır Zırh Uzmanı",
+    icon: "🛡️",
+    cat: "armor",
+    catLabel: "Zırh",
+    prereq: "Orta zırh yeterliliği",
+    short: "Gücü 1 artır. Ağır zırh yeterliliği kazan.",
+    full: "Gücünü 1 artır (max 20). Ağır zırh yeterliliği kazanırsın."
+  },
+  {
+    name: "Heavy Armor Master",
+    tr: "Ağır Zırh Ustası",
+    icon: "⚙️",
+    cat: "armor",
+    catLabel: "Zırh",
+    prereq: "Ağır zırh yeterliliği",
+    short: "Gücü 1 artır. Ağır zırh giyerken büyüsüz saldırıların künt/deli/kesme hasarını 3 azalt.",
+    full: "Gücünü 1 artır (max 20). Ağır zırh giyerken büyüsüz saldırılardan aldığın künt, deli ve kesme hasarı 3 azalır."
+  },
+  {
+    name: "Inspiring Leader",
+    tr: "İlham Veren Lider",
+    icon: "👑",
+    cat: "skill",
+    catLabel: "Yetenek",
+    prereq: "Karizm 13 veya daha yüksek",
+    short: "10 dakikada 6 dosta seviye + Karizm mod. kadar geçici HP ver.",
+    full: "Yoldaşlarına ilham vermek için 10 dakika harcayabilirsin. Bunu yaptığında, 30 feet içinde seni görebilen veya duyabilen ve seni anlayabilen 6 dost yaratık seçersin (kendin dahil). Her yaratık, seviyene + Karizm modifikatörüne eşit geçici HP kazanabilir. Kısa veya uzun dinlenme bitirene kadar bu hünerden tekrar geçici HP kazanamaz."
+  },
+  {
+    name: "Keen Mind",
+    tr: "Keskin Zihin",
+    icon: "🧠",
+    cat: "skill",
+    catLabel: "Yetenek",
+    prereq: null,
+    short: "Zekayı 1 artır. Her zaman kuzeyi bil, güneş vakitlerini bil, son bir aydaki gördüklerini hatırla.",
+    full: "Zekayı 1 artır (max 20). Her zaman hangi yönün kuzey olduğunu bilirsin. Bir sonraki gün doğumu veya batımına kaç saat kaldığını her zaman bilirsin. Son ay içinde gördüğün veya duyduğun her şeyi doğru biçimde hatırlayabilirsin."
+  },
+  {
+    name: "Lightly Armored",
+    tr: "Hafif Zırh Uzmanı",
+    icon: "👘",
+    cat: "armor",
+    catLabel: "Zırh",
+    prereq: null,
+    short: "Güç veya Çevikliği 1 artır. Hafif zırh yeterliliği kazan.",
+    full: "Güç veya Çevikliği 1 artır (max 20). Hafif zırh yeterliliği kazanırsın."
+  },
+  {
+    name: "Linguist",
+    tr: "Dilbilimci",
+    icon: "📜",
+    cat: "skill",
+    catLabel: "Yetenek",
+    prereq: null,
+    short: "Zekayı 1 artır. 3 dil öğren. Şifreli yazı oluşturmayı öğren.",
+    full: "Zekayı 1 artır (max 20). Seçtiğin 3 dili öğrenirsin. Yazılı şifreler oluşturabilirsin. Başkaları, sana öğretmediğin sürece, Zeka kontrolü başarılı olmadıkça (ZS Zeka puanın + yeterlilik bonusu) veya büyü kullanmadıkça oluşturduğun şifreyi çözemez."
+  },
+  {
+    name: "Lucky",
+    tr: "Şanslı",
+    icon: "🍀",
+    cat: "general",
+    catLabel: "Genel",
+    prereq: null,
+    short: "3 şans puanı. Saldırı, kontrol veya kurtarma zarları için ekstra d20 at ve hangisini kullanacağını seç.",
+    full: "3 şans puanın var. Saldırı zarı, yetenek kontrolü veya kurtarma zarı attığında, bir şans puanı harcayarak ek bir d20 atabilirsin. Zarı attıktan sonra ama sonuç belirlenmeden önce harcayabilirsin. Hangi d20'nin kullanılacağını sen seçersin. Ayrıca sana karşı saldırı zarı atıldığında bir şans puanı harcayabilir ve atanı senin zarın mı yoksa onun zarı mı kullanılacağına karar verebilirsin. Uzun dinlenmede şans puanları yenilenir."
+  },
+  {
+    name: "Mage Slayer",
+    tr: "Büyücü Katili",
+    icon: "🔪",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "5 ft. yakında büyü yapana tepki saldırısı. Konsantrasyon kurtarma zarlarında dezavantaj. 5 ft. içindeki büyüye kurtarma avantajı.",
+    full: "5 feet içindeki bir yaratık büyü yaptığında, tepki olarak o yaratığa yakın saldırı yapabilirsin. Konsantre olduğu bir büyüyü sürdürmek için kurtarma zarı atan bir yaratığa hasar verdiğinde, o yaratık konsantrasyon kurtarma zarında dezavantajla atar. 5 feet içindeki yaratıkların yaptığı büyülere karşı kurtarma zarlarında avantaj kazanırsın."
+  },
+  {
+    name: "Magic Initiate",
+    tr: "Büyü Başlangıcı",
+    icon: "✨",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: null,
+    short: "Bard, cleric, druid, sorcerer, warlock veya wizard listesinden 2 cantrip + 1. seviye büyü öğren.",
+    full: "Şu sınıflardan birini seç: bard, cleric, druid, sorcerer, warlock veya wizard. O sınıfın büyü listesinden seçtiğin 2 büyü hilesini öğrenirsin. Aynı listeden 1. seviye bir büyü öğrenirsin — bu hünerle en düşük seviyesinde günde bir kez kullanabilirsin (uzun dinlenmede yenilenir). Büyü yapma yeteneğin seçtiğin sınıfa göre belirlenir."
+  },
+  {
+    name: "Martial Adept",
+    tr: "Savaş Uzmanı",
+    icon: "🥋",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Battle Master manevraları listesinden 2 manevra ve 1 adet d6 üstünlük zarı kazan.",
+    full: "Fighter sınıfının Battle Master arketipinde bulunan manevraları arasından seçtiğin 2 manevrayı öğrenirsin. Maneuver'ın kurtarma ZS'si: 8 + yeterlilik bonusu + Güç veya Çeviklik (seçimine göre). 1 adet üstünlük zarı (d6) kazanırsın — bu zar kısa veya uzun dinlenmede yenilenir."
+  },
+  {
+    name: "Medium Armor Master",
+    tr: "Orta Zırh Ustası",
+    icon: "🔰",
+    cat: "armor",
+    catLabel: "Zırh",
+    prereq: "Orta zırh yeterliliği",
+    short: "Orta zırh giyerken Gizlilik kontrollerine dezavantaj yok. Çeviklik 16+ ise ZS'ye 2 yerine 3 ekle.",
+    full: "Orta zırh giyerken Çeviklik (Gizlilik) kontrollerinde dezavantaj almayaz. Orta zırh giyerken Çevikliğin 16 veya daha yüksekse ZS'ne 2 yerine 3 ekleyebilirsin."
+  },
+  {
+    name: "Medium Weapon Master",
+    tr: "Orta Silah Ustası",
+    icon: "🗡️",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Orta silahlarla saldırı zarını yeniden at (kısa/uzun dinlenmede). -3 saldırı karşılığında +6 hasar.",
+    full: "Orta bir silahla (ne ağır ne hafif) saldırı zarı attığında, zarı yeniden atabilir ve yeni sonucu kullanmalısın — kısa veya uzun dinlenmede yenilenir. Yeterli olduğun orta bir yakın silahla saldırıdan önce, saldırı zarına -3 ceza almayı seçebilirsin; isabet ederse hasara +6 eklersin."
+  },
+  {
+    name: "Mobile",
+    tr: "Çevik",
+    icon: "💨",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Hareket hızı +10 ft. Koşu eyleminde zorlu arazi ek hareket gerektirmez. Yakın saldırı sonrası fırsat saldırısı provoke etmezsin.",
+    full: "Hareket hızın 10 feet artar. Koşu eylemi kullandığında, o turda zorlu arazi ek hareket maliyeti çıkarmaz. Bir yaratığa yakın saldırı yaptığında, o turda ister isabet ister ıskalasın, o yaratık senden fırsat saldırısı yapamaz."
+  },
+  {
+    name: "Moderately Armored",
+    tr: "Orta Zırh Uzmanı",
+    icon: "🛡️",
+    cat: "armor",
+    catLabel: "Zırh",
+    prereq: "Hafif zırh yeterliliği",
+    short: "Güç veya Çevikliği 1 artır. Orta zırh ve kalkan yeterliliği kazan.",
+    full: "Güç veya Çevikliği 1 artır (max 20). Orta zırh ve kalkan yeterliliği kazanırsın."
+  },
+  {
+    name: "Mounted Combatant",
+    tr: "Binekteki Savaşçı",
+    icon: "🐴",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Binekten küçük düşmanlara yakın saldırılarda avantaj. Bineğe yönelik saldırıları üstüne al. Bineğin DEX kurtarmalarını güçlendir.",
+    full: "Binekli ve kendinden geçmiş değilken: binekten daha küçük olmayan unmounted yaratıklara karşı yakın saldırı zarlarında avantaj kazanırsın. Bineğine yönelik bir saldırıyı hedef alacak şekilde yönlendirebilirsin. Bineğin, sadece yarım hasar almak için Çeviklik kurtarma zarı yapacağı bir etkiye tabi kalırsa, başarılı olursa hiç hasar almaz, başarısız olursa yarım hasar alır."
+  },
+  {
+    name: "Observant",
+    tr: "Gözlemci",
+    icon: "🔎",
+    cat: "skill",
+    catLabel: "Yetenek",
+    prereq: null,
+    short: "Zeka veya Bilgeliği 1 artır. Dudak okuma. Pasif Algı ve Araştırmaya +5 bonus.",
+    full: "Zeka veya Bilgeliği 1 artır (max 20). Bildiğin bir dilde konuşan bir yaratığın ağzını görebiliyorsan, dudak okuyarak ne söylediğini anlayabilirsin. Pasif Bilgelik (Algı) ve pasif Zeka (Araştırma) puanlarına +5 bonus kazanırsın."
+  },
+  {
+    name: "Piercer",
+    tr: "Delici",
+    icon: "🗡️",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Güç veya Çevikliği 1 artır. Deli hasar veren saldırıda hasar zarını yeniden at. Kritik isabette ek hasar zarı.",
+    full: "Güç veya Çevikliği 1 artır (max 20). Turda bir kez, deli hasar veren bir saldırıyla isabet ettiğinde, saldırının hasar zarlarından birini yeniden atabilir ve yeni sonucu kullanmalısın. Deli hasar veren kritik isabet ettiğinde, hedefe ek deli hasar zarı atabilirsin."
+  },
+  {
+    name: "Polearm Master",
+    tr: "Uzun Silah Ustası",
+    icon: "🪃",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Büyük silahla saldırı eyleminden sonra bonus saldırı. Menzil içine girerken fırsat saldırısı provoke ederler.",
+    full: "Saldırı eylemiyle yalnızca bir glaive, halberd, quarterstaff veya mızrakla saldırırken, bonus eylem olarak silahın ters ucuyla yakın saldırı yapabilirsin (d4 künt hasar, aynı yetenek mod). Glaive, halberd, pike, quarterstaff veya mızrak tutarken, düşman yaratıklar silahın menziline girdiklerinde senden fırsat saldırısı provoke ederler."
+  },
+  {
+    name: "Resilient",
+    tr: "Dirençli",
+    icon: "🛡️",
+    cat: "general",
+    catLabel: "Genel",
+    prereq: null,
+    short: "Seçtiğin bir özellik puanını 1 artır. O özellikle yapılan kurtarma zarlarında yeterlilik kazan.",
+    full: "Bir özellik puanı seçersin. O özellik puanını 1 artırırsın (max 20) ve o özellikle yapılan kurtarma zarlarında yeterlilik kazanırsın."
+  },
+  {
+    name: "Ritual Caster",
+    tr: "Ritüel Büyücüsü",
+    icon: "📖",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "Zeka veya Bilgelik 13 veya daha yüksek",
+    short: "Ritüel olarak 1. seviye 2 büyü öğren ve daha sonra yeni ritüeller ekle.",
+    full: "Seçtiğin bir sınıftan (bard, cleric, druid, sorcerer, warlock veya wizard) ritüel etiketine sahip iki 1. seviye büyü öğrenirsin. Bunlar bir ritüel kitabına yazılır ve elinde tutarken kullanabilirsin. Yazılı formda (parşömen, büyücü kitabı gibi) karşılaştığın ritüel büyülerini kitabına ekleyebilirsin — seviyeni aşmamalı ve ritual etiketi olmalı. Kopyalama süreci büyü başına 2 saat + 50 gp'dir."
+  },
+  {
+    name: "Savage Attacker",
+    tr: "Vahşi Saldırgan",
+    icon: "💢",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Turda bir kez yakın saldırı hasar zarlarını yeniden at, istediğin toplamı kullan.",
+    full: "Turda bir kez, yakın dövüş silahı saldırısı için hasar zarlarını attığında, silahın hasar zarlarını yeniden atabilir ve iki toplam arasından istediğini kullanabilirsin."
+  },
+  {
+    name: "Sentinel",
+    tr: "Nöbetçi",
+    icon: "🚨",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Fırsat saldırısı isabet edince hedefin hızı 0 olur. Uzaklaşma eylemi korumaz. Başkasına saldırırken tepki saldırısı.",
+    full: "Fırsat saldırısıyla isabet ettiğinde, hedefin hızı turun geri kalanı için 0 olur. Uzaklaşma eylemi yapan yaratıklar bile senden fırsat saldırısı provoke eder. Bir yaratık senden başka bir hedefe saldırdığında (hedefin bu hüneri yok), tepki olarak o saldıran yaratığa yakın saldırı yapabilirsin."
+  },
+  {
+    name: "Shadow Touched",
+    tr: "Gölge Dokunuşu",
+    icon: "🌑",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: null,
+    short: "Zeka/Bilgelik/Karizm 1 artır. Invisibility ve 1. seviye bir illüzyon/nekromansı büyüsü öğren, günde birer kez slot harcamadan.",
+    full: "Zeka, Bilgelik veya Karizmanı 1 artır (max 20). Invisibility büyüsünü ve seçtiğin 1. seviye bir büyüyü (illüzyon veya nekromansı okulu) öğrenirsin. Bu büyüleri büyü yuvası harcamadan kullanabilirsin — her birini uzun dinlenmede bir kez. Yeterli yuvalarla da kullanılabilirler."
+  },
+  {
+    name: "Sharpshooter",
+    tr: "Keskin Nişancı",
+    icon: "🎯",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Uzun menzilde dezavantaj yok. Yarım ve üç çeyrek örtü yoksay. -5 saldırı karşılığında +10 hasar.",
+    full: "Uzun menzilde menzilli saldırı zarlarında dezavantaj almayaz. Menzilli silah saldırıların yarım örtü ve üç çeyrek örtüyü yoksayar. Yeterli olduğun bir menzilli silahla saldırıdan önce, saldırı zarına -5 ceza almayı seçebilirsin; isabet ederse hasara +10 eklersin."
+  },
+  {
+    name: "Shield Master",
+    tr: "Kalkan Ustası",
+    icon: "🛡️",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Saldırı sonrası bonus eylemle itme. Kalkan ZS bonusunu DEX kurtarmasına ekle. Tepki ile DEX kurtarma başarısında sıfır hasar.",
+    full: "Kalkan tutarken: Saldırı eylemi aldığında, bonus eylem olarak kalkanınla 5 feet içindeki bir yaratığı itmeye çalışabilirsin. Kısıtlanmamışsan, kalkanın ZS bonusunu yalnızca seni hedef alan büyü veya zararlı etkiler için Çeviklik kurtarma zarına ekleyebilirsin. Yarım hasar için Çeviklik kurtarma zarı yapacağın bir etkiye tabi kalırsan, tepki olarak başarılı kurtarmada sıfır hasar alabilirsin."
+  },
+  {
+    name: "Skill Expert",
+    tr: "Beceri Uzmanı",
+    icon: "🏆",
+    cat: "skill",
+    catLabel: "Yetenek",
+    prereq: null,
+    short: "Bir özelliği 1 artır. Bir yetenekte yeterlilik kazan. Sahip olduğun bir yetenekte uzmanlık kazan.",
+    full: "Seçtiğin bir özellik puanını 1 artır (max 20). Seçtiğin bir yetenekte yeterlilik kazanırsın. Yeterli olduğun bir yetenekte uzmanlık kazanırsın — o yetenek kontrollerinde yeterlilik bonusu iki katına çıkar."
+  },
+  {
+    name: "Skilled",
+    tr: "Yetenekli",
+    icon: "📚",
+    cat: "skill",
+    catLabel: "Yetenek",
+    prereq: null,
+    short: "Seçtiğin 3 yetenek veya araç kombinasyonunda yeterlilik kazan.",
+    full: "Seçtiğin herhangi bir kombinasyonda 3 yetenek veya araçta yeterlilik kazanırsın."
+  },
+  {
+    name: "Skulker",
+    tr: "Sinsice Hareket Eden",
+    icon: "🕵️",
+    cat: "skill",
+    catLabel: "Yetenek",
+    prereq: "Çeviklik 13 veya daha yüksek",
+    short: "Hafifçe örtülüyken gizlenmeyi deneyebilirsin. Gizliyken ısskalayan menzilli saldırı konumunu ifşa etmez. Loşluk Algı'ya dezavantaj vermez.",
+    full: "Gizlendiğin yaratıktan hafifçe örtülüyken gizlenmeyi deneyebilirsin. Bir yaratıktan gizliyken menzilli silah saldırısı ıskaladığında, yapılan saldırı konumunu açığa çıkarmaz. Soluk ışık Bilgelik (Algı) kontrollerinde görüşe dayalı dezavantaj vermez."
+  },
+  {
+    name: "Slasher",
+    tr: "Kesici",
+    icon: "⚔️",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Güç veya Çevikliği 1 artır. Kesme hasarıyla vurunca hedefin hızı -10 ft. Kritik isabette tüm saldırılarda dezavantaj.",
+    full: "Güç veya Çevikliği 1 artır (max 20). Turda bir kez, kesme hasar veren bir saldırıyla isabet ettiğinde, bir sonraki turunun başına kadar hedefin hızını 10 feet azaltabilirsin. Kesme hasar veren kritik isabet ettiğinde, hedefi ağır biçimde yaralar — bir sonraki turunun başına kadar tüm saldırı zarlarında dezavantajla atar."
+  },
+  {
+    name: "Spell Sniper",
+    tr: "Büyü Nişancısı",
+    icon: "⚡",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "En az bir büyü yapabilme yeteneği",
+    short: "Saldırı zarı gerektiren büyülerin menzili iki katına çıkar. Yarım ve üç çeyrek örtü yoksay. Saldırı gerektiren bir cantrip öğren.",
+    full: "Saldırı zarı gerektiren bir büyü yaptığında, büyünün menzili iki katına çıkar. Menzilli büyü saldırıların yarım örtü ve üç çeyrek örtüyü yoksayar. Saldırı zarı gerektiren bir büyü hilesi öğrenirsin (seçtiğin sınıfın listesinden)."
+  },
+  {
+    name: "Tavern Brawler",
+    tr: "Meyhane Kavgacısı",
+    icon: "🍺",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Güç veya Anayasayı 1 artır. İmprovize silah ve silahsız saldırı yeterliliği. El yumruğu d4 hasar. Vuruş sonrası güreş bonus eylemi.",
+    full: "Güç veya Anayasayı 1 artır (max 20). İmprovize silahlar ve silahsız saldırılarda yeterlilik kazanırsın. Silahsız saldırın d4 kullanır. Turunda, improvize silah veya silahsız saldırıyla isabet ettiğinde, bonus eylem olarak hedefi güreşmeye çekmeye çalışabilirsin."
+  },
+  {
+    name: "Telekinetic",
+    tr: "Telekinetik",
+    icon: "🌀",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: null,
+    short: "Zeka/Bilgelik/Karizm 1 artır. Mage hand öğren (görünmez yapılabilir). Bonus eylemle yaratığı 5 ft. it veya çek.",
+    full: "Zeka, Bilgelik veya Karizmanı 1 artır (max 20). Mage hand büyü hilesini öğrenirsin; sözel ve bedensel bileşensiz kullanabilir, görünmez hale getirebilirsin. Bonus eylem olarak, görebildiğin 30 feet içindeki bir yaratığı telekinetik olarak itmeye çalışabilirsin (Güç kurtarma ZS: 8 + yeterlilik + artırılan özellik mod.) — başarısız olursa 5 feet ileriye veya arkaya itilir."
+  },
+  {
+    name: "Telepathic",
+    tr: "Telepat",
+    icon: "💬",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: null,
+    short: "Zeka/Bilgelik/Karizm 1 artır. 60 ft. içindeki görünen yaratıklara telepati. Detect Thoughts günde bir kez slot harcamadan.",
+    full: "Zeka, Bilgelik veya Karizmanı 1 artır (max 20). Görebildiğin 60 feet içindeki herhangi bir yaratıkla zihinsel olarak iletişim kurabilirsin (bildiğin dilde; yaratık sadece o dili biliyorsa anlar). Detect Thoughts büyüsünü büyü yuvası veya bileşen harcamadan yapabilirsin — uzun dinlenmede bir kez. Yeterli büyü yuvanla da kullanılabilir."
+  },
+  {
+    name: "Tough",
+    tr: "Sert",
+    icon: "❤️",
+    cat: "general",
+    catLabel: "Genel",
+    prereq: null,
+    short: "Maximum HP, mevcut seviyenin iki katı kadar artar. Her seviyede +2 HP daha.",
+    full: "Bu hüneri aldığında max HP'n, mevcut seviyenin iki katı kadar artar. Bundan sonra her seviye atladığında max HP'n 2 daha artar."
+  },
+  {
+    name: "War Caster",
+    tr: "Savaş Büyücüsü",
+    icon: "⚔️",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "En az bir büyü yapabilme yeteneği",
+    short: "Konsantrasyon kurtarma zarlarında avantaj. Silahla büyünün bedensel bileşenini yap. Fırsat saldırısı yerine büyü yap.",
+    full: "Hasar alırken konsantrasyon korumak için Anayasa kurtarma zarlarında avantaj kazanırsın. Ellerinde silah veya kalkan olduğunda büyünün bedensel bileşenlerini gerçekleştirebilirsin. Düşman bir yaratığın hareketi senden fırsat saldırısı provoke ettiğinde, tepki olarak o yaratığa 1 eylemlik bir büyü yapabilirsin (yalnızca onu hedef almalı)."
+  },
+  {
+    name: "Weapon Master",
+    tr: "Silah Ustası",
+    icon: "⚔️",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Güç veya Çevikliği 1 artır. Seçtiğin 4 silahta yeterlilik kazan.",
+    full: "Güç veya Çevikliği 1 artır (max 20). Seçtiğin 4 silahta yeterlilik kazanırsın. Her biri basit veya savaş silahı olmalı."
+  },
+  {
+    name: "Gift of the Chromatic Dragon",
+    tr: "Kromatik Ejder Armağanı",
+    icon: "🐲",
+    cat: "racial",
+    catLabel: "Irk",
+    prereq: null,
+    short: "Silaha asit/soğuk/ateş/yıldırım/zehir hasarı ekle (uzun dinlenmede). Tepki olarak hasar tipine direnç kazan.",
+    full: "Bonus eylem olarak basit veya savaş silahına asit, soğuk, ateş, yıldırım veya zehirden birini yükleyebilirsin; 1 dakika boyunca isabet ettiğinde ek 1d4 hasar verir (uzun dinlenmede yenilenir). Asit, soğuk, ateş, yıldırım veya zehir hasarı aldığında, tepki olarak o hasara direnç kazanabilirsin — yeterlilik bonusu kadar kullanılabilir (uzun dinlenmede yenilenir)."
+  },
+  {
+    name: "Blood Magic",
+    tr: "Kan Büyüsü",
+    icon: "🩸",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "En az bir büyü yapabilme yeteneği",
+    short: "HP feda ederek harcanan büyü yuvalarını geri kazan. 5. seviye ve üstü yuvalar geri kazanılamaz.",
+    full: "Eylem olarak, geri kazanmak istediğin büyü yuvasının seviyesiyle en büyük Vuruş Zarın'ın maksimum değerinin çarpımı kadar HP kaybedebilirsin. Bu şekilde kaybettiğin HP'yi, bir uzun dinlenme bitirene kadar hiçbir şekilde (büyü dahil) geri kazanamazsın. 5. seviye ve üstü yuvalar bu yöntemle geri kazanılamaz."
+  },
+  {
+    name: "Adept of the Black Robes",
+    tr: "Kara Cüppe Ustası",
+    icon: "🌑",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "4. Seviye, Yüksek Büyücülüğün Başlangıcı (Nuitari) hüneri",
+    short: "Büyüleme veya nekromansi okulundan 2. seviye bir büyü öğren; Vuruş Zarı harcayarak büyülerinin hasarını artır.",
+    full: "Nuitari'nin kara ayının gücüne bağlanırsın. Büyüleme veya nekromansi okulundan 2. seviyeli bir büyü öğrenirsin. Ayrıca bir Vuruş Zarı harcayarak yaptığın bir büyünün verdiği hasarı artırabilirsin."
+  },
+  {
+    name: "Adept of the Red Robes",
+    tr: "Kızıl Cüppe Ustası",
+    icon: "🔴",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "4. Seviye, Yüksek Büyücülüğün Başlangıcı (Lunitari) hüneri",
+    short: "Hayal veya değişim okulundan 2. seviye bir büyü öğren; günde PB kez bir saldırı zarını 10 sayabilirsin.",
+    full: "Lunitari'nin kızıl ayının gücüne bağlanırsın. Hayal (illusion) veya değişim (transmutation) okulundan 2. seviyeli bir büyü öğrenirsin. Günde yeterlilik bonusun kadar, bir saldırı zarını otomatik olarak 10 sonucuyla değerlendirebilirsin."
+  },
+  {
+    name: "Adept of the White Robes",
+    tr: "Beyaz Cüppe Ustası",
+    icon: "⚪",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "4. Seviye, Yüksek Büyücülüğün Başlangıcı (Solinari) hüneri",
+    short: "Savunma veya kehanet okulundan 2. seviye bir büyü öğren; bir büyü yuvası harcayarak bir yaratığın hasarını azalt.",
+    full: "Solinari'nin beyaz ayının gücüne bağlanırsın. Savunma (abjuration) veya kehanet (divination) okulundan 2. seviyeli bir büyü öğrenirsin. Bir büyü yuvası harcayarak bir yaratığın aldığı hasarı azaltabilirsin."
+  },
+  {
+    name: "Agent of Order",
+    tr: "Düzenin Elçisi",
+    icon: "⚖️",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "4. Seviye, Dış Düzlemlerin Evladı (Yasacı Dış Düzlem) hüneri",
+    short: "Bir yeteneğine +1; günde PB kez ekstra 1d8 güç hasarı ver, hedef kaydetmeyi kaçırırsa kısıtlanır.",
+    full: "Yasa'nın düzenli gücünden pay alırsın: bir yetenek puanını 1 artırırsın. Günde yeterlilik bonusun kadar, bir saldırına ek 1d8 güç hasarı katabilir ve hedef kaydetme atışını kaçırırsa onu kısıtlayabilirsin."
+  },
+  {
+    name: "Artificer Initiate",
+    tr: "Zanaatkârlığa Başlangıç",
+    icon: "🔧",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: null,
+    short: "Bir kantrip ve bir 1. seviye zanaatkâr büyüsü öğren (yuvasız yapılabilir); bir zanaatkâr aletinde yeterlilik kazan.",
+    full: "Zanaatkâr sınıfının büyü listesinden bir kantrip ve bir 1. seviyeli büyü öğrenirsin; öğrendiğin 1. seviyeli büyüyü bir uzun dinlenmeye kadar yuva harcamadan bir kez yapabilirsin (yuva harcayarak istediğin kadar yapmaya devam edebilirsin). Ayrıca seçtiğin bir zanaatkâr aletinde yeterlilik kazanırsın."
+  },
+  {
+    name: "Baleful Scion",
+    tr: "Uğursuz Evlat",
+    icon: "💀",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "4. Seviye, Dış Düzlemlerin Evladı (Kötü Dış Düzlem) hüneri",
+    short: "Bir yeteneğine +1; günde PB kez ek 1d6+PB nekrotik hasar ver ve verdiğin hasar kadar hp kazan.",
+    full: "Kötülüğün karanlık gücünü içinde taşırsın: bir yetenek puanını 1 artırırsın. Günde yeterlilik bonusun kadar, saldırılarına ek 1d6 + yeterlilik bonusu nekrotik hasar katabilir ve verdiğin bu hasar kadar hit point kazanabilirsin."
+  },
+  {
+    name: "Bountiful Luck",
+    tr: "Bereketli Şans",
+    icon: "🍀",
+    cat: "racial",
+    catLabel: "Irk",
+    prereq: "Halfling",
+    short: "Reaksiyonla, 30 ft içindeki bir müttefikin bir d20'de attığı 1'i yeniden atmasını sağlarsın.",
+    full: "Halfling'lerin efsanevi şansını çevrendekilerle paylaşırsın. Reaksiyon olarak, 30 feet içindeki bir müttefiğin bir saldırı zarında, yetenek kontrolünde veya kaydetme atışında attığı 1 sonucunu yeniden atmasını sağlayabilirsin; yeni sonuç kullanılmak zorundadır."
+  },
+  {
+    name: "Chef",
+    tr: "Aşçı",
+    icon: "🍳",
+    cat: "general",
+    catLabel: "Genel",
+    prereq: null,
+    short: "Dayanıklılık veya Bilgeliğe +1; aşçı aletlerinde yeterlilik kazan; özel yemekler pişirip hp kazandır.",
+    full: "Dayanıklılık veya Bilgelik puanını 1 artırırsın ve aşçı aletlerinde yeterlilik kazanırsın (zaten yeterliysen başka bir alette yeterlilik kazanırsın). Kısa dinlenme sırasında özel atıştırmalıklar hazırlayabilirsin; bunları tüketen yaratıklar, dinlenme sonunda Vuruş Zarı harcadıklarında ekstra hit point kazanır. Ayrıca uzun bir hazırlıkla özel bir yemek pişirip, tüketenlerin bir sonraki uzun dinlenmelerinde geçici hit point kazanmalarını sağlayabilirsin."
+  },
+  {
+    name: "Cohort of Chaos",
+    tr: "Kaosun Yoldaşı",
+    icon: "🌀",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "4. Seviye, Dış Düzlemlerin Evladı (Kaotik Dış Düzlem) hüneri",
+    short: "Bir yeteneğine +1; bir saldırı zarında veya kaydetme atışında doğal 1 ya da 20 attığında özel rastgele bir olay tetiklenir.",
+    full: "Kaosun öngörülemez doğasını taşırsın: bir yetenek puanını 1 artırırsın. Bir saldırı zarında veya kaydetme atışında doğal 1 ya da doğal 20 attığında, oyun ustasının belirlediği küçük ve rastgele bir etki devreye girer."
+  },
+  {
+    name: "Divinely Favored",
+    tr: "İlahi Lütuf",
+    icon: "✨",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "4. Seviye, Dragonlance Kampanyası",
+    short: "Bir rahip kantripi, augury ve hizana göre belirlenen bir 1. seviye büyü öğren.",
+    full: "Bir tanrı seni fark etmiş ve lütfunu üzerine göstermiştir. Bir rahip kantripi, augury büyüsü ve hizana bağlı bir listeden 1. seviyeli bir büyü öğrenirsin; bu büyüleri belirli bir sıklıkta yuva harcamadan yapabilirsin."
+  },
+  {
+    name: "Dragon Fear",
+    tr: "Ejderha Korkusu",
+    icon: "🐉",
+    cat: "racial",
+    catLabel: "Irk",
+    prereq: "Dragonborn",
+    short: "Güç, Dayanıklılık veya Karizmaya +1; Nefes Silahını hasar yerine korkutmak için kullanabilirsin.",
+    full: "Ejderha atalarının korku salan doğasını miras alırsın: Güç, Dayanıklılık veya Karizma puanını 1 artırırsın. Nefes Silahını kullandığında, hasar vermek yerine etki alanındaki yaratıkları korkutmayı seçebilirsin."
+  },
+  {
+    name: "Dragon Hide",
+    tr: "Ejderha Derisi",
+    icon: "🐲",
+    cat: "racial",
+    catLabel: "Irk",
+    prereq: "Dragonborn",
+    short: "Güç, Dayanıklılık veya Karizmaya +1; zırhsızken AC'in 13+Çeviklik olur; pençelerin 1d4+Güç kesme hasarı verir.",
+    full: "Ejderha pullarının sertleştiğini ve pençelerinin geliştiğini fark edersin: Güç, Dayanıklılık veya Karizma puanını 1 artırırsın. Zırh giymediğinde Zırh Sınıfın 13 + Çeviklik değiştiricine eşit olur (kalkanı yine kullanabilirsin). Ayrıca geri çekilebilir pençeler geliştirirsin; bu pençelerle yaptığın silahsız vuruşlar 1d4 + Güç değiştiricisi kesme hasarı verir."
+  },
+  {
+    name: "Drow High Magic",
+    tr: "Drow'un Yüce Büyüsü",
+    icon: "🕷️",
+    cat: "racial",
+    catLabel: "Irk",
+    prereq: "Elf (drow)",
+    short: "detect magic büyüsünü istediğin an yap; levitate ve dispel magic büyülerini uzun dinlenmede birer kez yap.",
+    full: "Drow atalarının büyüsel mirasına erişirsin. detect magic büyüsünü herhangi bir yuva harcamadan istediğin an yapabilirsin. Ayrıca levitate ve dispel magic büyülerinin her birini, bir uzun dinlenmeye kadar yuva harcamadan bir kez yapabilirsin."
+  },
+  {
+    name: "Dwarf Fortitude",
+    tr: "Cüce Dayanıklılığı",
+    icon: "🪓",
+    cat: "racial",
+    catLabel: "Irk",
+    prereq: "Dwarf",
+    short: "Dayanıklılığa +1; Kaçınma eylemi alırken bir Vuruş Zarı harcayarak kendini iyileştir.",
+    full: "Cücelerin efsanevi dayanıklılığını taşırsın: Dayanıklılık puanını 1 artırırsın. Kaçınma (Dodge) eylemini aldığında, bir Vuruş Zarı harcayarak zar sonucu + Dayanıklılık değiştiricin kadar hit point iyileştirebilirsin."
+  },
+  {
+    name: "Elven Accuracy",
+    tr: "Elf İsabeti",
+    icon: "🏹",
+    cat: "racial",
+    catLabel: "Irk",
+    prereq: "Elf veya half-elf",
+    short: "Çeviklik, Zeka, Bilgelik veya Karizmaya +1; bu yeteneklerle avantajlı saldırılarda bir zarı yeniden at.",
+    full: "Elflerin efsanevi isabet kabiliyetini taşırsın: Çeviklik, Zeka, Bilgelik veya Karizma puanını 1 artırırsın. Bu yeteneklerden birini kullanan bir saldırı zarında avantajın olduğunda, zarlardan birini bir kez daha atabilir ve yeni sonucu kullanabilirsin."
+  },
+  {
+    name: "Ember of the Fire Giant",
+    tr: "Ateş Devinin Közü",
+    icon: "🔥",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: "4. Seviye, Devlerin Vuruşu (Ateş Vuruşu) hüneri",
+    short: "Güç, Dayanıklılık veya Bilgeliğe +1; ateşe direnç; günde PB kez 1d8+PB ateş hasarı ve kör etme (15 ft yarıçap).",
+    full: "Ateş devlerinin gücünü kanına karıştırırsın: Güç, Dayanıklılık veya Bilgelik puanını 1 artırırsın ve ateş hasarına direnç kazanırsın. Günde yeterlilik bonusun kadar, bir silah saldırısına 1d8 + yeterlilik bonusu ateş hasarı katabilir ve 15 feet yarıçapındaki yaratıkları kör edebilirsin."
+  },
+  {
+    name: "Fade away",
+    tr: "Sırra Kadem Basma",
+    icon: "👻",
+    cat: "racial",
+    catLabel: "Irk",
+    prereq: "Gnome",
+    short: "Çeviklik veya Zekaya +1; hasar aldığında reaksiyonla görünmez olabilirsin.",
+    full: "Gnome'ların doğal saklanma yeteneğini geliştirirsin: Çeviklik veya Zeka puanını 1 artırırsın. Hasar aldığında, reaksiyon olarak bir sonraki turunun sonuna kadar (ya da saldırıp konsantrasyonu bozana kadar) görünmez olabilirsin; kullanım bir uzun dinlenmede yenilenir."
+  },
+  {
+    name: "Fey Teleportation",
+    tr: "Peri Işınlanması",
+    icon: "🧚",
+    cat: "racial",
+    catLabel: "Irk",
+    prereq: "Elf (high)",
+    short: "Zeka veya Karizmaya +1; Sylvan dilini konuş; misty step büyüsünü kısa dinlenmede bir kez yap.",
+    full: "Yüksek Elflerin peri büyüsüyle bağını derinleştirirsin: Zeka veya Karizma puanını 1 artırırsın ve Sylvan dilini konuşmaya başlarsın. misty step büyüsünü, bir kısa dinlenmeye kadar yuva harcamadan bir kez yapabilirsin."
+  },
+  {
+    name: "Flames of Phlegethos",
+    tr: "Phlegethos'un Alevleri",
+    icon: "😈",
+    cat: "racial",
+    catLabel: "Irk",
+    prereq: "Tiefling",
+    short: "Zeka veya Karizmaya +1; ateş büyülerinde 1'leri yeniden at; ateş büyüsü yaptığında alevler seni sarabilir.",
+    full: "Cehennemin alevleriyle bağını güçlendirirsin: Zeka veya Karizma puanını 1 artırırsın. Bir büyüyle ateş hasarı verirken hasar zarlarında attığın 1'leri yeniden atabilir ve yeni sonucu kullanmak zorundasın. Ayrıca bir ateş büyüsü yaptığında, isteğe bağlı olarak vücudunu alevlerle sarabilirsin; bu alevler çevrene hafif ışık verir ve seni yakın dövüşte vuran saldırganlara ateş hasarı verir."
+  },
+  {
+    name: "Fury of the Frost Giant",
+    tr: "Buz Devinin Öfkesi",
+    icon: "❄️",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: "4. Seviye, Devlerin Vuruşu (Buz Vuruşu) hüneri",
+    short: "Güç, Dayanıklılık veya Bilgeliğe +1; soğuğa direnç; günde PB kez 1d8+PB soğuk hasarı, hız 0'a düşer.",
+    full: "Buz devlerinin dondurucu gücünü taşırsın: Güç, Dayanıklılık veya Bilgelik puanını 1 artırırsın ve soğuk hasarına direnç kazanırsın. Günde yeterlilik bonusun kadar, bir silah saldırısına 1d8 + yeterlilik bonusu soğuk hasarı katabilir ve hedefin hızını bir sonraki turunun sonuna kadar 0'a düşürebilirsin."
+  },
+  {
+    name: "Gift of the Gem Dragon",
+    tr: "Mücevher Ejder Armağanı",
+    icon: "💎",
+    cat: "racial",
+    catLabel: "Irk",
+    prereq: null,
+    short: "Zeka, Bilgelik veya Karizmaya +1; günde PB kez saldırgana Güç kaydetmesi zorla ya da 2d8 güç hasarı ver ve 10 ft it.",
+    full: "Mücevher ejderlerinin psişik gücünden pay alırsın: Zeka, Bilgelik veya Karizma puanını 1 artırırsın. Bir saldırıya hedef olduğunda, reaksiyon olarak günde yeterlilik bonusun kadar saldırgana bir Güç kaydetme atışı zorlayabilirsin; başarısız olursa 2d8 güç hasarı alır ve senden 10 feet uzağa itilir, başarılı olursa yalnızca yarı hasar alır."
+  },
+  {
+    name: "Gift of the Metallic Dragon",
+    tr: "Metalik Ejder Armağanı",
+    icon: "🥈",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: null,
+    short: "cure wounds büyüsünü uzun dinlenmede bir kez yap; reaksiyonla kanat açıp günde PB kez AC'ine +PB kazandır.",
+    full: "Metalik ejderlerin şifa verici ve koruyucu doğasından pay alırsın. cure wounds büyüsünü, bir uzun dinlenmeye kadar yuva harcamadan bir kez yapabilirsin. Ayrıca bir saldırıya hedef olduğunda, reaksiyon olarak hayalet kanatlar açabilir ve günde yeterlilik bonusun kadar, o saldırıya karşı Zırh Sınıfına yeterlilik bonusun kadar ekleyebilirsin."
+  },
+  {
+    name: "Guile of the Cloud Giant",
+    tr: "Bulut Devinin Kurnazlığı",
+    icon: "☁️",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: "4. Seviye, Devlerin Vuruşu (Bulut Vuruşu) hüneri",
+    short: "Güç, Dayanıklılık veya Bilgeliğe +1; bir saldırının hasarına direnç kazan; günde PB kez 30 ft içine ışınlan.",
+    full: "Bulut devlerinin kurnazlığını ve havadaki çevikliğini taşırsın: Güç, Dayanıklılık veya Bilgelik puanını 1 artırırsın. Bir saldırıya hedef olduğunda, reaksiyon olarak o saldırının hasar tipine direnç kazanabilir ve günde yeterlilik bonusun kadar 30 feet içindeki boş bir alana ışınlanabilirsin."
+  },
+  {
+    name: "Gunner",
+    tr: "Silahşör",
+    icon: "🔫",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Çevikliğe +1; ateşli silahlarda yeterlilik kazan; dolum özelliğini yok say, 5 ft içinde dezavantaj yaşama.",
+    full: "Barut silahlarına aşinalık kazanırsın: Çeviklik puanını 1 artırırsın ve ateşli silahlarda yeterlilik kazanırsın. Yeterli olduğun ateşli silahların dolum (loading) özelliğini yok sayarsın ve 5 feet içindeki düşman bir yaratığa menzilli saldırı yapman dezavantaja yol açmaz."
+  },
+  {
+    name: "Infernal Constitution",
+    tr: "Cehennemi Beden",
+    icon: "🩸",
+    cat: "racial",
+    catLabel: "Irk",
+    prereq: "Tiefling",
+    short: "Dayanıklılığa +1; soğuk ve zehir hasarına direnç; zehirlenmeye karşı kaydetme atışlarında avantaj.",
+    full: "Cehennemi soyunun dayanıklılığını miras alırsın: Dayanıklılık puanını 1 artırırsın. Soğuk ve zehir hasarına direnç kazanırsın ve zehirlenme durumuna karşı yapılan kaydetme atışlarında avantaj elde edersin."
+  },
+  {
+    name: "Initiate of High Sorcery",
+    tr: "Yüksek Büyücülüğe Başlangıç",
+    icon: "🌙",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "Dragonlance Kampanyası, Bilgin veya Büyücü sınıfı ya da Yüksek Büyücülük Büyücüsü geçmişi",
+    short: "Bir bilgin kantripi ve ayına göre belirlenen iki 1. seviye büyü öğren.",
+    full: "Solinari, Lunitari veya Nuitari'nin üç ayından birine bağlılık yemini edersin. Bir bilgin kantripi ve seçtiğin aya göre belirlenmiş bir listeden iki 1. seviyeli büyü öğrenirsin; bu büyüleri normal şekilde yuva harcayarak yaparsın."
+  },
+  {
+    name: "Keenness of the Stone Giant",
+    tr: "Taş Devinin Keskinliği",
+    icon: "🪨",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: "4. Seviye, Devlerin Vuruşu (Taş Vuruşu) hüneri",
+    short: "Güç, Dayanıklılık veya Bilgeliğe +1; 60 ft karanlık görüş; günde PB kez 60 ft menzilli 1d10 güç hasarı + yere düşürme.",
+    full: "Taş devlerinin sarsılmaz gücünü taşırsın: Güç, Dayanıklılık veya Bilgelik puanını 1 artırırsın ve 60 feet karanlık görüş kazanırsın (mevcut karanlık görüşünü artırır). Günde yeterlilik bonusun kadar, 60 feet menzilli bir taş fırlatarak 1d10 güç hasarı verebilir ve hedefi yere düşürebilirsin."
+  },
+  {
+    name: "Knight of the Crown",
+    tr: "Taç Şövalyesi",
+    icon: "👑",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: "4. Seviye, Solamnia'nın Yaveri hüneri",
+    short: "Güç, Çeviklik veya Dayanıklılığa +1; reaksiyonla bir müttefikin saldırmasını sağla, ek 1d8 hasar (günde PB kez).",
+    full: "Solamnia Tacı Şövalyeliğine adım atarsın: Güç, Çeviklik veya Dayanıklılık puanını 1 artırırsın. Günde yeterlilik bonusun kadar, reaksiyon olarak 30 feet içindeki bir müttefiğin bir saldırı yapmasını tetikleyebilirsin; bu saldırı isabet ederse ek 1d8 hasar verir."
+  },
+  {
+    name: "Knight of the Rose",
+    tr: "Gül Şövalyesi",
+    icon: "🌹",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: "4. Seviye, Solamnia'nın Yaveri hüneri",
+    short: "Dayanıklılık, Bilgelik veya Karizmaya +1; günde PB kez bir yaratığa geçici hit point ver.",
+    full: "Solamnia Gül Şövalyeliğine adım atarsın: Dayanıklılık, Bilgelik veya Karizma puanını 1 artırırsın. Günde yeterlilik bonusun kadar, 30 feet içindeki bir yaratığa 1d8 + yeterlilik bonusu + ilgili yetenek değiştiricin kadar geçici hit point verebilirsin."
+  },
+  {
+    name: "Knight of the Sword",
+    tr: "Kılıç Şövalyesi",
+    icon: "⚔️",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: "4. Seviye, Solamnia'nın Yaveri hüneri",
+    short: "Zeka, Bilgelik veya Karizmaya +1; günde PB kez bir hedefi bir sonraki turunun sonuna kadar korkut.",
+    full: "Solamnia Kılıç Şövalyeliğine adım atarsın: Zeka, Bilgelik veya Karizma puanını 1 artırırsın. Günde yeterlilik bonusun kadar, eylem olarak 30 feet içindeki bir yaratığa Bilgelik kaydetme atışı zorlayabilirsin; başarısız olursa hedef bir sonraki turunun sonuna kadar senden korkar."
+  },
+  {
+    name: "Metamagic Adept",
+    tr: "Metabüyü Ustası",
+    icon: "🔮",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "Büyü yapabilme veya Ahit Büyüsü özelliği",
+    short: "İki metabüyü seçeneği öğren ve 2 büyücülük puanı kazan.",
+    full: "Büyülerini şekillendirme sanatına ilgi duyarsın. Bilgin sınıfının Metabüyü seçeneklerinden ikisini öğrenirsin ve bu seçenekleri kullanmak için harcayabileceğin 2 büyücülük puanı kazanırsın; puanlar uzun dinlenmede yenilenir."
+  },
+  {
+    name: "Orcish Fury",
+    tr: "Ork Öfkesi",
+    icon: "🪓",
+    cat: "racial",
+    catLabel: "Irk",
+    prereq: "Half-orc",
+    short: "Güç veya Dayanıklılığa +1; bir silahın hasar zarını ikiye katla; Yorulmaz Dayanıklılık sonrası reaksiyonla saldır.",
+    full: "Ork atalarının öfkesini taşırsın: Güç veya Dayanıklılık puanını 1 artırırsın. Bir saldırı veya kaydetme atışıyla hasar verdiğinde, o hasar zarını bir kez ikiye katlayabilirsin (uzun dinlenmede yenilenir). Ayrıca Yorulmaz Dayanıklılık özelliğini kullandığında, reaksiyon olarak bir saldırı yapabilirsin."
+  },
+  {
+    name: "Outlands Envoy",
+    tr: "Ara Düzlem Elçisi",
+    icon: "🌌",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "4. Seviye, Dış Düzlemlerin Evladı (Ara Düzlem) hüneri",
+    short: "Bir yeteneğine +1; misty step ve tongues büyülerini uzun dinlenmede birer kez yap.",
+    full: "Ara Düzlem'in tarafsız dengesine bağlanırsın: bir yetenek puanını 1 artırırsın. misty step ve tongues büyülerini öğrenir, her ikisini de bir uzun dinlenmeye kadar yuva harcamadan bir kez yapabilirsin."
+  },
+  {
+    name: "Planar Wanderer",
+    tr: "Düzlem Gezgini",
+    icon: "🌀",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "4. Seviye, Dış Düzlemlerin Evladı hüneri",
+    short: "Bir enerji tipine direnç kazan; Zeka kontrolüyle 1 saatliğine bir portal aç veya kapat (başarısızlıkta 3d8 hasar).",
+    full: "Düzlemler arası yolculuklara aşinalık kazanırsın ve seçtiğin bir enerji tipine direnç elde edersin. Eylem olarak bir Zeka kontrolü yaparak yakındaki bir portalı 1 saatliğine açabilir veya kapatabilirsin; kontrolü kaçırırsan 3d8 hasar alırsın."
+  },
+  {
+    name: "Poisoner",
+    tr: "Zehirci",
+    icon: "☠️",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: null,
+    short: "Zehirci kitinde yeterlilik kazan; silahını bonus eylemle zehirle; saldırıların zehir direncini yok sayar.",
+    full: "Zehirlerin ustası olursun: zehirci kitinde yeterlilik kazanırsın (zaten yeterliysen başka bir alette yeterlilik kazanırsın). Bonus eylem olarak silahına zehir uygulayabilirsin ve saldırılarınla verdiğin zehir hasarı, hedefin zehir hasarına direncini yok sayar."
+  },
+  {
+    name: "Prodigy",
+    tr: "Harika Çocuk",
+    icon: "🌟",
+    cat: "racial",
+    catLabel: "Irk",
+    prereq: "Half-elf, half-orc veya human",
+    short: "Bir yetenek, bir alet yeterliliği ve bir dil kazan; bir yetenekte uzmanlık kazan (yeterlilik bonusu ikiye katlanır).",
+    full: "Öğrenmeye olağanüstü bir yatkınlığın vardır: seçtiğin bir yetenekte, bir alet kullanımında ve bir dilde yeterlilik kazanırsın. Ayrıca zaten yeterli olduğun bir yetenekte (başka bir özellik zaten ikiye katlamıyorsa) uzmanlık kazanırsın; bu yetenekle yaptığın kontrollerde yeterlilik bonusun ikiye katlanır."
+  },
+  {
+    name: "Righteous Heritor",
+    tr: "Erdemli Varis",
+    icon: "😇",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "4. Seviye, Dış Düzlemlerin Evladı (İyi Dış Düzlem) hüneri",
+    short: "Bir yeteneğine +1; reaksiyonla bir yaratığa gelen 1d10+PB hasarı azalt.",
+    full: "İyiliğin kutsal gücünden pay alırsın: bir yetenek puanını 1 artırırsın. Günde yeterlilik bonusun kadar, reaksiyon olarak 30 feet içindeki bir yaratığın aldığı hasarı 1d10 + yeterlilik bonusu kadar azaltabilirsin."
+  },
+  {
+    name: "Rune Shaper",
+    tr: "Rün Ustası",
+    icon: "📜",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "Büyü yapabilme özelliği veya Rün Ustası geçmişi",
+    short: "comprehend languages büyüsünü öğren ve yeterlilik bonusunun yarısı kadar 1. seviye büyü öğren (rün veya yuvayla).",
+    full: "Antik rünlerin gücünü çözmeyi öğrenirsin. comprehend languages büyüsünü öğrenir ve istediğin an yapabilirsin. Ayrıca yeterlilik bonusunun yarısı (yukarı yuvarlanır) kadar 1. seviyeli büyü öğrenirsin; bunları rün kazıyarak veya normal büyü yuvası harcayarak yapabilirsin."
+  },
+  {
+    name: "Scion of the Outer Planes",
+    tr: "Dış Düzlemlerin Evladı",
+    icon: "🌌",
+    cat: "magic",
+    catLabel: "Büyü",
+    prereq: "Planescape Kampanyası",
+    short: "Bir hasar tipine direnç ve seçilen düzleme göre bir kantrip yapabilme yeteneği kazan.",
+    full: "Bir Dış Düzlem'le derin bir bağ kurarsın. Seçtiğin düzlemin hizasına göre belirlenen bir hasar tipine direnç kazanır ve o düzlemle ilişkili bir kantripi yuva harcamadan yapabilme yeteneği elde edersin. Bu hüner, ilgili düzleme özgü ikinci kademeli hünerler için ön şart görevi görür."
+  },
+  {
+    name: "Second Chance",
+    tr: "İkinci Şans",
+    icon: "🍀",
+    cat: "racial",
+    catLabel: "Irk",
+    prereq: "Halfling",
+    short: "Çeviklik, Dayanıklılık veya Karizmaya +1; seni vuran bir saldırıyı reaksiyonla yeniden zorla.",
+    full: "Halfling'lerin şansını bir adım öteye taşırsın: Çeviklik, Dayanıklılık veya Karizma puanını 1 artırırsın. Bir saldırı seni isabet ettirdiğinde, reaksiyon olarak saldırganı saldırı zarını yeniden atmaya zorlayabilirsin; yeni sonuç kullanılmalıdır. Bu özelliği kısa veya uzun dinlenmede bir kez kullanabilirsin."
+  },
+  {
+    name: "Soul of the Storm Giant",
+    tr: "Fırtına Devinin Ruhu",
+    icon: "⚡",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: "4. Seviye, Devlerin Vuruşu (Fırtına Vuruşu) hüneri",
+    short: "Güç, Dayanıklılık veya Bilgeliğe +1; yıldırım/gök gürültüsüne direnç; günde PB kez hedefi dezavantajlı kıl, hızını yarıya düşür.",
+    full: "Fırtına devlerinin ihtişamlı gücünü taşırsın: Güç, Dayanıklılık veya Bilgelik puanını 1 artırırsın ve yıldırım ile gök gürültüsü hasarına direnç kazanırsın. Günde yeterlilik bonusun kadar, bir saldırının isabetiyle hedefin bir sonraki turunun sonuna kadar sana karşı yaptığı saldırı zarlarını dezavantajlı hale getirebilir ve hızını yarıya indirebilirsin."
+  },
+  {
+    name: "Squat Nimbleness",
+    tr: "Bodur Çeviklik",
+    icon: "🏃",
+    cat: "racial",
+    catLabel: "Irk",
+    prereq: "Dwarf veya Small ırk",
+    short: "Güç veya Çevikliğe +1; hızın 5 ft artar; Akrobasi veya Atletizm ile kaçmada yeterlilik ve avantaj.",
+    full: "Küçük boyunun getirdiği çevikliği ustalıkla kullanırsın: Güç veya Çeviklik puanını 1 artırırsın ve hızın 5 feet artar. Akrobasi veya Atletizm becerisinde yeterliliğin yoksa kazanırsın; ayrıca yakalanmaktan kurtulma kontrollerinde avantaj elde edersin."
+  },
+  {
+    name: "Squire of Solamnia",
+    tr: "Solamnia'nın Yaveri",
+    icon: "🛡️",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: "Dragonlance Kampanyası, Savaşçı veya Paladin sınıfı ya da Solamnia Şövalyesi geçmişi",
+    short: "Silah saldırı zarlarında avantaj ve +1d8 hasar (günde PB kez); bineğe binmek/inmek yalnızca 5 ft hareket gerektirir.",
+    full: "Solamnia Şövalyeliğinin ilk adımlarını atarsın. Günde yeterlilik bonusun kadar, bir silah saldırı zarında avantaj kazanabilir ve isabet edersen ek 1d8 hasar verebilirsin. Ayrıca bir bineğe binmek veya inmek, hızının tamamı yerine sadece 5 feet hareket gerektirir."
+  },
+  {
+    name: "Strike of the Giants",
+    tr: "Devlerin Vuruşu",
+    icon: "👊",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: "Savaş silahı yeterliliği veya Dev Evlatlığı geçmişi",
+    short: "Seçtiğin dev türüne göre bir silah saldırısına ek hasar ve etki ekle (günde PB kez).",
+    full: "Bir dev türünün (ateş, buz, bulut, taş, fırtına veya tepe) gücünü kanına karıştırırsın. Seçtiğin türe göre, günde yeterlilik bonusun kadar bir silah saldırısına ek hasar ve özel bir etki katabilirsin. Bu hüner, ilgili dev türüne özgü ikinci kademeli hünerler için ön şart görevi görür."
+  },
+  {
+    name: "Vigor of the Hill Giant",
+    tr: "Tepe Devinin Dinçliği",
+    icon: "⛰️",
+    cat: "combat",
+    catLabel: "Dövüş",
+    prereq: "4. Seviye, Devlerin Vuruşu (Tepe Vuruşu) hüneri",
+    short: "Güç, Dayanıklılık veya Bilgeliğe +1; yere düşürülmeye direnç; Vuruş Zarıyla Dayanıklılık+PB kadar ekstra hp kazan.",
+    full: "Tepe devlerinin sarsılmaz gövdesini taşırsın: Güç, Dayanıklılık veya Bilgelik puanını 1 artırırsın. Yere düşürülme etkisine karşı direnç kazanırsın (bu etkiyi tetikleyen kontrollere karşı avantajlısın). Bir Vuruş Zarı harcayarak hit point iyileştirdiğinde, Dayanıklılık değiştiricin + yeterlilik bonusun kadar ekstra hit point kazanırsın."
+  },
+  {
+    name: "Wood Elf Magic",
+    tr: "Orman Elfi Büyüsü",
+    icon: "🌳",
+    cat: "racial",
+    catLabel: "Irk",
+    prereq: "Elf (wood)",
+    short: "Bir druid kantripi öğren; longstrider ve pass without trace büyülerini uzun dinlenmede birer kez yap.",
+    full: "Orman Elflerinin doğa büyüsüyle bağını derinleştirirsin. Bir druid kantripi öğrenirsin. Ayrıca longstrider ve pass without trace büyülerinin her birini, bir uzun dinlenmeye kadar yuva harcamadan bir kez yapabilirsin."
+  }
+
+];
+
+// deduplicate by name
+const seen = new Set();
+const uniqueFeats = feats.filter(f => {
+  if (seen.has(f.name)) return false;
+  seen.add(f.name);
+  return true;
+});
+
+// stats
+document.getElementById('totalCount').textContent = uniqueFeats.length;
+document.getElementById('prereqCount').textContent = uniqueFeats.filter(f => f.prereq).length;
+
+// build cards
+const grid = document.getElementById('featGrid');
+uniqueFeats.forEach((feat, idx) => {
+  const card = document.createElement('div');
+  card.className = 'feat-card';
+  card.dataset.cat = feat.cat;
+  card.dataset.name = (feat.name + ' ' + feat.tr).toLowerCase();
+  card.dataset.prereq = feat.prereq ? 'yes' : 'no';
+
+  card.innerHTML = `
+    <div class="card-stripe"></div>
+    <div class="card-pad">
+      <div class="card-head">
+        <div class="card-icon">${feat.icon}</div>
+        <div class="card-title-wrap">
+          <div class="card-name">${feat.name} <span style="color:var(--text-dim);font-size:0.82rem;font-family:'Crimson Pro';font-weight:300;font-style:italic;">${feat.tr}</span></div>
+          ${feat.prereq ? `<div class="card-prereq">Ön Şart: ${feat.prereq}</div>` : ''}
+        </div>
+      </div>
+      <div class="card-desc">${feat.short}</div>
+      <div class="card-footer">
+        <span class="cat-badge">${feat.catLabel}</span>
+        <button class="expand-btn" data-idx="${idx}">Detay <span class="arr">›</span></button>
+      </div>
+      <div class="card-full" id="full-${idx}">${feat.full.split('\n').map(p => p.trim() ? `<p style="margin-bottom:0.6rem">${p}</p>` : '').join('')}</div>
+    </div>
+  `;
+  grid.appendChild(card);
+});
+
+// expand
+document.querySelectorAll('.expand-btn').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const idx = btn.dataset.idx;
+    const div = document.getElementById('full-' + idx);
+    div.classList.toggle('open');
+    btn.classList.toggle('open');
+  });
+});
+
+// filter + search
+let activeCat = 'all';
+let prereqFilter = 'all'; // 'all' or 'none'
+
+document.querySelectorAll('.f-btn[data-cat]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.f-btn[data-cat]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCat = btn.dataset.cat;
+    apply();
+  });
+});
+
+const prereqBtn = document.getElementById('prereqToggle');
+prereqBtn.addEventListener('click', () => {
+  if (prereqFilter === 'all') {
+    prereqFilter = 'none';
+    prereqBtn.classList.add('active');
+    prereqBtn.textContent = 'Ön Şartsız ✓';
+  } else {
+    prereqFilter = 'all';
+    prereqBtn.classList.remove('active');
+    prereqBtn.textContent = 'Ön Şartsız';
+  }
+  apply();
+});
+
+document.getElementById('searchInput').addEventListener('input', apply);
+
+function apply() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  let visible = 0;
+  document.querySelectorAll('.feat-card').forEach(card => {
+    const matchCat = activeCat === 'all' || card.dataset.cat === activeCat;
+    const matchSearch = card.dataset.name.includes(q);
+    const matchPrereq = prereqFilter === 'all' || card.dataset.prereq === 'no';
+    const show = matchCat && matchSearch && matchPrereq;
+    card.classList.toggle('hidden', !show);
+    if (show) visible++;
+  });
+  document.getElementById('visibleCount').textContent = visible;
+  document.getElementById('emptyState').classList.toggle('show', visible === 0);
+}
+
+apply();
+</script>
+</body>
+</html>
