@@ -830,18 +830,8 @@ const feats = [
     cat: "combat",
     catLabel: "Dövüş",
     prereq: null,
-    short: "Turda bir kez yakın saldırı hasar zarlarını yeniden at, istediğin toplamı kullan.",
-    full: "Turda bir kez, yakın dövüş silahı saldırısı için hasar zarlarını attığında, silahın hasar zarlarını yeniden atabilir ve iki toplam arasından istediğini kullanabilirsin."
-  },
-  {
-    name: "Sentinel",
-    tr: "Nöbetçi",
-    icon: "🚨",
-    cat: "combat",
-    catLabel: "Dövüş",
-    prereq: null,
-    short: "Fırsat saldırısı isabet edince hedefin hızı 0 olur. Uzaklaşma eylemi korumaz. Başkasına saldırırken tepki saldırısı.",
-    full: "Fırsat saldırısıyla isabet ettiğinde, hedefin hızı turun geri kalanı için 0 olur. Uzaklaşma eylemi yapan yaratıklar bile senden fırsat saldırısı provoke eder. Bir yaratık senden başka bir hedefe saldırdığında (hedefin bu hüneri yok), tepki olarak o saldıran yaratığa yakın saldırı yapabilirsin."
+    short: "Turda bir kez yakın dövüş silahı hasarı atarken silahın hasar zarlarını yenileyebilir ve iki toplamdan istediğini seçebilirsin.",
+    full: "Yakın dövüş silahı saldırısı için hasar zarı attığında, turda bir kez olmak üzere silahın hasar zarlarını yeniden atabilir ve elde edilen iki toplamdan istediğin sonucu kullanabilirsin."
   },
   {
     name: "Shadow Touched",
@@ -850,8 +840,8 @@ const feats = [
     cat: "magic",
     catLabel: "Büyü",
     prereq: null,
-    short: "Zeka/Bilgelik/Karizm 1 artır. Invisibility ve 1. seviye bir illüzyon/nekromansı büyüsü öğren, günde birer kez slot harcamadan.",
-    full: "Zeka, Bilgelik veya Karizmanı 1 artır (max 20). Invisibility büyüsünü ve seçtiğin 1. seviye bir büyüyü (illüzyon veya nekromansı okulu) öğrenirsin. Bu büyüleri büyü yuvası harcamadan kullanabilirsin — her birini uzun dinlenmede bir kez. Yeterli yuvalarla da kullanılabilirler."
+    short: "Zeka, Bilgelik veya Karizmanya 1 ekle (max 20); invisibility (görünmezlik) ve illüzyon/nekromansi okulundan 1. seviye bir büyü öğrenirsin. Her birini uzun dinlenmede bir kez büyü harcamadan atabilir veya kendi büyü slotlarınla kullanabilirsin.",
+    full: "Zeka, Bilgelik veya Karizma puanını 1 artırır, en fazla 20 olabilir. Invisibility (görünmezlik) büyüsünü ve illüzyon (illusion) ya da nekromansi (necromancy) okulundan seçtiğin bir 1. seviye büyüyü öğrenirsin. Bu büyülerin her birini büyü slotu harcamadan birer kez yapabilirsin; bu şekilde bir büyüyü kullandıktan sonra, uzun bir dinlenmeyi tamamlayana kadar o büyüyü tekrar bu yolla yapamazsın."
   },
   {
     name: "Sharpshooter",
@@ -860,8 +850,8 @@ const feats = [
     cat: "combat",
     catLabel: "Dövüş",
     prereq: null,
-    short: "Uzun menzilde dezavantaj yok. Yarım ve üç çeyrek örtü yoksay. -5 saldırı karşılığında +10 hasar.",
-    full: "Uzun menzilde menzilli saldırı zarlarında dezavantaj almayaz. Menzilli silah saldırıların yarım örtü ve üç çeyrek örtüyü yoksayar. Yeterli olduğun bir menzilli silahla saldırıdan önce, saldırı zarına -5 ceza almayı seçebilirsin; isabet ederse hasara +10 eklersin."
+    short: "Uzun menzilli atışlar dezavantaj getirmez, yarım ve üç çeyrek siperleri görmezden gelirsin; ayrıca -5 saldırı cezası alıp hasara +10 ekleyebilirsin.",
+    full: "Uzun menzilde saldırı yapmak, menzilli silah saldırı zarlarına dezavantaj uygulamaz. Menzilli silah saldırıların, yarım siperleri (half cover) ve üç çeyrek siperleri (three-quarters cover) yok sayar. Yetkinliğin olan bir menzilli silahla saldırı yapmadan önce, saldırı zarında -5 ceza almayı seçebilirsin; eğer saldırı isabet ederse, vuruşun verdiği hasara +10 eklersin."
   },
   {
     name: "Shield Master",
@@ -870,8 +860,8 @@ const feats = [
     cat: "combat",
     catLabel: "Dövüş",
     prereq: null,
-    short: "Saldırı sonrası bonus eylemle itme. Kalkan ZS bonusunu DEX kurtarmasına ekle. Tepki ile DEX kurtarma başarısında sıfır hasar.",
-    full: "Kalkan tutarken: Saldırı eylemi aldığında, bonus eylem olarak kalkanınla 5 feet içindeki bir yaratığı itmeye çalışabilirsin. Kısıtlanmamışsan, kalkanın ZS bonusunu yalnızca seni hedef alan büyü veya zararlı etkiler için Çeviklik kurtarma zarına ekleyebilirsin. Yarım hasar için Çeviklik kurtarma zarı yapacağın bir etkiye tabi kalırsan, tepki olarak başarılı kurtarmada sıfır hasar alabilirsin."
+    short: "Turunda Attack eylemi yaptığında 5 feet'indeki bir yaratığı kalkanınla itmek için bonus eylem kullanabilirsin; incapacitated değilsen kalkanın AC bonusunu sadece sana gelen Çeviklik kurtarma zarlarına eklersin ve yarım hasar alacağın Çeviklik zarlarında reaksiyonla hiç hasar almayabilirsin.",
+    full: "Turunda Attack eylemini gerçekleştirdiğinde, 5 feet'indeki bir yaratığı kalkanınla itmeye çalışmak (shove) için bonus eylem kullanabilirsin. Hareket edemez veya eylem gerçekleştiremez (incapacitated) durumda değilsen, kalkanının AC bonusunu yalnızca seni hedef alan büyü veya diğer zararlı etkilere karşı yaptığın Çeviklik kurtarma zarlarına ekleyebilirsin. Yalnızca yarı hasar almanı sağlayan bir Çeviklik kurtarma zarına tabi tutulduğunda, kalkanını kendin ile etkinin kaynağı arasına siper ederek, zarda başarılı olman durumunda hiç hasar almamak için reaksiyonunu kullanabilirsin."
   },
   {
     name: "Skill Expert",
@@ -880,8 +870,8 @@ const feats = [
     cat: "skill",
     catLabel: "Yetenek",
     prereq: null,
-    short: "Bir özelliği 1 artır. Bir yetenekte yeterlilik kazan. Sahip olduğun bir yetenekte uzmanlık kazan.",
-    full: "Seçtiğin bir özellik puanını 1 artır (max 20). Seçtiğin bir yetenekte yeterlilik kazanırsın. Yeterli olduğun bir yetenekte uzmanlık kazanırsın — o yetenek kontrollerinde yeterlilik bonusu iki katına çıkar."
+    short: "İstediğin bir yetenek puanını 1 artırır (max 20); bir beceride yetkinlik kazanırsın ve halihazırda yetkin olduğun başka bir beceride uzmanlık (expertise) kazanarak yetkinlik bonusunu ikiye katlarsın.",
+    full: "Belirli becerilerdeki yetkinliğini geliştirerek şu avantajları elde edersin: Seçtiğin bir yetenek puanını 1 artırır, en fazla 20 olabilir. Dilediğin bir beceride yetkinlik (proficiency) kazanırsın. Yetkinliğin olan becerilerden birini seçersin ve o beceride uzmanlık (expertise) kazanırsın; bu, onunla yaptığın herhangi bir yetenek kontrolü için yetkinlik bonusunun iki katına çıkacağı anlamına gelir. Seçtiğin beceri, yetkinlik bonusunu ikiye katlayan Expertise gibi başka bir özellikten halihazırda yararlanmıyor olmalıdır."
   },
   {
     name: "Skilled",
@@ -890,8 +880,8 @@ const feats = [
     cat: "skill",
     catLabel: "Yetenek",
     prereq: null,
-    short: "Seçtiğin 3 yetenek veya araç kombinasyonunda yeterlilik kazan.",
-    full: "Seçtiğin herhangi bir kombinasyonda 3 yetenek veya araçta yeterlilik kazanırsın."
+    short: "İstediğin kombinasyonda toplam üç adet beceri (skill) veya alet (tool) yetkinliği kazanırsın.",
+    full: "Seçtiğin herhangi bir beceri veya alet kombinasyonundan toplam üç tanesi için yetkinlik (proficiency) kazanırsın."
   },
   {
     name: "Skulker",
@@ -900,8 +890,8 @@ const feats = [
     cat: "skill",
     catLabel: "Yetenek",
     prereq: "Çeviklik 13 veya daha yüksek",
-    short: "Hafifçe örtülüyken gizlenmeyi deneyebilirsin. Gizliyken ısskalayan menzilli saldırı konumunu ifşa etmez. Loşluk Algı'ya dezavantaj vermez.",
-    full: "Gizlendiğin yaratıktan hafifçe örtülüyken gizlenmeyi deneyebilirsin. Bir yaratıktan gizliyken menzilli silah saldırısı ıskaladığında, yapılan saldırı konumunu açığa çıkarmaz. Soluk ışık Bilgelik (Algı) kontrollerinde görüşe dayalı dezavantaj vermez."
+    short: "Hafifçe gizlendiğinde (lightly obscured) saklanmayı deneyebilirsin; gizliyken isabetsiz menzilli saldırı yapmak yerini ele vermez ve görmeye dayalı Bilgelik (Algılama) zarlarına dezavantaj getirmez.",
+    full: "Saklanmaya çalıştığın yaratıktan hafifçe gizlenmiş (lightly obscured) durumda olduğunda saklanmayı deneyebilirsin. Bir yaratığa karşı gizliyken menzilli bir silah saldırısı yapıp isabet ettiremediğinde, saldırıyı yapmak yerini açık etmez. Loş ışık (dim light), görme duyusuna dayanan Bilgelik (Algılama/Perception) kontrollerine dezavantaj uygulamaz."
   },
   {
     name: "Slasher",
@@ -910,8 +900,8 @@ const feats = [
     cat: "combat",
     catLabel: "Dövüş",
     prereq: null,
-    short: "Güç veya Çevikliği 1 artır. Kesme hasarıyla vurunca hedefin hızı -10 ft. Kritik isabette tüm saldırılarda dezavantaj.",
-    full: "Güç veya Çevikliği 1 artır (max 20). Turda bir kez, kesme hasar veren bir saldırıyla isabet ettiğinde, bir sonraki turunun başına kadar hedefin hızını 10 feet azaltabilirsin. Kesme hasar veren kritik isabet ettiğinde, hedefi ağır biçimde yaralar — bir sonraki turunun başına kadar tüm saldırı zarlarında dezavantajla atar."
+    short: "Güç veya Çevikliği 1 artırır (max 20); turda bir kez kesme hasarı verdiğinde hedefin hızını 10 feet düşürebilirsin ve kesme türde kritik vuruş yaptığında hedef sonraki turunun başına kadar tüm saldırı zarlarında dezavantaj alır.",
+    full: "Güç veya Çeviklik puanını 1 artırır, en fazla 20 olabilir. Kesme (slashing) hasarı veren bir saldırıyla bir yaratığı vurduğunda, turda bir kez olmak üzere hedefin hızını sonraki turunun başına kadar 10 feet azaltabilirsin. Bir yaratığa kesme hasarı veren kritik bir vuruş yaptığında onu ağır şekilde yaralarsın; hedef, sonraki turunun başına kadar tüm saldırı zarlarında dezavantaj (disadvantage) alır."
   },
   {
     name: "Spell Sniper",
@@ -920,8 +910,8 @@ const feats = [
     cat: "magic",
     catLabel: "Büyü",
     prereq: "En az bir büyü yapabilme yeteneği",
-    short: "Saldırı zarı gerektiren büyülerin menzili iki katına çıkar. Yarım ve üç çeyrek örtü yoksay. Saldırı gerektiren bir cantrip öğren.",
-    full: "Saldırı zarı gerektiren bir büyü yaptığında, büyünün menzili iki katına çıkar. Menzilli büyü saldırıların yarım örtü ve üç çeyrek örtüyü yoksayar. Saldırı zarı gerektiren bir büyü hilesi öğrenirsin (seçtiğin sınıfın listesinden)."
+    short: "Saldırı zar gerektiren büyülerin menzili iki katına çıkar, menzilli büyü saldırıların yarım ve üç çeyrek siperleri yok sayar ve bard, cleric, druid, sorcerer, warlock veya wizard listesinden saldırı zarı gerektiren bir cantrip (öz büyü) öğrenirsin.",
+    full: "saldırı zarı yapmanı gerektiren bir büyü yaptığında, büyünün menzili iki katına çıkar. Menzilli büyü saldırıların, yarım siperleri (half cover) ve üç çeyrek siperleri (three-quarters cover) yok sayar. Bard, cleric, druid, sorcerer, warlock veya wizard büyü listesinden, bir saldırı zarı gerektiren bir adet cantrip öğrenirsin. Bu cantrip için büyü yapma yeteneğin, seçtiğin büyü listesine bağlıdır: bard, sorcerer ve warlock için Karizma; cleric veya druid için Bilgelik; wizard için ise Zekâ."
   },
   {
     name: "Tavern Brawler",
@@ -930,8 +920,8 @@ const feats = [
     cat: "combat",
     catLabel: "Dövüş",
     prereq: null,
-    short: "Güç veya Anayasayı 1 artır. İmprovize silah ve silahsız saldırı yeterliliği. El yumruğu d4 hasar. Vuruş sonrası güreş bonus eylemi.",
-    full: "Güç veya Anayasayı 1 artır (max 20). İmprovize silahlar ve silahsız saldırılarda yeterlilik kazanırsın. Silahsız saldırın d4 kullanır. Turunda, improvize silah veya silahsız saldırıyla isabet ettiğinde, bonus eylem olarak hedefi güreşmeye çekmeye çalışabilirsin."
+    short: "Güç veya Dayanıklılığı 1 artırır (max 20); doğaçlama silahlarda ve çıplak elle dövüşte yetkinlik kazanırsın.",
+    full: "Güç veya Dayanıklılık (Constitution) puanını 1 artırır, en fazla 20 olabilir. Doğaçlama silahlarda (improvised weapons) ve silahsız vuruşlarda (unarmed strikes) yetkinlik kazanırsın. Silahsız vuruşunun hasarı için d4 kullanırsın."
   },
   {
     name: "Telekinetic",
@@ -940,8 +930,8 @@ const feats = [
     cat: "magic",
     catLabel: "Büyü",
     prereq: null,
-    short: "Zeka/Bilgelik/Karizm 1 artır. Mage hand öğren (görünmez yapılabilir). Bonus eylemle yaratığı 5 ft. it veya çek.",
-    full: "Zeka, Bilgelik veya Karizmanı 1 artır (max 20). Mage hand büyü hilesini öğrenirsin; sözel ve bedensel bileşensiz kullanabilir, görünmez hale getirebilirsin. Bonus eylem olarak, görebildiğin 30 feet içindeki bir yaratığı telekinetik olarak itmeye çalışabilirsin (Güç kurtarma ZS: 8 + yeterlilik + artırılan özellik mod.) — başarısız olursa 5 feet ileriye veya arkaya itilir."
+    short: "Zeka, Bilgelik veya Karizmanya 1 ekle (max 20); sözlü ve el hareketli bileşen istemeyen, hayalet eli görünmez yapabilen (mage hand) öz büyü öğrenirsin (veya menzili 30 feet artar) ve bonus eylemle 30 feet'indeki bir yaratığı zihinsel olarak itip çekebilirsin.",
+    full: "Zeka, Bilgelik veya Karizma puanını 1 artırır, en fazla 20 olabilir. Mage hand öz büyüsünü (cantrip) öğrenirsin. Bu büyüyü sözlü (verbal) veya el hareketli (somatic) bileşenler olmadan yapabilir ve hayalet eli görünmez kılabilirsin. Bu büyüyü halihazırda biliyorsan, yaptığında menzili 30 feet artar. Bu büyünün büyü yapma yeteneği, bu yetenekle artırdığınız özelliktir. Bonus eylem kullanarak, 30 feet'indeki görebildiğin bir yaratığı telekinetik olarak itmeye çalışabilirsin. Bunu yaptığında hedef; Güç kurtarma zarında (DC 8 + yetkinlik bonusu + bu yetenekle artırılan özelliğin yetenek değiştiricisi) başarılı olamazsa sana doğru veya senden uzağa 5 feet hareket ettirilir. Bir yaratık bu kurtarma zarında isteğe bağlı olarak başarısız olmayı seçebilir."
   },
   {
     name: "Telepathic",
@@ -950,8 +940,8 @@ const feats = [
     cat: "magic",
     catLabel: "Büyü",
     prereq: null,
-    short: "Zeka/Bilgelik/Karizm 1 artır. 60 ft. içindeki görünen yaratıklara telepati. Detect Thoughts günde bir kez slot harcamadan.",
-    full: "Zeka, Bilgelik veya Karizmanı 1 artır (max 20). Görebildiğin 60 feet içindeki herhangi bir yaratıkla zihinsel olarak iletişim kurabilirsin (bildiğin dilde; yaratık sadece o dili biliyorsa anlar). Detect Thoughts büyüsünü büyü yuvası veya bileşen harcamadan yapabilirsin — uzun dinlenmede bir kez. Yeterli büyü yuvanla da kullanılabilir."
+    short: "Zeka, Bilgelik veya Karizmanya 1 ekle (max 20); 60 feet'indeki bildiğin dili konuşan yaratıklarla zihinsel olarak konuşabilir ve uzun dinlenmede bir kez büyü slotu harcamadan Detect Thoughts (Düşünce Algılama) büyü yapabilirsin.",
+    full: "Zeka, Bilgelik veya Karizma puanını 1 artırır, en fazla 20 olabilir. 60 feet'indeki görebildiğin herhangi bir yaratıkla telepatik olarak konuşabilirsin. Telepatik iletilerin bildiğin bir dildedir ve yaratık seni ancak o dili biliyorsa anlar. Bu iletişim, yaratığa sana telepatik olarak cevap verme yeteneği vermez. Herhangi bir büyü slotu veya bileşen gerektirmeden Detect Thoughts (Düşünce Algılama) büyüsünü yapabilirsin; bu büyüyü bu şekilde tekrar yapabilmek için uzun bir dinlenmeyi tamamlamalısın. Büyü için büyü yapma yeteneğin, bu yetenekle artırdığın özelliktir. 2. seviye veya daha yüksek büyü slotların varsa, bu büyüyü onlarla da yapabilirsin."
   },
   {
     name: "Tough",
@@ -960,8 +950,8 @@ const feats = [
     cat: "general",
     catLabel: "Genel",
     prereq: null,
-    short: "Maximum HP, mevcut seviyenin iki katı kadar artar. Her seviyede +2 HP daha.",
-    full: "Bu hüneri aldığında max HP'n, mevcut seviyenin iki katı kadar artar. Bundan sonra her seviye atladığında max HP'n 2 daha artar."
+    short: "Bu yeteneği kazandığında can puanı maksimumun seviyenin iki katı kadar artar ve bundan sonra kazandığın her seviyede can puanı maksimumun ekstra 2 puan artar.",
+    full: "Can puanı maksimumun, bu yeteneği kazandığın anda karakter seviyenin iki katı kadar artar. Bundan sonra kazandığın her seviyede ise can puanı maksimumun ekstra 2 puan artmaya devam eder."
   },
   {
     name: "War Caster",
@@ -970,8 +960,8 @@ const feats = [
     cat: "magic",
     catLabel: "Büyü",
     prereq: "En az bir büyü yapabilme yeteneği",
-    short: "Konsantrasyon kurtarma zarlarında avantaj. Silahla büyünün bedensel bileşenini yap. Fırsat saldırısı yerine büyü yap.",
-    full: "Hasar alırken konsantrasyon korumak için Anayasa kurtarma zarlarında avantaj kazanırsın. Ellerinde silah veya kalkan olduğunda büyünün bedensel bileşenlerini gerçekleştirebilirsin. Düşman bir yaratığın hareketi senden fırsat saldırısı provoke ettiğinde, tepki olarak o yaratığa 1 eylemlik bir büyü yapabilirsin (yalnızca onu hedef almalı)."
+    short: "Hasar aldığında büyü konsantrasyonunu korumak için attığın Dayanıklılık kurtarma zarlarında avantaj kazanırsın; ellerinde silah veya kalkan varken büyülerin el hareketli bileşenlerini yapabilirsin ve bir yaratık fırsat saldırısı tetiklediğinde reaksiyonla sadece o yaratığı hedef alan 1 eylemlik bir büyü yapabilirsin.",
+    full: "Hasar aldığında bir büyü üzerindeki konsantrasyonunu korumak için yaptığın Dayanıklılık (Constitution) kurtarma zarlarında avantaj kazanırsın. Ellerinde bir ya da iki elde silahlar veya kalkan olsa bile büyülerin el hareketli (somatic) bileşenlerini yerine getirebilirsin. Düşman bir yaratığın hareketi senden bir fırsat saldırısı tetiklediğinde, fırsat saldırısı yapmak yerine reaksiyonunu kullanarak o yaratığa karşı bir büyü yapabilirsin. Büyünün yapım süresi 1 eylem (1 action) olmalı ve yalnızca o yaratığı hedef almalıdır."
   },
   {
     name: "Weapon Master",
@@ -980,18 +970,8 @@ const feats = [
     cat: "combat",
     catLabel: "Dövüş",
     prereq: null,
-    short: "Güç veya Çevikliği 1 artır. Seçtiğin 4 silahta yeterlilik kazan.",
-    full: "Güç veya Çevikliği 1 artır (max 20). Seçtiğin 4 silahta yeterlilik kazanırsın. Her biri basit veya savaş silahı olmalı."
-  },
-  {
-    name: "Gift of the Chromatic Dragon",
-    tr: "Kromatik Ejder Armağanı",
-    icon: "🐲",
-    cat: "racial",
-    catLabel: "Irk",
-    prereq: null,
-    short: "Silaha asit/soğuk/ateş/yıldırım/zehir hasarı ekle (uzun dinlenmede). Tepki olarak hasar tipine direnç kazan.",
-    full: "Bonus eylem olarak basit veya savaş silahına asit, soğuk, ateş, yıldırım veya zehirden birini yükleyebilirsin; 1 dakika boyunca isabet ettiğinde ek 1d4 hasar verir (uzun dinlenmede yenilenir). Asit, soğuk, ateş, yıldırım veya zehir hasarı aldığında, tepki olarak o hasara direnç kazanabilirsin — yeterlilik bonusu kadar kullanılabilir (uzun dinlenmede yenilenir)."
+    short: "Güç veya Çevikliği 1 artırır (max 20); basit veya askeri silahlardan dilediğin dördü için yetkinlik kazanırsın.",
+    full: "Güç veya Çeviklik puanını 1 artırır, en fazla 20 olabilir. Her biri basit (simple) veya askeri (martial) bir silah olmak üzere, seçtiğin dört silahta yetkinlik kazanırsın."
   },
   {
     name: "Blood Magic",
@@ -1000,48 +980,8 @@ const feats = [
     cat: "magic",
     catLabel: "Büyü",
     prereq: "En az bir büyü yapabilme yeteneği",
-    short: "HP feda ederek harcanan büyü yuvalarını geri kazan. 5. seviye ve üstü yuvalar geri kazanılamaz.",
-    full: "Eylem olarak, geri kazanmak istediğin büyü yuvasının seviyesiyle en büyük Vuruş Zarın'ın maksimum değerinin çarpımı kadar HP kaybedebilirsin. Bu şekilde kaybettiğin HP'yi, bir uzun dinlenme bitirene kadar hiçbir şekilde (büyü dahil) geri kazanamazsın. 5. seviye ve üstü yuvalar bu yöntemle geri kazanılamaz."
-  },
-  {
-    name: "Adept of the Black Robes",
-    tr: "Kara Cüppe Ustası",
-    icon: "🌑",
-    cat: "magic",
-    catLabel: "Büyü",
-    prereq: "4. Seviye, Yüksek Büyücülüğün Başlangıcı (Nuitari) hüneri",
-    short: "Büyüleme veya nekromansi okulundan 2. seviye bir büyü öğren; Vuruş Zarı harcayarak büyülerinin hasarını artır.",
-    full: "Nuitari'nin kara ayının gücüne bağlanırsın. Büyüleme veya nekromansi okulundan 2. seviyeli bir büyü öğrenirsin. Ayrıca bir Vuruş Zarı harcayarak yaptığın bir büyünün verdiği hasarı artırabilirsin."
-  },
-  {
-    name: "Adept of the Red Robes",
-    tr: "Kızıl Cüppe Ustası",
-    icon: "🔴",
-    cat: "magic",
-    catLabel: "Büyü",
-    prereq: "4. Seviye, Yüksek Büyücülüğün Başlangıcı (Lunitari) hüneri",
-    short: "Hayal veya değişim okulundan 2. seviye bir büyü öğren; günde PB kez bir saldırı zarını 10 sayabilirsin.",
-    full: "Lunitari'nin kızıl ayının gücüne bağlanırsın. Hayal (illusion) veya değişim (transmutation) okulundan 2. seviyeli bir büyü öğrenirsin. Günde yeterlilik bonusun kadar, bir saldırı zarını otomatik olarak 10 sonucuyla değerlendirebilirsin."
-  },
-  {
-    name: "Adept of the White Robes",
-    tr: "Beyaz Cüppe Ustası",
-    icon: "⚪",
-    cat: "magic",
-    catLabel: "Büyü",
-    prereq: "4. Seviye, Yüksek Büyücülüğün Başlangıcı (Solinari) hüneri",
-    short: "Savunma veya kehanet okulundan 2. seviye bir büyü öğren; bir büyü yuvası harcayarak bir yaratığın hasarını azalt.",
-    full: "Solinari'nin beyaz ayının gücüne bağlanırsın. Savunma (abjuration) veya kehanet (divination) okulundan 2. seviyeli bir büyü öğrenirsin. Bir büyü yuvası harcayarak bir yaratığın aldığı hasarı azaltabilirsin."
-  },
-  {
-    name: "Agent of Order",
-    tr: "Düzenin Elçisi",
-    icon: "⚖️",
-    cat: "magic",
-    catLabel: "Büyü",
-    prereq: "4. Seviye, Dış Düzlemlerin Evladı (Yasacı Dış Düzlem) hüneri",
-    short: "Bir yeteneğine +1; günde PB kez ekstra 1d8 güç hasarı ver, hedef kaydetmeyi kaçırırsa kısıtlanır.",
-    full: "Yasa'nın düzenli gücünden pay alırsın: bir yetenek puanını 1 artırırsın. Günde yeterlilik bonusun kadar, bir saldırına ek 1d8 güç hasarı katabilir ve hedef kaydetme atışını kaçırırsa onu kısıtlayabilirsin."
+    short: "Kan feda ederek 5. seviye altı büyü slotlarını yenilersin; kaybedilen canlar uzun dinlenene kadar iyileştirilemez.",
+    full: "Kanını kullanarak harcanan büyü slotlarını geri kazanabilirsin, ancak bu slotların hiçbiri 5. seviye veya daha yüksek olamaz. Bir eylem harcayarak, Hit Dice'ının  değeri ile geri kazanmak istediğin büyü slotunun seviyesinin çarpımı kadar can puanı feda edersin. Bu şekilde kaybettiğin can puanlarını, uzun bir dinlenmeyi tamamlayana kadar hiçbir yöntemle (büyüsel yollar dahil) geri kazanamazsın."
   },
   {
     name: "Artificer Initiate",
@@ -1050,18 +990,8 @@ const feats = [
     cat: "magic",
     catLabel: "Büyü",
     prereq: null,
-    short: "Bir kantrip ve bir 1. seviye zanaatkâr büyüsü öğren (yuvasız yapılabilir); bir zanaatkâr aletinde yeterlilik kazan.",
-    full: "Zanaatkâr sınıfının büyü listesinden bir kantrip ve bir 1. seviyeli büyü öğrenirsin; öğrendiğin 1. seviyeli büyüyü bir uzun dinlenmeye kadar yuva harcamadan bir kez yapabilirsin (yuva harcayarak istediğin kadar yapmaya devam edebilirsin). Ayrıca seçtiğin bir zanaatkâr aletinde yeterlilik kazanırsın."
-  },
-  {
-    name: "Baleful Scion",
-    tr: "Uğursuz Evlat",
-    icon: "💀",
-    cat: "magic",
-    catLabel: "Büyü",
-    prereq: "4. Seviye, Dış Düzlemlerin Evladı (Kötü Dış Düzlem) hüneri",
-    short: "Bir yeteneğine +1; günde PB kez ek 1d6+PB nekrotik hasar ver ve verdiğin hasar kadar hp kazan.",
-    full: "Kötülüğün karanlık gücünü içinde taşırsın: bir yetenek puanını 1 artırırsın. Günde yeterlilik bonusun kadar, saldırılarına ek 1d6 + yeterlilik bonusu nekrotik hasar katabilir ve verdiğin bu hasar kadar hit point kazanabilirsin."
+    short: "Bir cantrip ve büyü slotu harcamadan yapılabilen 1. seviye bir artificer büyüsü öğrenirsin; ayrıca bir zanaatkâr aletinde yeterlilik kazanırsın.",
+    full: "Bir cantrip (öz büyü) öğrenirsin. Ayrıca bir artificer büyü listesinden 1. seviye bir büyü öğrenirsin; bu büyüyü büyü slotu harcamadan bir kez yapabilir ve bu özelliği tekrar kullanabilmek için uzun bir dinlenmeyi tamamlamalısın (büyü yapma yeteneğin Zeka olur). Ek olarak, dilediğin bir tür zanaatkâr aletinde (artisan's tools) yetkinlik kazanırsın."
   },
   {
     name: "Bountiful Luck",
@@ -1070,8 +1000,8 @@ const feats = [
     cat: "racial",
     catLabel: "Irk",
     prereq: "Halfling",
-    short: "Reaksiyonla, 30 ft içindeki bir müttefikin bir d20'de attığı 1'i yeniden atmasını sağlarsın.",
-    full: "Halfling'lerin efsanevi şansını çevrendekilerle paylaşırsın. Reaksiyon olarak, 30 feet içindeki bir müttefiğin bir saldırı zarında, yetenek kontrolünde veya kaydetme atışında attığı 1 sonucunu yeniden atmasını sağlayabilirsin; yeni sonuç kullanılmak zorundadır."
+    short: "30 feet'indeki bir müttefik d20'de 1 attığında zarı yeniden atmasına izin verebilirsin.",
+    full: "30 feet'leştiğin bir müttefik bir d20 zarında 1 attığında, reaksiyonunu kullanarak o zarı yeniden atmasını sağlayabilir ve yeni sonucu kabul etmek zorunda kalırsın."
   },
   {
     name: "Chef",
@@ -1080,28 +1010,8 @@ const feats = [
     cat: "general",
     catLabel: "Genel",
     prereq: null,
-    short: "Dayanıklılık veya Bilgeliğe +1; aşçı aletlerinde yeterlilik kazan; özel yemekler pişirip hp kazandır.",
-    full: "Dayanıklılık veya Bilgelik puanını 1 artırırsın ve aşçı aletlerinde yeterlilik kazanırsın (zaten yeterliysen başka bir alette yeterlilik kazanırsın). Kısa dinlenme sırasında özel atıştırmalıklar hazırlayabilirsin; bunları tüketen yaratıklar, dinlenme sonunda Vuruş Zarı harcadıklarında ekstra hit point kazanır. Ayrıca uzun bir hazırlıkla özel bir yemek pişirip, tüketenlerin bir sonraki uzun dinlenmelerinde geçici hit point kazanmalarını sağlayabilirsin."
-  },
-  {
-    name: "Cohort of Chaos",
-    tr: "Kaosun Yoldaşı",
-    icon: "🌀",
-    cat: "magic",
-    catLabel: "Büyü",
-    prereq: "4. Seviye, Dış Düzlemlerin Evladı (Kaotik Dış Düzlem) hüneri",
-    short: "Bir yeteneğine +1; bir saldırı zarında veya kaydetme atışında doğal 1 ya da 20 attığında özel rastgele bir olay tetiklenir.",
-    full: "Kaosun öngörülemez doğasını taşırsın: bir yetenek puanını 1 artırırsın. Bir saldırı zarında veya kaydetme atışında doğal 1 ya da doğal 20 attığında, oyun ustasının belirlediği küçük ve rastgele bir etki devreye girer."
-  },
-  {
-    name: "Divinely Favored",
-    tr: "İlahi Lütuf",
-    icon: "✨",
-    cat: "magic",
-    catLabel: "Büyü",
-    prereq: "4. Seviye, Dragonlance Kampanyası",
-    short: "Bir rahip kantripi, augury ve hizana göre belirlenen bir 1. seviye büyü öğren.",
-    full: "Bir tanrı seni fark etmiş ve lütfunu üzerine göstermiştir. Bir rahip kantripi, augury büyüsü ve hizana bağlı bir listeden 1. seviyeli bir büyü öğrenirsin; bu büyüleri belirli bir sıklıkta yuva harcamadan yapabilirsin."
+    short: "Dayanıklılık veya Bilgelik puanını 1 artırır (max 20); aşçı aletlerinde (cook's utensils) yetkinlik kazanırsın ve kısa dinlenme sırasında özel yemekler pişirerek ek Can Puanı yenilenmesini sağlarsın.",
+    full: "Dayanıklılık veya Bilgelik puanını 1 artırır, en fazla 20 olabilir. Aşçı aletlerinde (cook's utensils) yetkinlik kazanırsın. Kısa bir dinlenme sırasında, elindeki malzemeleri kullanarak özel yemekler pişirebilirsin; bu yemekleri tüketen müttefiklerin (sen dahil) kısa dinlenme sonunda kazandığı iyileşme miktarı artar ve ek geçici can puanı elde ederler."
   },
   {
     name: "Dragon Fear",
@@ -1110,8 +1020,8 @@ const feats = [
     cat: "racial",
     catLabel: "Irk",
     prereq: "Dragonborn",
-    short: "Güç, Dayanıklılık veya Karizmaya +1; Nefes Silahını hasar yerine korkutmak için kullanabilirsin.",
-    full: "Ejderha atalarının korku salan doğasını miras alırsın: Güç, Dayanıklılık veya Karizma puanını 1 artırırsın. Nefes Silahını kullandığında, hasar vermek yerine etki alanındaki yaratıkları korkutmayı seçebilirsin."
+    short: "Güç, Dayanıklılık veya Karizmanya 1 ekle (max 20); Nefes Silahını (Breath Weapon) hasar vermek yerine korkutmak için kullanabilirsin.",
+    full: "Güç, Dayanıklılık veya Karizma puanını 1 artırır, en fazla 20 olabilir. Ejderha soyundan gelen Nefes Silahı (Breath Weapon) özelliğini kullanırken, normalde verdiği hasar yerine, etkilenen alan içindeki yaratıkların senin seçtiğin bir özelliğe göre kurtarma zarı yapmasını sağlayarak onları korkutabilirsin."
   },
   {
     name: "Dragon Hide",
@@ -1120,8 +1030,8 @@ const feats = [
     cat: "racial",
     catLabel: "Irk",
     prereq: "Dragonborn",
-    short: "Güç, Dayanıklılık veya Karizmaya +1; zırhsızken AC'in 13+Çeviklik olur; pençelerin 1d4+Güç kesme hasarı verir.",
-    full: "Ejderha pullarının sertleştiğini ve pençelerinin geliştiğini fark edersin: Güç, Dayanıklılık veya Karizma puanını 1 artırırsın. Zırh giymediğinde Zırh Sınıfın 13 + Çeviklik değiştiricine eşit olur (kalkanı yine kullanabilirsin). Ayrıca geri çekilebilir pençeler geliştirirsin; bu pençelerle yaptığın silahsız vuruşlar 1d4 + Güç değiştiricisi kesme hasarı verir."
+    short: "Güç, Dayanıklılık veya Karizmanya 1 ekle (max 20); zırh giymediğinde AC'in 13 + Çeviklik değiştiricisi olur ve geri çekilebilir pençelerin 1d4 + Güç değiştiricisi kesme hasarı verir.",
+    full: "Güç, Dayanıklılık veya Karizma puanını 1 artırır, en fazla 20 olabilir. Herhangi bir zırh giymediğin durumlarda AC'in 13 + Çeviklik değiştiricine eşit olur. Ayrıca ellerindeki geri çekilebilir pençeler, silahsız vuruş alternatifi olarak kullanılabilir ve vurduklarında 1d4 + Güç değiştiricisi kadar kesme (slashing) hasarı verir."
   },
   {
     name: "Drow High Magic",
@@ -1130,8 +1040,8 @@ const feats = [
     cat: "racial",
     catLabel: "Irk",
     prereq: "Elf (drow)",
-    short: "detect magic büyüsünü istediğin an yap; levitate ve dispel magic büyülerini uzun dinlenmede birer kez yap.",
-    full: "Drow atalarının büyüsel mirasına erişirsin. detect magic büyüsünü herhangi bir yuva harcamadan istediğin an yapabilirsin. Ayrıca levitate ve dispel magic büyülerinin her birini, bir uzun dinlenmeye kadar yuva harcamadan bir kez yapabilirsin."
+    short: "Detect magic büyüsünü dilediğin zaman (at will) sınırsız, levitate ve dispel magic büyülerini ise uzun dinlenmede bir kez büyü slotu harcamadan yapabilirsin.",
+    full: "Doğuştan gelen mistik yeteneklerini geliştirerek şu avantajları elde edersin: Detect magic (büyü algılama) büyüsünü herhangi bir büyü slotu harcamadan dilediğin zaman sınırsız olarak yapabilirsin. Levitate (havaya yükselme) ve dispel magic (büyüyü bozma) büyülerini ise her birini uzun dinlenmede bir kez olmak üzere büyü slotu harcamadan yapabilirsin."
   },
   {
     name: "Dwarf Fortitude",
@@ -1140,8 +1050,8 @@ const feats = [
     cat: "racial",
     catLabel: "Irk",
     prereq: "Dwarf",
-    short: "Dayanıklılığa +1; Kaçınma eylemi alırken bir Vuruş Zarı harcayarak kendini iyileştir.",
-    full: "Cücelerin efsanevi dayanıklılığını taşırsın: Dayanıklılık puanını 1 artırırsın. Kaçınma (Dodge) eylemini aldığında, bir Vuruş Zarı harcayarak zar sonucu + Dayanıklılık değiştiricin kadar hit point iyileştirebilirsin."
+    short: "Dayanıklılığa 1 ekle (max 20); Dodge eylemini yaptığında kendini iyileştirmek için bir Can Zarı harcayabilirsin.",
+    full: "Dayanıklılık puanını 1 artırır, en fazla 20 olabilir. Turunda Dodge eylemini gerçekleştirdiğinizde, harcayabileceğiniz bir Can Zarı (Hit Die) tüketerek kendinizi iyileştirebilirsiniz (zarın sonucuna Dayanıklılık değiştiricinizi eklersiniz)."
   },
   {
     name: "Elven Accuracy",
