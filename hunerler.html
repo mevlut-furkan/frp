@@ -1060,18 +1060,8 @@ const feats = [
     cat: "racial",
     catLabel: "Irk",
     prereq: "Elf veya half-elf",
-    short: "Çeviklik, Zeka, Bilgelik veya Karizmaya +1; bu yeteneklerle avantajlı saldırılarda bir zarı yeniden at.",
-    full: "Elflerin efsanevi isabet kabiliyetini taşırsın: Çeviklik, Zeka, Bilgelik veya Karizma puanını 1 artırırsın. Bu yeteneklerden birini kullanan bir saldırı zarında avantajın olduğunda, zarlardan birini bir kez daha atabilir ve yeni sonucu kullanabilirsin."
-  },
-  {
-    name: "Ember of the Fire Giant",
-    tr: "Ateş Devinin Közü",
-    icon: "🔥",
-    cat: "combat",
-    catLabel: "Dövüş",
-    prereq: "4. Seviye, Devlerin Vuruşu (Ateş Vuruşu) hüneri",
-    short: "Güç, Dayanıklılık veya Bilgeliğe +1; ateşe direnç; günde PB kez 1d8+PB ateş hasarı ve kör etme (15 ft yarıçap).",
-    full: "Ateş devlerinin gücünü kanına karıştırırsın: Güç, Dayanıklılık veya Bilgelik puanını 1 artırırsın ve ateş hasarına direnç kazanırsın. Günde yeterlilik bonusun kadar, bir silah saldırısına 1d8 + yeterlilik bonusu ateş hasarı katabilir ve 15 feet yarıçapındaki yaratıkları kör edebilirsin."
+    short: "Çeviklik, Zeka, Bilgelik veya Karizmanya 1 ekle (max 20); Çeviklik, Zeka, Bilgelik veya Karizma kullanan bir saldırı zarında avantajın olduğunda, zarların birini bir kez yeniden atabilirsin.",
+    full: "Çeviklik, Zeka, Bilgelik veya Karizma puanını 1 artırır, en fazla 20 olabilir. Çeviklik, Zeka, Bilgelik veya Karizma kullanarak yaptığın bir saldırı zarında avantajın olduğunda, zarlardan birini bir kez yeniden atabilirsin."
   },
   {
     name: "Fade away",
@@ -1080,8 +1070,8 @@ const feats = [
     cat: "racial",
     catLabel: "Irk",
     prereq: "Gnome",
-    short: "Çeviklik veya Zekaya +1; hasar aldığında reaksiyonla görünmez olabilirsin.",
-    full: "Gnome'ların doğal saklanma yeteneğini geliştirirsin: Çeviklik veya Zeka puanını 1 artırırsın. Hasar aldığında, reaksiyon olarak bir sonraki turunun sonuna kadar (ya da saldırıp konsantrasyonu bozana kadar) görünmez olabilirsin; kullanım bir uzun dinlenmede yenilenir."
+    short: "Çeviklik veya Zekânı 1 artırır (max 20); hasar aldığında reaksiyon kullanarak görünmez olabilirsin.",
+    full: "Çeviklik veya Zeka puanını 1 artırır, en fazla 20 olabilir. Düşman bir saldırıdan veya başka bir kaynaktan hasar aldığında, reaksiyonunu kullanarak sonraki turunun başına kadar görünmez (invisible) hale gelebilirsin."
   },
   {
     name: "Fey Teleportation",
@@ -1090,8 +1080,8 @@ const feats = [
     cat: "racial",
     catLabel: "Irk",
     prereq: "Elf (high)",
-    short: "Zeka veya Karizmaya +1; Sylvan dilini konuş; misty step büyüsünü kısa dinlenmede bir kez yap.",
-    full: "Yüksek Elflerin peri büyüsüyle bağını derinleştirirsin: Zeka veya Karizma puanını 1 artırırsın ve Sylvan dilini konuşmaya başlarsın. misty step büyüsünü, bir kısa dinlenmeye kadar yuva harcamadan bir kez yapabilirsin."
+    short: "Zeka veya Karizmanya 1 ekle (max 20); Sylvan dilini konuşursun ve kısa dinlenmede bir kez Misty Step (sisli adım) büyüsünü yapabilirsin.",
+    full: "Zeka veya Karizma puanını 1 artırır, en fazla 20 olabilir. Sylvan dilini akıcı bir şekilde konuşmayı öğrenirsin. Ayrıca Misty Step (sisli adım) büyüsünü herhangi bir büyü slotu harcamadan kısa veya uzun bir dinlenmede bir kez yapabilirsin; bu özelliği tekrar kullanabilmek için kısa ya da uzun bir dinlenmeyi tamamlamalısın. Büyü için büyü yapma yeteneğin, bu yetenekle artırdığın özelliktir."
   },
   {
     name: "Flames of Phlegethos",
@@ -1100,18 +1090,8 @@ const feats = [
     cat: "racial",
     catLabel: "Irk",
     prereq: "Tiefling",
-    short: "Zeka veya Karizmaya +1; ateş büyülerinde 1'leri yeniden at; ateş büyüsü yaptığında alevler seni sarabilir.",
-    full: "Cehennemin alevleriyle bağını güçlendirirsin: Zeka veya Karizma puanını 1 artırırsın. Bir büyüyle ateş hasarı verirken hasar zarlarında attığın 1'leri yeniden atabilir ve yeni sonucu kullanmak zorundasın. Ayrıca bir ateş büyüsü yaptığında, isteğe bağlı olarak vücudunu alevlerle sarabilirsin; bu alevler çevrene hafif ışık verir ve seni yakın dövüşte vuran saldırganlara ateş hasarı verir."
-  },
-  {
-    name: "Fury of the Frost Giant",
-    tr: "Buz Devinin Öfkesi",
-    icon: "❄️",
-    cat: "combat",
-    catLabel: "Dövüş",
-    prereq: "4. Seviye, Devlerin Vuruşu (Buz Vuruşu) hüneri",
-    short: "Güç, Dayanıklılık veya Bilgeliğe +1; soğuğa direnç; günde PB kez 1d8+PB soğuk hasarı, hız 0'a düşer.",
-    full: "Buz devlerinin dondurucu gücünü taşırsın: Güç, Dayanıklılık veya Bilgelik puanını 1 artırırsın ve soğuk hasarına direnç kazanırsın. Günde yeterlilik bonusun kadar, bir silah saldırısına 1d8 + yeterlilik bonusu soğuk hasarı katabilir ve hedefin hızını bir sonraki turunun sonuna kadar 0'a düşürebilirsin."
+    short: "Zeka veya Karizmanya 1 ekle (max 20); ateş büyülerinin hasar zarlarında 1 attığında yeniden atabilirsin ve bir ateş büyüsü yaptığında alevler seni sarar.",
+    full: "Zeka veya Karizma puanını 1 artırır, en fazla 20 olabilir. Ateş büyüleri yaparken hasar zarlarında 1 attığında, zarı yeniden atabilir ve yeni sonucu kullanmak zorunda kalırsın. Ayrıca, 1. seviye veya daha yüksek bir ateş büyüsü yaptığında, etrafını saran ve sana yaklaşan düşmanlara hasar veren alevlerle sarılırsın."
   },
   {
     name: "Gift of the Gem Dragon",
@@ -1119,9 +1099,9 @@ const feats = [
     icon: "💎",
     cat: "racial",
     catLabel: "Irk",
-    prereq: null,
-    short: "Zeka, Bilgelik veya Karizmaya +1; günde PB kez saldırgana Güç kaydetmesi zorla ya da 2d8 güç hasarı ver ve 10 ft it.",
-    full: "Mücevher ejderlerinin psişik gücünden pay alırsın: Zeka, Bilgelik veya Karizma puanını 1 artırırsın. Bir saldırıya hedef olduğunda, reaksiyon olarak günde yeterlilik bonusun kadar saldırgana bir Güç kaydetme atışı zorlayabilirsin; başarısız olursa 2d8 güç hasarı alır ve senden 10 feet uzağa itilir, başarılı olursa yalnızca yarı hasar alır."
+    prereq: "Dragonborn",
+    short: "Zeka, Bilgelik veya Karizmanya 1 ekle (max 20); bir saldırıya uğradığında reaksiyonla saldıranı 10 feet uzağa itip 2d8 güç hasarı verebilirsin.",
+    full: "Zeka, Bilgelik veya Karizma puanını 1 artırır, en fazla 20 olabilir. Bir yaratık sana saldırdığında reaksiyonunu kullanarak gizli bir telekinetik patlama salabilirsin; saldıran yaratık Güç kurtarma zarında (DC 8 + yetkinlik bonusu + artırılan özelliğin değiştiricisi) başarısız olursa 2d8 güç (force) hasarı alır ve senden 10 feet uzağa itilir. Bu reaksiyonu yetkinlik bonusun kadar kez kullanabilirsin ve harcanan kullanımlar uzun bir dinlenmenin ardından yenilenir."
   },
   {
     name: "Gift of the Metallic Dragon",
@@ -1129,19 +1109,9 @@ const feats = [
     icon: "🥈",
     cat: "magic",
     catLabel: "Büyü",
-    prereq: null,
-    short: "cure wounds büyüsünü uzun dinlenmede bir kez yap; reaksiyonla kanat açıp günde PB kez AC'ine +PB kazandır.",
-    full: "Metalik ejderlerin şifa verici ve koruyucu doğasından pay alırsın. cure wounds büyüsünü, bir uzun dinlenmeye kadar yuva harcamadan bir kez yapabilirsin. Ayrıca bir saldırıya hedef olduğunda, reaksiyon olarak hayalet kanatlar açabilir ve günde yeterlilik bonusun kadar, o saldırıya karşı Zırh Sınıfına yeterlilik bonusun kadar ekleyebilirsin."
-  },
-  {
-    name: "Guile of the Cloud Giant",
-    tr: "Bulut Devinin Kurnazlığı",
-    icon: "☁️",
-    cat: "combat",
-    catLabel: "Dövüş",
-    prereq: "4. Seviye, Devlerin Vuruşu (Bulut Vuruşu) hüneri",
-    short: "Güç, Dayanıklılık veya Bilgeliğe +1; bir saldırının hasarına direnç kazan; günde PB kez 30 ft içine ışınlan.",
-    full: "Bulut devlerinin kurnazlığını ve havadaki çevikliğini taşırsın: Güç, Dayanıklılık veya Bilgelik puanını 1 artırırsın. Bir saldırıya hedef olduğunda, reaksiyon olarak o saldırının hasar tipine direnç kazanabilir ve günde yeterlilik bonusun kadar 30 feet içindeki boş bir alana ışınlanabilirsin."
+    prereq: "Dragonborn",
+    short: "Uzun dinlenmede bir kez Cure Wounds büyü yapabilirsin; bir saldırıya karşı reaksiyonla kanat açarak zırh sınıfına (AC) yetkinlik bonusun kadar ek bonus alabilirsin.",
+    full: "Cure Wounds (yaraları iyileştirme) büyüsünü herhangi bir büyü slotu harcamadan uzun bir dinlenmede bir kez yapabilirsin. Büyü yapma yeteneğin, bu ırksal veya köken özellikten gelen ana özelliktir. Ayrıca, bir yaratık sana saldırı yaptığında reaksiyonunu kullanarak geçici kanatlar açabilir ve o saldırıya karşı zırh sınıfına (AC) yetkinlik bonusun kadar bir bonus ekleyebilirsin. Bu kanat açma reaksiyonunu yetkinlik bonusun kadar kez kullanabilirsin ve harcanan kullanımlar uzun bir dinlenmenin ardından yenilenir."
   },
   {
     name: "Gunner",
@@ -1150,8 +1120,8 @@ const feats = [
     cat: "combat",
     catLabel: "Dövüş",
     prereq: null,
-    short: "Çevikliğe +1; ateşli silahlarda yeterlilik kazan; dolum özelliğini yok say, 5 ft içinde dezavantaj yaşama.",
-    full: "Barut silahlarına aşinalık kazanırsın: Çeviklik puanını 1 artırırsın ve ateşli silahlarda yeterlilik kazanırsın. Yeterli olduğun ateşli silahların dolum (loading) özelliğini yok sayarsın ve 5 feet içindeki düşman bir yaratığa menzilli saldırı yapman dezavantaja yol açmaz."
+    short: "Çevikliği 1 artırır (max 20); ateşli silahlarda (firearms) yetkinlik kazanırsın, ateşli silahların doldurma (loading) özelliğini yoksayarsın ve 5 feet içindeki düşmanlara ateş ederken dezavantaj almazsın.",
+    full: "Çeviklik puanını 1 artırır, en fazla 20 olabilir. Ateşli silahlarda (firearms) yetkinlik kazanırsın. Ateşli silahların yükleme (loading) özelliğini yoksayarsın, böylece onları tek turda birden çok kez ateşleyebilirsin. Ayrıca, 5 feet'lik menzil içinde düşman bir yaratık varken yaptığın menzilli silah saldırılarında normalde aldığın dezavantajı almazsın."
   },
   {
     name: "Infernal Constitution",
@@ -1160,28 +1130,8 @@ const feats = [
     cat: "racial",
     catLabel: "Irk",
     prereq: "Tiefling",
-    short: "Dayanıklılığa +1; soğuk ve zehir hasarına direnç; zehirlenmeye karşı kaydetme atışlarında avantaj.",
-    full: "Cehennemi soyunun dayanıklılığını miras alırsın: Dayanıklılık puanını 1 artırırsın. Soğuk ve zehir hasarına direnç kazanırsın ve zehirlenme durumuna karşı yapılan kaydetme atışlarında avantaj elde edersin."
-  },
-  {
-    name: "Initiate of High Sorcery",
-    tr: "Yüksek Büyücülüğe Başlangıç",
-    icon: "🌙",
-    cat: "magic",
-    catLabel: "Büyü",
-    prereq: "Dragonlance Kampanyası, Bilgin veya Büyücü sınıfı ya da Yüksek Büyücülük Büyücüsü geçmişi",
-    short: "Bir bilgin kantripi ve ayına göre belirlenen iki 1. seviye büyü öğren.",
-    full: "Solinari, Lunitari veya Nuitari'nin üç ayından birine bağlılık yemini edersin. Bir bilgin kantripi ve seçtiğin aya göre belirlenmiş bir listeden iki 1. seviyeli büyü öğrenirsin; bu büyüleri normal şekilde yuva harcayarak yaparsın."
-  },
-  {
-    name: "Keenness of the Stone Giant",
-    tr: "Taş Devinin Keskinliği",
-    icon: "🪨",
-    cat: "combat",
-    catLabel: "Dövüş",
-    prereq: "4. Seviye, Devlerin Vuruşu (Taş Vuruşu) hüneri",
-    short: "Güç, Dayanıklılık veya Bilgeliğe +1; 60 ft karanlık görüş; günde PB kez 60 ft menzilli 1d10 güç hasarı + yere düşürme.",
-    full: "Taş devlerinin sarsılmaz gücünü taşırsın: Güç, Dayanıklılık veya Bilgelik puanını 1 artırırsın ve 60 feet karanlık görüş kazanırsın (mevcut karanlık görüşünü artırır). Günde yeterlilik bonusun kadar, 60 feet menzilli bir taş fırlatarak 1d10 güç hasarı verebilir ve hedefi yere düşürebilirsin."
+    short: "Dayanıklılığa 1 ekle (max 20); soğuk ve zehir hasarına karşı direnç kazanırsın ve zehirlenmeye karşı yapılan kurtarma zarlarında avantaj elde edersin.",
+    full: "Dayanıklılık puanını 1 artırır, en fazla 20 olabilir. Soğuk (cold) ve zehir (poison) hasarına karşı direnç (resistance) kazanırsın. Ayrıca, zehirlenme durumuna (poisoned) karşı yapılan kurtarma zarlarında avantaj elde edersin."
   },
   {
     name: "Knight of the Crown",
@@ -1190,8 +1140,8 @@ const feats = [
     cat: "combat",
     catLabel: "Dövüş",
     prereq: "4. Seviye, Solamnia'nın Yaveri hüneri",
-    short: "Güç, Çeviklik veya Dayanıklılığa +1; reaksiyonla bir müttefikin saldırmasını sağla, ek 1d8 hasar (günde PB kez).",
-    full: "Solamnia Tacı Şövalyeliğine adım atarsın: Güç, Çeviklik veya Dayanıklılık puanını 1 artırırsın. Günde yeterlilik bonusun kadar, reaksiyon olarak 30 feet içindeki bir müttefiğin bir saldırı yapmasını tetikleyebilirsin; bu saldırı isabet ederse ek 1d8 hasar verir."
+    short: "Güç, Çeviklik veya Dayanıklılığa 1 ekle (max 20); bir müttefik reaksiyonla saldırı yapmasını sağlayabilir ve bu saldırıya fazladan 1d8 hasar eklersin (günde yetkinlik bonusu kez).",
+    full: "Güç, Çeviklik veya Dayanıklılık puanını 1 artırır, en fazla 20 olabilir. Görüş alanındaki bir müttefik, senin komutunla veya yönlendirmenle bir saldırı gerçekleştirdiğinde reaksiyonunu kullanarak o müttefiki destekleyebilirsin; müttefikin bu saldırısı hedefe isabet ettiğinde fazladan 1d8 hasar verir. Bu özelliği yetkinlik bonusun (PB) kadar kez kullanabilirsin ve harcanan kullanımlar uzun bir dinlenmenin ardından yenilenir."
   },
   {
     name: "Knight of the Rose",
@@ -1200,8 +1150,8 @@ const feats = [
     cat: "combat",
     catLabel: "Dövüş",
     prereq: "4. Seviye, Solamnia'nın Yaveri hüneri",
-    short: "Dayanıklılık, Bilgelik veya Karizmaya +1; günde PB kez bir yaratığa geçici hit point ver.",
-    full: "Solamnia Gül Şövalyeliğine adım atarsın: Dayanıklılık, Bilgelik veya Karizma puanını 1 artırırsın. Günde yeterlilik bonusun kadar, 30 feet içindeki bir yaratığa 1d8 + yeterlilik bonusu + ilgili yetenek değiştiricin kadar geçici hit point verebilirsin."
+    short: "Dayanıklılık, Bilgelik veya Karizmanya 1 ekle (max 20); yetkinlik bonusun kadar kez, bir yaratığa [1d8 + yetkinlik bonusu + bu özelliğin değiştiricisi] kadar geçici can puanı verebilirsin.",
+    full: "Dayanıklılık, Bilgelik veya Karizma puanını 1 artırır, en fazla 20 olabilir. Görüş alanındaki bir yaratığa dokunarak veya onu hedef alarak mistik bir koruma sağlayabilirsin; seçilen yaratık [1d8 + yetkinlik bonusun (PB) + bu özellik tarafından artırılan yeteneğin değiştiricisi] kadar geçici can puanı (temporary hp) kazanır. Bu özelliği yetkinlik bonusun kadar kez kullanabilirsin ve harcanan tüm kullanımlar uzun bir dinlenmenin ardından yenilenir."
   },
   {
     name: "Knight of the Sword",
@@ -1210,18 +1160,8 @@ const feats = [
     cat: "combat",
     catLabel: "Dövüş",
     prereq: "4. Seviye, Solamnia'nın Yaveri hüneri",
-    short: "Zeka, Bilgelik veya Karizmaya +1; günde PB kez bir hedefi bir sonraki turunun sonuna kadar korkut.",
-    full: "Solamnia Kılıç Şövalyeliğine adım atarsın: Zeka, Bilgelik veya Karizma puanını 1 artırırsın. Günde yeterlilik bonusun kadar, eylem olarak 30 feet içindeki bir yaratığa Bilgelik kaydetme atışı zorlayabilirsin; başarısız olursa hedef bir sonraki turunun sonuna kadar senden korkar."
-  },
-  {
-    name: "Metamagic Adept",
-    tr: "Metabüyü Ustası",
-    icon: "🔮",
-    cat: "magic",
-    catLabel: "Büyü",
-    prereq: "Büyü yapabilme veya Ahit Büyüsü özelliği",
-    short: "İki metabüyü seçeneği öğren ve 2 büyücülük puanı kazan.",
-    full: "Büyülerini şekillendirme sanatına ilgi duyarsın. Bilgin sınıfının Metabüyü seçeneklerinden ikisini öğrenirsin ve bu seçenekleri kullanmak için harcayabileceğin 2 büyücülük puanı kazanırsın; puanlar uzun dinlenmede yenilenir."
+    short: "Zeka, Bilgelik veya Karizmanya 1 ekle (max 20); yetkinlik bonusun kadar kez, bir hedefi bir sonraki turunun sonuna kadar korkutabilirsin.",
+    full: "Zeka, Bilgelik veya Karizma puanını 1 artırır, en fazla 20 olabilir. Görüş alanındaki bir yaratığı zihinsel veya büyüsel olarak sarsarak tehditkâr bir baskı kurabilirsin; hedef, yapacağı bir kurtarma zarında (DC 8 + yetkinlik bonusu + artırılan özelliğin değiştiricisi) başarısız olursa bir sonraki turunun sonuna kadar korkutulmuş (frightened) durumuna girer. Bu özelliği yetkinlik bonusun kadar kez kullanabilirsin ve harcanan kullanımlar uzun bir dinlenmenin ardından yenilenir."
   },
   {
     name: "Orcish Fury",
@@ -1230,28 +1170,8 @@ const feats = [
     cat: "racial",
     catLabel: "Irk",
     prereq: "Half-orc",
-    short: "Güç veya Dayanıklılığa +1; bir silahın hasar zarını ikiye katla; Yorulmaz Dayanıklılık sonrası reaksiyonla saldır.",
-    full: "Ork atalarının öfkesini taşırsın: Güç veya Dayanıklılık puanını 1 artırırsın. Bir saldırı veya kaydetme atışıyla hasar verdiğinde, o hasar zarını bir kez ikiye katlayabilirsin (uzun dinlenmede yenilenir). Ayrıca Yorulmaz Dayanıklılık özelliğini kullandığında, reaksiyon olarak bir saldırı yapabilirsin."
-  },
-  {
-    name: "Outlands Envoy",
-    tr: "Ara Düzlem Elçisi",
-    icon: "🌌",
-    cat: "magic",
-    catLabel: "Büyü",
-    prereq: "4. Seviye, Dış Düzlemlerin Evladı (Ara Düzlem) hüneri",
-    short: "Bir yeteneğine +1; misty step ve tongues büyülerini uzun dinlenmede birer kez yap.",
-    full: "Ara Düzlem'in tarafsız dengesine bağlanırsın: bir yetenek puanını 1 artırırsın. misty step ve tongues büyülerini öğrenir, her ikisini de bir uzun dinlenmeye kadar yuva harcamadan bir kez yapabilirsin."
-  },
-  {
-    name: "Planar Wanderer",
-    tr: "Düzlem Gezgini",
-    icon: "🌀",
-    cat: "magic",
-    catLabel: "Büyü",
-    prereq: "4. Seviye, Dış Düzlemlerin Evladı hüneri",
-    short: "Bir enerji tipine direnç kazan; Zeka kontrolüyle 1 saatliğine bir portal aç veya kapat (başarısızlıkta 3d8 hasar).",
-    full: "Düzlemler arası yolculuklara aşinalık kazanırsın ve seçtiğin bir enerji tipine direnç elde edersin. Eylem olarak bir Zeka kontrolü yaparak yakındaki bir portalı 1 saatliğine açabilir veya kapatabilirsin; kontrolü kaçırırsan 3d8 hasar alırsın."
+    short: "Güç veya Dayanıklılığa 1 ekle (max 20); silaha fazladan bir hasar zarı eklersin ve Relentless Endurance özelliğini kullandığında reaksiyonla saldırı yapabilirsin.",
+    full: "Güç veya Dayanıklılık puanını 1 artırır, en fazla 20 olabilir. Bir silah saldırısında isabet sağladığında, silahın hasar zarlarına fazladan bir zar daha ekleyebilirsin. Ayrıca, Orc ırkının Relentless Endurance (0 Can Puanına düştüğünde 1 HP ile ayağa kalkma) özelliğini tetiklediğin anda reaksiyonunu kullanarak hemen bir silah saldırısı gerçekleştirebilirsin."
   },
   {
     name: "Poisoner",
@@ -1260,8 +1180,8 @@ const feats = [
     cat: "combat",
     catLabel: "Dövüş",
     prereq: null,
-    short: "Zehirci kitinde yeterlilik kazan; silahını bonus eylemle zehirle; saldırıların zehir direncini yok sayar.",
-    full: "Zehirlerin ustası olursun: zehirci kitinde yeterlilik kazanırsın (zaten yeterliysen başka bir alette yeterlilik kazanırsın). Bonus eylem olarak silahına zehir uygulayabilirsin ve saldırılarınla verdiğin zehir hasarı, hedefin zehir hasarına direncini yok sayar."
+    short: "Zehirci setinde (poisoner's kit) yetkinlik kazanırsın, zehirleri bonus eylemle uygulayabilirsin ve saldırıların zehir dirençlerini yok sayar.",
+    full: "Zehirci setinde (poisoner's kit) yetkinlik kazanırsın. Silahlarına veya mühimmatına zehir uygulama işlemini normal bir eylem yerine bonus eylemle (bonus action) gerçekleştirebilirsin. Ayrıca, saldırıların hedeflerin zehir hasarına karşı sahip olduğu dirençleri (resistance) tamamen yok sayar, böylece zehirli saldırıların her zaman tam etki gösterir."
   },
   {
     name: "Prodigy",
@@ -1270,38 +1190,8 @@ const feats = [
     cat: "racial",
     catLabel: "Irk",
     prereq: "Half-elf, half-orc veya human",
-    short: "Bir yetenek, bir alet yeterliliği ve bir dil kazan; bir yetenekte uzmanlık kazan (yeterlilik bonusu ikiye katlanır).",
-    full: "Öğrenmeye olağanüstü bir yatkınlığın vardır: seçtiğin bir yetenekte, bir alet kullanımında ve bir dilde yeterlilik kazanırsın. Ayrıca zaten yeterli olduğun bir yetenekte (başka bir özellik zaten ikiye katlamıyorsa) uzmanlık kazanırsın; bu yetenekle yaptığın kontrollerde yeterlilik bonusun ikiye katlanır."
-  },
-  {
-    name: "Righteous Heritor",
-    tr: "Erdemli Varis",
-    icon: "😇",
-    cat: "magic",
-    catLabel: "Büyü",
-    prereq: "4. Seviye, Dış Düzlemlerin Evladı (İyi Dış Düzlem) hüneri",
-    short: "Bir yeteneğine +1; reaksiyonla bir yaratığa gelen 1d10+PB hasarı azalt.",
-    full: "İyiliğin kutsal gücünden pay alırsın: bir yetenek puanını 1 artırırsın. Günde yeterlilik bonusun kadar, reaksiyon olarak 30 feet içindeki bir yaratığın aldığı hasarı 1d10 + yeterlilik bonusu kadar azaltabilirsin."
-  },
-  {
-    name: "Rune Shaper",
-    tr: "Rün Ustası",
-    icon: "📜",
-    cat: "magic",
-    catLabel: "Büyü",
-    prereq: "Büyü yapabilme özelliği veya Rün Ustası geçmişi",
-    short: "comprehend languages büyüsünü öğren ve yeterlilik bonusunun yarısı kadar 1. seviye büyü öğren (rün veya yuvayla).",
-    full: "Antik rünlerin gücünü çözmeyi öğrenirsin. comprehend languages büyüsünü öğrenir ve istediğin an yapabilirsin. Ayrıca yeterlilik bonusunun yarısı (yukarı yuvarlanır) kadar 1. seviyeli büyü öğrenirsin; bunları rün kazıyarak veya normal büyü yuvası harcayarak yapabilirsin."
-  },
-  {
-    name: "Scion of the Outer Planes",
-    tr: "Dış Düzlemlerin Evladı",
-    icon: "🌌",
-    cat: "magic",
-    catLabel: "Büyü",
-    prereq: "Planescape Kampanyası",
-    short: "Bir hasar tipine direnç ve seçilen düzleme göre bir kantrip yapabilme yeteneği kazan.",
-    full: "Bir Dış Düzlem'le derin bir bağ kurarsın. Seçtiğin düzlemin hizasına göre belirlenen bir hasar tipine direnç kazanır ve o düzlemle ilişkili bir kantripi yuva harcamadan yapabilme yeteneği elde edersin. Bu hüner, ilgili düzleme özgü ikinci kademeli hünerler için ön şart görevi görür."
+    short: "İstediğin bir beceride yetkinlik, bir alet yetkinliği ve bir dil akıcılığı kazanırsın; ayrıca yetkin olduğun bir beceride uzmanlık (expertise) kazanarak yetkinlik bonusunu iki katına çıkarırsın.",
+    full: "Yeni şeyler öğrenme yeteneğini geliştirerek şu avantajları kazanırsın: İstediğin bir beceride (skill) yetkinlik, istediğin bir alet (tool) setinde yetkinlik ve bir dil akıcılığı kazanırsın. Ayrıca, halihazırda yetkin olduğun becerilerden birini seçersin ve o beceride uzmanlık kazanırsın; bu, o beceriyle yaptığın tüm yetenek kontrollerinde yetkinlik bonusunun iki katı kadar ekleme yapmanı sağlar (seçtiğin beceri, Uzmanlık gibi yetkinlik bonusunu iki katına çıkaran başka bir özellikten yararlanmıyor olmalıdır)."
   },
   {
     name: "Second Chance",
@@ -1310,18 +1200,8 @@ const feats = [
     cat: "racial",
     catLabel: "Irk",
     prereq: "Halfling",
-    short: "Çeviklik, Dayanıklılık veya Karizmaya +1; seni vuran bir saldırıyı reaksiyonla yeniden zorla.",
-    full: "Halfling'lerin şansını bir adım öteye taşırsın: Çeviklik, Dayanıklılık veya Karizma puanını 1 artırırsın. Bir saldırı seni isabet ettirdiğinde, reaksiyon olarak saldırganı saldırı zarını yeniden atmaya zorlayabilirsin; yeni sonuç kullanılmalıdır. Bu özelliği kısa veya uzun dinlenmede bir kez kullanabilirsin."
-  },
-  {
-    name: "Soul of the Storm Giant",
-    tr: "Fırtına Devinin Ruhu",
-    icon: "⚡",
-    cat: "combat",
-    catLabel: "Dövüş",
-    prereq: "4. Seviye, Devlerin Vuruşu (Fırtına Vuruşu) hüneri",
-    short: "Güç, Dayanıklılık veya Bilgeliğe +1; yıldırım/gök gürültüsüne direnç; günde PB kez hedefi dezavantajlı kıl, hızını yarıya düşür.",
-    full: "Fırtına devlerinin ihtişamlı gücünü taşırsın: Güç, Dayanıklılık veya Bilgelik puanını 1 artırırsın ve yıldırım ile gök gürültüsü hasarına direnç kazanırsın. Günde yeterlilik bonusun kadar, bir saldırının isabetiyle hedefin bir sonraki turunun sonuna kadar sana karşı yaptığı saldırı zarlarını dezavantajlı hale getirebilir ve hızını yarıya indirebilirsin."
+    short: "Çeviklik, Dayanıklılık veya Karizmanya 1 ekle (max 20); bir yaratık sana saldırıp isabet ettirdiğinde, onun saldırı zarını yeniden atmaya zorlayabilirsin.",
+    full: "Çeviklik, Dayanıklılık veya Karizma puanını 1 artırır, en fazla 20 olabilir. Düşman bir yaratık sana bir saldırı yapıp isabet kaydettiğinde, reaksiyonunu kullanarak o yaratığı saldırı zarını yeniden atmaya zorlayabilirsin; çıkan yeni sonucu kullanmak zorundadır. Bu özelliği yetkinlik bonusun kadar kez kullanabilirsin ve harcanan kullanımlar uzun bir dinlenmenin ardından yenilenir."
   },
   {
     name: "Squat Nimbleness",
@@ -1330,8 +1210,8 @@ const feats = [
     cat: "racial",
     catLabel: "Irk",
     prereq: "Dwarf veya Small ırk",
-    short: "Güç veya Çevikliğe +1; hızın 5 ft artar; Akrobasi veya Atletizm ile kaçmada yeterlilik ve avantaj.",
-    full: "Küçük boyunun getirdiği çevikliği ustalıkla kullanırsın: Güç veya Çeviklik puanını 1 artırırsın ve hızın 5 feet artar. Akrobasi veya Atletizm becerisinde yeterliliğin yoksa kazanırsın; ayrıca yakalanmaktan kurtulma kontrollerinde avantaj elde edersin."
+    short: "Güç veya Çevikliğe 1 ekle (max 20); hızın 5 feet artar; Akrobasi veya Atletizm becerilerinde yetkinlik ve tutulmalardan (grappled) kurtulma testlerinde avantaj kazanırsın.",
+    full: "Güç veya Çeviklik puanını 1 artırır, en fazla 20 olabilir. Yürüme hızın 5 feet artar. Yakın dövüşte kilitlenmekten veya tutulmaktan kurtulmak için yaptığın Akrobasi veya Atletizm kontrollerinde yetkinlik kazanırsın; eğer zaten yetkiliysen uzmanlık kazanmış gibi hareket edersin ve bu kontrollerde avantaj elde edersin."
   },
   {
     name: "Squire of Solamnia",
@@ -1339,29 +1219,9 @@ const feats = [
     icon: "🛡️",
     cat: "combat",
     catLabel: "Dövüş",
-    prereq: "Dragonlance Kampanyası, Savaşçı veya Paladin sınıfı ya da Solamnia Şövalyesi geçmişi",
-    short: "Silah saldırı zarlarında avantaj ve +1d8 hasar (günde PB kez); bineğe binmek/inmek yalnızca 5 ft hareket gerektirir.",
-    full: "Solamnia Şövalyeliğinin ilk adımlarını atarsın. Günde yeterlilik bonusun kadar, bir silah saldırı zarında avantaj kazanabilir ve isabet edersen ek 1d8 hasar verebilirsin. Ayrıca bir bineğe binmek veya inmek, hızının tamamı yerine sadece 5 feet hareket gerektirir."
-  },
-  {
-    name: "Strike of the Giants",
-    tr: "Devlerin Vuruşu",
-    icon: "👊",
-    cat: "combat",
-    catLabel: "Dövüş",
-    prereq: "Savaş silahı yeterliliği veya Dev Evlatlığı geçmişi",
-    short: "Seçtiğin dev türüne göre bir silah saldırısına ek hasar ve etki ekle (günde PB kez).",
-    full: "Bir dev türünün (ateş, buz, bulut, taş, fırtına veya tepe) gücünü kanına karıştırırsın. Seçtiğin türe göre, günde yeterlilik bonusun kadar bir silah saldırısına ek hasar ve özel bir etki katabilirsin. Bu hüner, ilgili dev türüne özgü ikinci kademeli hünerler için ön şart görevi görür."
-  },
-  {
-    name: "Vigor of the Hill Giant",
-    tr: "Tepe Devinin Dinçliği",
-    icon: "⛰️",
-    cat: "combat",
-    catLabel: "Dövüş",
-    prereq: "4. Seviye, Devlerin Vuruşu (Tepe Vuruşu) hüneri",
-    short: "Güç, Dayanıklılık veya Bilgeliğe +1; yere düşürülmeye direnç; Vuruş Zarıyla Dayanıklılık+PB kadar ekstra hp kazan.",
-    full: "Tepe devlerinin sarsılmaz gövdesini taşırsın: Güç, Dayanıklılık veya Bilgelik puanını 1 artırırsın. Yere düşürülme etkisine karşı direnç kazanırsın (bu etkiyi tetikleyen kontrollere karşı avantajlısın). Bir Vuruş Zarı harcayarak hit point iyileştirdiğinde, Dayanıklılık değiştiricin + yeterlilik bonusun kadar ekstra hit point kazanırsın."
+    prereq: "Paladin sınıfı",
+    short: "Silah saldırılarında avantaj ve fazladan 1d8 hasar kazanırsın (günde PB kez); ayrıca binek hayvanına binmek veya inmek yalnızca 5 feet hareket harcar.",
+    full: "Saldırılarında ölümcül bir hassasiyet ve vahşet kazanarak şu avantajları elde edersin: Yetkinlik bonusun (PB) kadar kez, bir silah saldırısı yaparken avantaj kazanabilir ve vuruş durumunda fazladan 1d8 hasar ekleyebilirsin. Ayrıca, bir binek hayvana binmek (mount) veya ondan inmek (dismount) senin için yalnızca 5 feet hareket maliyeti gerektirir, böylece normal hareketinin geri kalanını tam olarak kullanmaya devam edebilirsin."
   },
   {
     name: "Wood Elf Magic",
@@ -1370,8 +1230,8 @@ const feats = [
     cat: "racial",
     catLabel: "Irk",
     prereq: "Elf (wood)",
-    short: "Bir druid kantripi öğren; longstrider ve pass without trace büyülerini uzun dinlenmede birer kez yap.",
-    full: "Orman Elflerinin doğa büyüsüyle bağını derinleştirirsin. Bir druid kantripi öğrenirsin. Ayrıca longstrider ve pass without trace büyülerinin her birini, bir uzun dinlenmeye kadar yuva harcamadan bir kez yapabilirsin."
+    short: "Bir druid sihirli sözü (cantrip) öğrenirsin; Longstrider ve Pass Without Trace büyülerini uzun dinlenmede birer kez büyü slotu harcamadan yapabilirsin.",
+    full: "Doğanın büyüleriyle bağ kurarak şu yetenekleri kazanırsın: Druid büyü listesinden bir sihirli söz (cantrip) öğrenirsin ve bunu dilediğin zaman yapabilirsin. Ayrıca Longstrider (uzun adım) ve Pass Without Trace (iz bırakmadan geçiş) büyülerini herhangi bir büyü slotu harcamadan uzun bir dinlenmede birer kez yapabilirsin; bu büyüleri yaparken kullandığın ana özellik Bilgelik, Zeka veya Karizmanya dayalı seçtiğin bir büyü yapma özelliğidir."
   }
 
 ];
